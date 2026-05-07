@@ -36,9 +36,23 @@ Always collect these before proceeding. If missing, ask in one message:
 | **Topic** | "seed funding for startups" | Yes |
 | **Page handle** | `@thefounderlab` | Yes |
 | **Page name** | "The Founder Lab" | Yes |
-| **Reference images** | Wolf Media screenshots | No — defaults to Wolf Media system |
+| **Template** | wolf-media-v1 / wolf-media-v2 | No — auto-select from topic |
+| **Reference images** | New creator screenshots | No — only needed for Section 2.5 |
 
 The last slide is always a CTA. Page name + handle always appear.
+
+### Template selection
+
+Read the topic and select the template before doing anything else. Do not ask the user — infer from the topic.
+
+| Template | File | When to use |
+|---|---|---|
+| **wolf-media-v1** | *(inline — Section 3 below)* | Data analysis, insight breakdowns, explainers, trend reports, educational content |
+| **wolf-media-v2** | `templates/wolf-media-v2.md` | Results reports, performance recaps, metrics breakdowns, case studies, before/after analyses |
+
+**Auto-select signals for v2:** topic contains "results", "closed", "we generated", "performance", "report", "₹ / $ total", "case study", "breakdown of our", "how we". Also use v2 when user provides city/platform/channel comparison data with real numbers from their own business.
+
+If v2 is selected: read `templates/wolf-media-v2.md` fully before touching Section 3. Use its CSS, slide types, and design rules instead of Section 3's defaults. All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
 
 ### Dependency: Social Media Context
 
@@ -647,22 +661,35 @@ rtk gain --history
 
 Before reporting done, verify every item:
 
+**All templates:**
 - [ ] Research from sources < 18 months old, all stats named + dated
 - [ ] Slide count between 7 and 12
 - [ ] Last slide is CTA — left-aligned editorial, human tagline, handle pill
-- [ ] Dark/white alternation holds (no two white slides back to back)
-- [ ] Outfit font loaded (not system fallback) — check grain is visible
+- [ ] Outfit font loaded (not system fallback)
 - [ ] No `clamp()` for font sizes
 - [ ] No em dashes in body copy
 - [ ] No vague significance endings ("the threshold is crossed", "a species crossed", "the future is bright")
 - [ ] Each headline works as a standalone extractable claim (AEO test)
-- [ ] Gradient text uses `display: inline-block; width: fit-content`
 - [ ] Progress bar widths correct (100 / N per slide, 1 decimal)
 - [ ] All slides pass Playwright audit (no clipping, no blank slides)
 - [ ] PNGs exported at exactly 1080×1350 with clip coordinates
 - [ ] Caption keywords not stacked, reads naturally
 - [ ] 20–25 hashtags in three tiers
 - [ ] Token usage reported via `rtk gain --history`
+
+**Wolf Media v1 only:**
+- [ ] Dark/white alternation holds (no two white slides back to back)
+- [ ] Film grain texture visible on dark slides
+- [ ] Gradient text uses `display: inline-block; width: fit-content`
+
+**Wolf Media v2 only:**
+- [ ] Map texture SVG present in every dk2 slide (not missing from any)
+- [ ] ALL CAPS throughout — no mixed-case body text
+- [ ] No gradient text classes used (no .gd / .gl)
+- [ ] Hero number on HOOK-PHOTO fits one line without wrapping
+- [ ] Red accent `#E02020` only — no warm tones or other reds
+- [ ] Photo grid cells uniform height (210px min-height set)
+- [ ] Table has max 6 rows — flag if more and split
 
 ---
 
