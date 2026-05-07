@@ -19,6 +19,8 @@ Produces research-backed, visually premium Instagram carousels as individual
 PNG slides (1080×1350) plus a hybrid SEO/AEO caption. Never start designing
 before research is complete. Never ship without Playwright audit passing.
 
+**Pipeline order:** Inputs → Context check → Research → carousel-writer-sms content → Slide architecture → Wolf Media HTML → Playwright audit → PNG export → Caption
+
 The default design system is Wolf Media (see Section 3). If the user provides
 reference images from a different creator, run Section 2.5 first to extract
 a new design system before touching Section 3.
@@ -37,6 +39,13 @@ Always collect these before proceeding. If missing, ask in one message:
 | **Reference images** | Wolf Media screenshots | No — defaults to Wolf Media system |
 
 The last slide is always a CTA. Page name + handle always appear.
+
+### Dependency: Social Media Context
+
+Before writing any content, check for `.agents/social-media-context-sms.md` in the project root.
+
+- **File exists:** Read it fully. It defines the user's voice, tone, audience, and content pillars. All copy in Section 1.5 must match this voice.
+- **File missing:** Stop and ask the user to run `/social-media-context-sms` first to capture their voice. Do not proceed without it — voice-matched copy is the primary reason this skill uses carousel-writer-sms.
 
 ---
 
@@ -65,17 +74,60 @@ rtk gain
 
 ---
 
+## 1.5. CONTENT WRITING — carousel-writer-sms
+
+After research is complete, use the carousel-writer-sms skill to write the slide copy.
+This produces voice-matched, audience-specific content rather than generic AI copy.
+Do not skip this step. Do not write slide copy manually.
+
+### How to invoke
+
+Pass the following to carousel-writer-sms:
+- **Topic:** the carousel topic from Section 0 inputs
+- **Research findings:** paste the key stats, quotes, and data points extracted in Section 1
+- **Target slide count:** 7–12 (match to number of distinct ideas in research)
+- **Goal:** educate / data storytelling (default for this skill)
+- **Voice:** already captured in `.agents/social-media-context-sms.md` — carousel-writer-sms reads it automatically
+
+carousel-writer-sms returns slide-by-slide text blocks in this format:
+```
+Slide 1 (Cover) — Headline + Subtitle
+Slide 2 (Context) — 1-2 framing sentences
+Slides 3–N (Body) — Header + Body (max 30 words)
+Slide N (CTA) — Summary + CTA action
+```
+
+### Mapping carousel-writer-sms output → Wolf Media slide types
+
+| carousel-writer-sms block | Wolf Media slide type | Notes |
+|---|---|---|
+| Cover (Headline + Subtitle) | HOOK dark | Headline → h1-xl, Subtitle → sub-pill |
+| Context (framing 1-2 sentences) | STATS dark or INSIGHT dark | Use STATS if you have 3 numbers; INSIGHT if narrative |
+| Body — single stat or finding | INSIGHT (dark/white alternating) | One per slide |
+| Body — process or steps | NUMBERED LIST dark | 3–4 steps |
+| Body — named entities/companies | COMPANY GRID white | 2-col layout |
+| Penultimate — summary/save-this | FINDINGS white 2×2 | 4 titled takeaways |
+| CTA | CTA accent slide | Always last |
+
+After mapping, you have: slide count, slide type per position, and the copy for each.
+Proceed to Section 2 to finalise architecture, then Section 3 to build the HTML.
+
+---
+
 ## 2. CONTENT ARCHITECTURE
 
+Content copy comes from Section 1.5 (carousel-writer-sms). This section covers
+slide structure, type assignment, and AEO copy quality checks.
+
 ### Slide count rule
-Count distinct extractable ideas from research. Assign one slide per idea.
+Count distinct extractable ideas from carousel-writer-sms output. Assign one slide per idea.
 Minimum 7 slides, maximum 12. Never pad with weak ideas to hit a number.
 Never compress two strong ideas into one slide to save slides.
 
 ### Slide map template
 
 ```
-Slide 1   — HOOK        : boldest stat or most surprising claim from research
+Slide 1   — HOOK        : boldest stat or most surprising claim (from carousel-writer-sms Cover)
 Slide 2   — STATS       : 3 horizontal stat rows with label + value
 Slides 3–N — DATA/INSIGHT : one distinct finding per slide (alternate dark/white)
 Slide N-1 — TAKEAWAY    : 2×2 findings grid with title + 1-sentence desc each
@@ -96,12 +148,14 @@ Slide N   — CTA         : left-aligned editorial with page name + tagline
 
 Alternation rule: dark slides anchor data and hooks. White slides reveal concepts and lists. Never put two white slides back to back.
 
-### Per-slide copy rules — AEO/extractability
+### Per-slide copy checks — AEO/extractability
+Apply these to the carousel-writer-sms output before building HTML. Fix any that fail.
 - Display headline: 8–18 words, must work as a standalone claim out of context
 - Every stat must have a named source or date (not "some experts say")
 - Bold body line (.bb / .wbb): lead with the fact, not the setup
 - Regular body line (.br / .wbr): add specific context — number, name, date, outcome
-- No invented data — every claim traces back to research
+- No invented data — every claim traces back to Section 1 research
+- No em dashes, no significance inflation, no vague endings (see Section 5.5 humanizer rules)
 
 ---
 
