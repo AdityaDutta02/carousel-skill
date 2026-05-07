@@ -49,10 +49,15 @@ Read the topic and select the template before doing anything else. Do not ask th
 |---|---|---|
 | **wolf-media-v1** | *(inline — Section 3 below)* | Data analysis, insight breakdowns, explainers, trend reports, educational content |
 | **wolf-media-v2** | `templates/wolf-media-v2.md` | Results reports, performance recaps, metrics breakdowns, case studies, before/after analyses |
+| **editorial-step** | `templates/editorial-step.md` | Step-by-step tutorials, how-to guides, tool walkthroughs, Claude/AI feature deep-dives, "how to use X" carousels |
 
 **Auto-select signals for v2:** topic contains "results", "closed", "we generated", "performance", "report", "₹ / $ total", "case study", "breakdown of our", "how we". Also use v2 when user provides city/platform/channel comparison data with real numbers from their own business.
 
+**Auto-select signals for editorial-step:** topic contains "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "getting started", "using Claude", "Claude Code", "prompt", "workflow", "automate", or any tool-specific tutorial framing.
+
 If v2 is selected: read `templates/wolf-media-v2.md` fully before touching Section 3. Use its CSS, slide types, and design rules instead of Section 3's defaults. All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
+
+If editorial-step is selected: read `templates/editorial-step.md` fully before touching Section 3. Use its CSS, 4-font stack, slide types, and terminal/UI-panel components. All other sections run identically.
 
 ### Dependency: Social Media Context
 
@@ -690,6 +695,16 @@ Before reporting done, verify every item:
 - [ ] Red accent `#E02020` only — no warm tones or other reds
 - [ ] Photo grid cells uniform height (210px min-height set)
 - [ ] Table has max 6 rows — flag if more and split
+
+**Editorial Step only:**
+- [ ] All 4 fonts loaded: Playfair Display, Outfit, Caveat, JetBrains Mono
+- [ ] Step label (`— Step N`) present on every step slide
+- [ ] Terminal window uses correct colors: chrome `#2D2D2D`, content `#1C1C1C`, traffic lights `#FF5F57 / #FFBD2E / #28CA41`
+- [ ] JetBrains Mono used exclusively inside terminal and Claude Code panel
+- [ ] Sticky note text in Caveat font — not Outfit
+- [ ] Cream background `#F5F2ED` — not pure white or grey
+- [ ] Dark cover slide uses `#0E0E0E` — not `#131110` (wolf-media-v1 charcoal)
+- [ ] No film grain texture (`.dk::before`) — cream slides are clean
 
 ---
 
