@@ -50,14 +50,19 @@ Read the topic and select the template before doing anything else. Do not ask th
 | **wolf-media-v1** | *(inline — Section 3 below)* | Data analysis, insight breakdowns, explainers, trend reports, educational content |
 | **wolf-media-v2** | `templates/wolf-media-v2.md` | Results reports, performance recaps, metrics breakdowns, case studies, before/after analyses |
 | **editorial-step** | `templates/editorial-step.md` | Step-by-step tutorials, how-to guides, tool walkthroughs, Claude/AI feature deep-dives, "how to use X" carousels |
+| **ascii-pixel** | `templates/ascii-pixel.md` | AI/tech marketing carousels: Anthropic-style warm beige + Space Mono + ASCII globe + pixel bot. Use when the topic itself is cutting-edge AI or the user wants "code style", "ASCII", or "Anthropic vibe" |
 
 **Auto-select signals for v2:** topic contains "results", "closed", "we generated", "performance", "report", "₹ / $ total", "case study", "breakdown of our", "how we". Also use v2 when user provides city/platform/channel comparison data with real numbers from their own business.
 
 **Auto-select signals for editorial-step:** topic contains "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "getting started", "using Claude", "Claude Code", "prompt", "workflow", "automate", or any tool-specific tutorial framing.
 
+**Auto-select signals for ascii-pixel:** topic involves a major AI company announcement, Anthropic/OpenAI/SpaceX/frontier-tech news, or user explicitly says "ASCII", "pixel art", "terminal style", "Anthropic aesthetic", "code with Claude". Also when topic is abstract/futuristic and traditional infographic look would feel generic.
+
 If v2 is selected: read `templates/wolf-media-v2.md` fully before touching Section 3. Use its CSS, slide types, and design rules instead of Section 3's defaults. All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
 
 If editorial-step is selected: read `templates/editorial-step.md` fully before touching Section 3. Use its CSS, 4-font stack, slide types, and terminal/UI-panel components. All other sections run identically.
+
+If ascii-pixel is selected: read `templates/ascii-pixel.md` fully before touching Section 3. Use its Space Mono + Outfit font stack, ASCII globe SVG, pixel bot SVG, and 6 slide types. All other sections run identically.
 
 ### Dependency: Social Media Context
 
@@ -705,6 +710,18 @@ Before reporting done, verify every item:
 - [ ] Cream background `#F5F2ED` — not pure white or grey
 - [ ] Dark cover slide uses `#0E0E0E` — not `#131110` (wolf-media-v1 charcoal)
 - [ ] No film grain texture (`.dk::before`) — cream slides are clean
+
+**ASCII/Pixel only:**
+- [ ] Both fonts loaded: Space Mono + Outfit (not JetBrains Mono — wrong template)
+- [ ] ASCII globe SVG present on COVER and INSIGHT slides (light and dark versions correct)
+- [ ] Pixel bot crisp: `image-rendering:pixelated` + `shape-rendering:crispEdges` set
+- [ ] Progress dot track correct: (K-1) orange done segs → 1 dot → (N-K) grey segs
+- [ ] No progress track on CTA slide (final slide only)
+- [ ] ASCII border `<pre>` not wrapping — font-size appropriate for 960px content width
+- [ ] Terminal body max 12 lines — no overflow past slide height
+- [ ] ASCII box label on PIXEL-HERO fits inside box width (max 28 chars)
+- [ ] No CSS animations (globe is static SVG — no `animation:` rules)
+- [ ] Warm beige `#FBF6EC` on light slides — not pure white
 
 ---
 
