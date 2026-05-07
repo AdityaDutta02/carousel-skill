@@ -146,18 +146,34 @@ user explicitly wants "ASCII", "pixel art", "terminal aesthetic", "code style", 
     .dk4 .ascii-box { color: rgba(229,90,43,0.55); }
 
     /* ─── TERMINAL COMPONENT ─── */
+    /*
+     * RULE: terminal is ALWAYS placed on a LIGHT slide (lt4 background).
+     * Never put a dark #111 terminal on a dark #0F0D0B slide — no contrast.
+     * Use light slide bg so the terminal window pops.
+     *
+     * RULE: terminal is a CONTAINED window, NOT full-bleed.
+     * Set an explicit height (e.g. height:500px) — do not use flex:1 to fill
+     * the whole slide. Leave visible slide background above and below.
+     *
+     * RULE: terminal body max 12 lines. If content fits in fewer, add a
+     * "WHAT JUST HAPPENED" interpretation callout below the terminal to fill
+     * the remaining slide height (see TERMINAL-FULL slide type below).
+     *
+     * RULE: terminal body font-size 15px, line-height 1.85. At these values
+     * 12 lines ≈ 333px. Plus chrome (44px) + padding (56px) → ~433px window.
+     */
     .term4 {
       background: #111111; border-radius: 10px;
-      overflow: hidden; margin-top: 32px;
+      overflow: hidden; display: flex; flex-direction: column;
     }
     .term4-chrome {
-      background: #2D2D2D; height: 44px;
+      background: #2D2D2D; height: 44px; flex-shrink: 0;
       display: flex; align-items: center; padding: 0 18px; gap: 8px;
     }
-    .t4-dot { width: 13px; height: 13px; border-radius: 50%; }
+    .t4-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
     .term4-body {
       padding: 28px 36px; font-family: 'Space Mono', monospace; font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.85;
     }
     .tc { color: #F0EBE0; }
     .to { color: rgba(180,170,155,0.60); }
@@ -470,53 +486,86 @@ Dark slide. Headline + body. Globe as small accent (200×200) top-right. For nar
 
 ---
 
-### 4. TERMINAL-FULL (dark)
+### 4. TERMINAL-FULL (light — always light background)
 
-Very dark slide. Full terminal window as primary content. Uses Space Mono for all text inside terminal.
-Best for: showing actual Claude interactions, API outputs, configuration steps.
+Light slide. Contained terminal window as primary visual, NOT full-bleed. The dark `#111111`
+terminal must be on the warm beige `lt4` background — this is what creates visual contrast.
+Never place the terminal on a `dk4` dark slide (no contrast).
+
+Layout: label at top → terminal (explicit height, ~500px) → interpretation callout below → stats bar pinned at bottom.
 
 ```html
-<section class="slide dk4">
+<section class="slide lt4">
   <!-- progress-track here -->
 
-  <div class="pad4" style="padding-top: 110px;">
-    <div class="label4">In practice</div>
-    <h2 class="h-mono-sm" style="font-size:42px; margin-bottom:8px;">
-      Real Claude + SpaceX output
-    </h2>
+  <!-- LABEL -->
+  <div style="position:absolute;top:130px;left:90px;z-index:2;">
+    <div class="label4">In practice — live Claude output</div>
+    <div class="div4" style="margin:12px 0 0;"></div>
+  </div>
 
-    <div class="term4">
+  <!-- TERMINAL: explicit height so it does NOT fill the full slide -->
+  <div style="position:absolute;top:210px;left:90px;right:90px;height:500px;z-index:2;">
+    <div class="term4" style="height:100%;">
       <div class="term4-chrome">
         <div class="t4-dot" style="background:#FF5F57;"></div>
         <div class="t4-dot" style="background:#FFBD2E;"></div>
         <div class="t4-dot" style="background:#28CA41;"></div>
-        <span style="margin-left:16px; font-family:'Space Mono',monospace; font-size:12px; color:rgba(255,255,255,0.35);">starlink-ai · claude-3 · zsh</span>
+        <span style="margin-left:16px;font-family:'Space Mono',monospace;font-size:12px;color:rgba(255,255,255,0.35);">system-name · claude-opus-4 · zsh</span>
       </div>
-      <div class="term4-body">
-        <div class="tc">$ claude analyze-telemetry --sat SAT-2847 --window 60s</div>
-        <div class="to">Connecting to telemetry feed... ████████████ 100%</div>
-        <div class="to">Parsing 14,400 sensor readings...</div>
-        <div class="tc" style="margin-top:8px;">Anomaly detected: thermal variance +2.3°C on panel 4B</div>
-        <div class="tg">✓ Root cause: micrometeorite impact at 09:14:32 UTC</div>
-        <div class="tg">✓ Degradation risk: LOW (est. 0.4% efficiency loss)</div>
-        <div class="tg">✓ Recommended action: increase charge cycle buffer by 8%</div>
-        <div class="tc" style="margin-top:8px;">$ apply-recommendation --confidence high</div>
-        <div class="tg">✓ Applied. Monitoring for 15 minutes.</div>
-        <div class="to" style="margin-top:4px;">Elapsed: 1.8s · Tokens: 4,210 · Cost: $0.0067</div>
+      <div class="term4-body" style="line-height:1.85;font-size:15px;">
+        <div class="tc">$ [command]</div>
+        <div class="to">[output line]</div>
+        <!-- max 12 lines total -->
+        <div class="to" style="opacity:0.4;margin-top:4px;">█</div>
       </div>
     </div>
   </div>
 
-  <div class="handle-lt4">@thecontextwindow1</div>
+  <!-- INTERPRETATION CALLOUT — starts 40px below terminal bottom (210+500+40=750) -->
+  <div style="position:absolute;top:750px;left:90px;right:90px;z-index:2;">
+    <div style="border-left:2px solid #E55A2B;padding:22px 32px;background:rgba(229,90,43,0.04);">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#8B7355;letter-spacing:0.08em;margin-bottom:12px;">WHAT JUST HAPPENED</div>
+      <div style="font-family:'Outfit',sans-serif;font-weight:600;font-size:24px;line-height:1.45;color:#1A1410;">
+        [Plain-language summary of what Claude just did in the terminal — 1–2 sentences, no jargon]
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR — 4-column, pinned bottom, dark text on light bg -->
+  <div style="position:absolute;bottom:90px;left:90px;right:90px;z-index:2;">
+    <div style="height:1px;background:rgba(26,20,16,0.10);margin-bottom:32px;"></div>
+    <div style="display:flex;gap:0;align-items:flex-start;">
+      <div style="flex:1;padding-right:36px;border-right:1px solid rgba(139,115,85,0.18);">
+        <div class="label4" style="margin-bottom:6px;">[Stat label]</div>
+        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:32px;color:#E55A2B;">[Value]</div>
+      </div>
+      <div style="flex:1;padding:0 36px;border-right:1px solid rgba(139,115,85,0.18);">
+        <div class="label4" style="margin-bottom:6px;">[Stat label]</div>
+        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:32px;color:#1A1410;">[Value]</div>
+      </div>
+      <div style="flex:1;padding:0 36px;border-right:1px solid rgba(139,115,85,0.18);">
+        <div class="label4" style="margin-bottom:6px;">[Stat label]</div>
+        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:32px;color:#1A1410;">[Value]</div>
+      </div>
+      <div style="flex:1;padding-left:36px;">
+        <div class="label4" style="margin-bottom:6px;">[Stat label]</div>
+        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:32px;color:#3A7D2B;">[Value]</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="handle-lt4">@handle</div>
 </section>
 ```
 
 **Terminal rules:**
-- Max 12 lines inside terminal body — beyond that content clips on 1350px slide
+- **Always on light slide (`lt4`)** — never `dk4`. Dark terminal on dark slide = invisible
+- **Explicit height on the wrapper div** (e.g. `height:500px`) — do not use `flex:1` to fill the whole slide
+- Max 12 lines inside terminal body — at `font-size:15px; line-height:1.85`, 12 lines ≈ 333px
+- Callout `top` = terminal `top` + terminal `height` + 40px gap (example: 210+500+40=750px)
 - Color classes: `.tc` (white commands), `.to` (grey dimmed output), `.tg` (green success), `.ta` (amber warning), `.te` (orange error)
-- Always show the `$` prompt on command lines
-- Terminal title: descriptive but concise ("system name · model · shell")
-- Terminal fits within padding at `padding-top: 110px` — do not reduce
+- Always show `$` prompt on command lines; end with a blinking cursor `<div class="to" style="opacity:0.4;">█</div>`
 
 ---
 

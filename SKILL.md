@@ -43,26 +43,50 @@ The last slide is always a CTA. Page name + handle always appear.
 
 ### Template selection
 
-Read the topic and select the template before doing anything else. Do not ask the user — infer from the topic.
+**Always ask the user before starting.** Infer a recommendation from the topic, then present all four options and wait for confirmation. Do not begin research until the user picks a template.
 
-| Template | File | When to use |
-|---|---|---|
-| **wolf-media-v1** | *(inline — Section 3 below)* | Data analysis, insight breakdowns, explainers, trend reports, educational content |
-| **wolf-media-v2** | `templates/wolf-media-v2.md` | Results reports, performance recaps, metrics breakdowns, case studies, before/after analyses |
-| **editorial-step** | `templates/editorial-step.md` | Step-by-step tutorials, how-to guides, tool walkthroughs, Claude/AI feature deep-dives, "how to use X" carousels |
-| **ascii-pixel** | `templates/ascii-pixel.md` | AI/tech marketing carousels: Anthropic-style warm beige + Space Mono + ASCII globe + pixel bot. Use when the topic itself is cutting-edge AI or the user wants "code style", "ASCII", or "Anthropic vibe" |
+#### Step 1 — Infer a recommendation
 
-**Auto-select signals for v2:** topic contains "results", "closed", "we generated", "performance", "report", "₹ / $ total", "case study", "breakdown of our", "how we". Also use v2 when user provides city/platform/channel comparison data with real numbers from their own business.
+Use these signals to pick the recommended template:
 
-**Auto-select signals for editorial-step:** topic contains "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "getting started", "using Claude", "Claude Code", "prompt", "workflow", "automate", or any tool-specific tutorial framing.
+| Template | Recommend when |
+|---|---|
+| **wolf-media-v1** | Data analysis, insight breakdowns, explainers, trend reports, educational content — the default for most topics |
+| **wolf-media-v2** | Topic is a results/performance report, case study, or before/after analysis. Signals: "results", "closed", "we generated", "performance", "report", "₹/$ total", "how we", city/channel comparison with real numbers |
+| **editorial-step** | Step-by-step tutorials, how-to guides, tool walkthroughs. Signals: "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "using Claude", "prompt", "workflow", "automate" |
+| **ascii-pixel** | Major AI/tech company announcements, frontier-tech news, abstract/futuristic topics where a standard infographic would feel generic. Signals: "ASCII", "pixel art", "terminal style", "Anthropic aesthetic", Anthropic/OpenAI/SpaceX news |
 
-**Auto-select signals for ascii-pixel:** topic involves a major AI company announcement, Anthropic/OpenAI/SpaceX/frontier-tech news, or user explicitly says "ASCII", "pixel art", "terminal style", "Anthropic aesthetic", "code with Claude". Also when topic is abstract/futuristic and traditional infographic look would feel generic.
+#### Step 2 — Present the choice
 
-If v2 is selected: read `templates/wolf-media-v2.md` fully before touching Section 3. Use its CSS, slide types, and design rules instead of Section 3's defaults. All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
+Show this message (adapt the recommendation marker to whichever template fits best):
 
-If editorial-step is selected: read `templates/editorial-step.md` fully before touching Section 3. Use its CSS, 4-font stack, slide types, and terminal/UI-panel components. All other sections run identically.
+---
 
-If ascii-pixel is selected: read `templates/ascii-pixel.md` fully before touching Section 3. Use its Space Mono + Outfit font stack, ASCII globe SVG, pixel bot SVG, and 6 slide types. All other sections run identically.
+**Which visual template would you like?**
+
+| # | Template | Aesthetic | Best for |
+|---|---|---|---|
+| 1 | **Wolf Media v1** | Dark charcoal + film grain, Outfit font, gradient text fades | Data explainers, trend reports, insight breakdowns |
+| 2 | **Wolf Media v2** | Stark black + bold ALL CAPS, red accent, map textures | Performance reports, metrics, case studies |
+| 3 | **Editorial Step** | Cream paper + Playfair serif, sticky notes, terminal panels | Step-by-step tutorials, tool walkthroughs, how-to guides |
+| 4 | **ASCII/Pixel** | Warm beige + Space Mono, ASCII globe, pixel bot, orange accent | AI/tech marketing, Anthropic-style, cutting-edge topics |
+
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–4) or just say "go ahead" to use the recommendation.
+
+---
+
+Wait for the user's reply before proceeding to Section 1 (Research).
+
+#### Step 3 — Load the template spec
+
+Once the user confirms a template:
+
+- **wolf-media-v1**: Use Section 3 inline (no external file needed)
+- **wolf-media-v2**: Read `templates/wolf-media-v2.md` fully before touching Section 3
+- **editorial-step**: Read `templates/editorial-step.md` fully before touching Section 3
+- **ascii-pixel**: Read `templates/ascii-pixel.md` fully before touching Section 3
+
+All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically regardless of template.
 
 ### Dependency: Social Media Context
 
@@ -717,9 +741,11 @@ Before reporting done, verify every item:
 - [ ] Pixel bot crisp: `image-rendering:pixelated` + `shape-rendering:crispEdges` set
 - [ ] Progress dot track correct: (K-1) orange done segs → 1 dot → (N-K) grey segs
 - [ ] No progress track on CTA slide (final slide only)
-- [ ] ASCII border `<pre>` not wrapping — font-size appropriate for 960px content width
+- [ ] Terminal slide uses `lt4` (light) background — NEVER `dk4` (no contrast otherwise)
+- [ ] Terminal window has explicit height (e.g. `height:500px`) — not `flex:1` filling whole slide
 - [ ] Terminal body max 12 lines — no overflow past slide height
-- [ ] ASCII box label on PIXEL-HERO fits inside box width (max 28 chars)
+- [ ] Interpretation callout positioned at `terminal-top + terminal-height + 40px`
+- [ ] ASCII box label on PIXEL-HERO uses CSS border divs — not `<pre>` (pre wraps unpredictably)
 - [ ] No CSS animations (globe is static SVG — no `animation:` rules)
 - [ ] Warm beige `#FBF6EC` on light slides — not pure white
 
