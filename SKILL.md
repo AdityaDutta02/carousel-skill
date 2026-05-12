@@ -43,11 +43,17 @@ The last slide is always a CTA. Page name + handle always appear.
 
 ### Template selection
 
-**Always ask the user before starting.** Infer a recommendation from the topic, then present all four options and wait for confirmation. Do not begin research until the user picks a template.
+**Always ask the user before starting.** Infer a recommendation from the topic, then present options and wait for confirmation. Do not begin research until the user picks a template.
 
-#### Step 1 — Infer a recommendation
+#### Step 1 — Identify the channel
 
-Use these signals to pick the recommended template:
+**Is this for figr.design's UI/UX channel?** If the user mentions `figr.design`, `@figr.design`, or a UI/UX design leadership audience, offer Figr Templates (Section 0a) instead of the Wolf Media templates. These are a separate design system for a different channel.
+
+If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a different page?"
+
+#### Step 2 — Infer a recommendation
+
+**Wolf Media / general channel** — use these signals:
 
 | Template | Recommend when |
 |---|---|
@@ -56,7 +62,16 @@ Use these signals to pick the recommended template:
 | **editorial-step** | Step-by-step tutorials, how-to guides, tool walkthroughs. Signals: "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "using Claude", "prompt", "workflow", "automate" |
 | **ascii-pixel** | Major AI/tech company announcements, frontier-tech news, abstract/futuristic topics where a standard infographic would feel generic. Signals: "ASCII", "pixel art", "terminal style", "Anthropic aesthetic", Anthropic/OpenAI/SpaceX news |
 
-#### Step 2 — Present the choice
+**figr.design channel** — use these signals:
+
+| Template | Recommend when |
+|---|---|
+| **figr-a-manifesto** | Bold frameworks, principle lists, editorial statements ("N signs/rules/things"). Alternating dark/light typographic rhythm. |
+| **figr-b-toolkit** | Practical how-tos, process frameworks, actionable methods. Structured card layout, all light slides. |
+
+#### Step 3 — Present the choice
+
+**For Wolf Media / general channel:**
 
 Show this message (adapt the recommendation marker to whichever template fits best):
 
@@ -75,9 +90,26 @@ Show this message (adapt the recommendation marker to whichever template fits be
 
 ---
 
+**For figr.design channel:**
+
+Show this message:
+
+---
+
+**Which figr.design template would you like?**
+
+| # | Template | Aesthetic | Best for |
+|---|---|---|---|
+| 1 | **Figr A — Manifesto** | Inter, alternating dark navy / light, ghost numbers, cyan accents | Frameworks, principle lists, bold editorial statements |
+| 2 | **Figr B — Toolkit** | Inter, all-light, elevated card with cyan border-left, concentric rings | How-tos, practical methods, actionable processes |
+
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–2) or just say "go ahead" to use the recommendation.
+
+---
+
 Wait for the user's reply before proceeding to Section 1 (Research).
 
-#### Step 3 — Load the template spec
+#### Step 4 — Load the template spec
 
 Once the user confirms a template:
 
@@ -85,8 +117,12 @@ Once the user confirms a template:
 - **wolf-media-v2**: Read `templates/wolf-media-v2.md` fully before touching Section 3
 - **editorial-step**: Read `templates/editorial-step.md` fully before touching Section 3
 - **ascii-pixel**: Read `templates/ascii-pixel.md` fully before touching Section 3
+- **figr-a-manifesto**: Read `templates/figr-a-manifesto.md` fully, then follow Section 0a
+- **figr-b-toolkit**: Read `templates/figr-b-toolkit.md` fully, then follow Section 0a
 
-All other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically regardless of template.
+For Wolf Media and Editorial templates, all other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
+
+For Figr Templates, follow Section 0a instead of Sections 1–3.
 
 ### Dependency: Social Media Context
 
@@ -94,6 +130,67 @@ Before writing any content, check for `.agents/social-media-context-sms.md` in t
 
 - **File exists:** Read it fully. It defines the user's voice, tone, audience, and content pillars. All copy in Section 1.5 must match this voice.
 - **File missing:** Stop and ask the user to run `/social-media-context-sms` first to capture their voice. Do not proceed without it — voice-matched copy is the primary reason this skill uses carousel-writer-sms.
+
+---
+
+## 0a. FIGR TEMPLATES — Design Pipeline
+
+**Use this section only when the user has selected figr-a-manifesto or figr-b-toolkit.**
+
+These templates target figr.design's UI/UX channel, audience: design leads and managers. They have their own design system (Inter font, cyan `#00C8B4`, deep navy `#0F172A`), brand voice (editorial, confident, direct), and 7-slide narrative structure.
+
+Skip Sections 1–3. Follow this pipeline instead.
+
+### Content structure (all figr templates)
+
+```
+Slide 1: Hook        — dark (figr-a) or light (figr-b)
+Slide 2: The Problem — frame the core failure/challenge
+Slide 3: Tip / Shift 01
+Slide 4: Tip / Shift 02
+Slide 5: Tip / Shift 03
+Slide 6: Tip / Shift 04
+Slide 7: CTA         — "Save this." / "Which will you try first?"
+```
+
+### Step 1 — Write the content
+
+Write all 7 slides before touching the HTML. For each slide:
+- Slide label (e.g. "PROBLEM", "TIP 01")
+- Headline (h2 / h1): max 2 lines, confident, direct, no hedging
+- Body: max 3–4 lines. Cut until each sentence earns its place.
+- Tag chip (figr-b only): 1–2 word theme
+
+Content rules for figr.design voice:
+- No listicles ("Here are 3 things…") — write in declarative statements
+- No soft hedging ("might", "could", "perhaps") — everything is stated as fact
+- Frame tips as observations a senior designer has earned, not advice a junior gives
+- The "before" state should feel painfully recognizable. The "after" should feel achievable.
+
+### Step 2 — Build the HTML
+
+Read the template spec file fully. Use the HTML skeleton from the spec as the starting point.
+
+Replace all `[PLACEHOLDER]` tokens with actual content. Do not invent new CSS classes — use only what the spec defines.
+
+Key rules:
+- Slide counter format: `01 / 07` through `07 / 07` (zero-padded, space around slash)
+- Brand block always: `<span class="brand-name">figr.design</span><span class="brand-handle">@figr.design</span>`
+- Ghost numbers (figr-a only): 01–05 on slides 2–6, counting content order not slide position
+- Badge numbers (figr-b only): 1–5 on slides 2–6
+
+### Step 3 — Playwright audit
+
+Run the standard Playwright audit from Section 4. Check for:
+- Overflow: no text clipping, no panel overflow beyond 1080px
+- Brand block: confirms "figr.design" and "@figr.design" (not "figr" alone)
+- Counter: all 7 slides have correct counter
+- Type legibility: h1/h2 minimum 40px, body minimum 16px
+- Contrast: white on `#0F172A` and `#18181B` passes WCAG AA
+
+### Step 4 — PNG export and caption
+
+Follow Sections 5 and 6 as normal. Caption voice: editorial, direct, one short hook sentence + the key framework idea + CTA.
 
 ---
 
