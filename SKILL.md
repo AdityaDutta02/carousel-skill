@@ -68,6 +68,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 |---|---|
 | **figr-a-manifesto** | Bold frameworks, principle lists, editorial statements ("N signs/rules/things"). Alternating dark/light typographic rhythm. |
 | **figr-b-toolkit** | Practical how-tos, process frameworks, actionable methods. Structured card layout, all light slides. |
+| **figr-c-beforeafter** | Shift-based contrasts, pattern corrections, "before you do X / after you do X". Signals: "shifts", "before/after", "wrong vs right", "stop/start", binary state pairs. |
 
 #### Step 3 — Present the choice
 
@@ -102,8 +103,9 @@ Show this message:
 |---|---|---|---|
 | 1 | **Figr A — Manifesto** | Inter, alternating dark navy / light, ghost numbers, cyan accents | Frameworks, principle lists, bold editorial statements |
 | 2 | **Figr B — Toolkit** | Inter, all-light, elevated card with cyan border-left, concentric rings | How-tos, practical methods, actionable processes |
+| 3 | **Figr C — Before / After** | Dark zinc BEFORE / white AFTER split, red ✗ cyan ✓ markers, bridge gradient | Shift-based frameworks, before/after contrasts, pattern corrections |
 
-→ I recommend **[Template Name]** for this topic. Reply with a number (1–2) or just say "go ahead" to use the recommendation.
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–3) or just say "go ahead" to use the recommendation.
 
 ---
 
@@ -119,6 +121,7 @@ Once the user confirms a template:
 - **ascii-pixel**: Read `templates/ascii-pixel.md` fully before touching Section 3
 - **figr-a-manifesto**: Read `templates/figr-a-manifesto.md` fully, then follow Section 0a
 - **figr-b-toolkit**: Read `templates/figr-b-toolkit.md` fully, then follow Section 0a
+- **figr-c-beforeafter**: Read `templates/figr-c-beforeafter.md` fully, then follow Section 0a
 
 For Wolf Media and Editorial templates, all other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
 
