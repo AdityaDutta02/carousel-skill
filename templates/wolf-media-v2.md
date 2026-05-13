@@ -5,6 +5,13 @@ Use for: results reports, metrics breakdowns, performance recaps, before/after a
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (HOOK-PHOTO white) is already light — keep it. Slide 9 (CTA `.dk2 { background: #080808 }`) **must be light**. Apply Rule U1 light-CTA treatment: white/off-white background, dark hero hed, save/follow ask in 32–44px ink, brand handle 20px ink. The map texture motif can move to a thin accent ribbon at top or bottom instead of a full dark field.
+> - Rule U2: The `.dk2 #080808` token (if retained on any middle slide) must be replaced with a layered gradient + grain + topic-accent glow. The current map SVG at 0.045 opacity counts as one texture layer — add at least one more (gradient + accent glow).
+> - Rule U3: Bump every sub-18px size below — handle 14→20, lbl 11→18, pgrid-label 11→18, table th 12→20, hook strip 13/16→18+, photo stats 16→18, CTA fine print 12→18, table cells 11→20, list step number 13→20.
+
+---
+
 ## When to use
 
 | Use v2 | Use v1 |

@@ -27,6 +27,97 @@ a new design system before touching Section 3.
 
 ---
 
+## ⚠️ UNIVERSAL DESIGN RULES — Override Every Template
+
+These three rules **override any conflicting guidance in any template spec, including legacy "dark hook" or "dark CTA" sections.** If a template says "Slide 1 is dark" or "use `#111827` flat", ignore that and apply these rules instead. Apply them on every carousel regardless of template.
+
+### Rule U1 — Slide 1 and the final slide are always LIGHT
+
+The opening cover and the closing CTA must be on a light background (cream, off-white, paper, or near-white). Never `#0F172A`, `#111827`, `#0E0E0E`, `#080808`, `#131110`, `#1B1B1B`, or any other near-black/navy. Mobile feeds are dominated by white app chrome — landing on a light slide both ends keeps the carousel from looking like a black void in the feed.
+
+**Light-hook treatment** — pull the eye in without going dark:
+- Use the template's lightest cream/paper token (e.g. `--bg`, `--paper`, `#F7F6F3`, `#F1ECE2`).
+- Lead the hook with the template's primary **dark accent text** (deep ink `#0D0D0D`/`#15110E`) at a hero size (84–116px). The hook headline is the contrast source.
+- Use the template's signature accent (coral/terracotta/cyan/yellow) on the key phrase only (≤3 words). Never as a dominant background field.
+- Add a thin (3–6px) accent rule or block at the top or bottom of the slide to give it texture without darkening it.
+
+**Light-CTA treatment** — close on energy, not gloom:
+- Same paper/cream background.
+- Lead headline: dark ink, hero size, 1–2 lines.
+- Save / Comment / Follow ask: same dark ink, smaller (32–44px), with the keyword highlighted in accent color.
+- Brand block + bookmark glyph in dark ink — visible without dark backing.
+- Optional decorative accent: a hand-drawn arrow, ribbon, or geometric accent in the template's coral/terracotta/cyan. No dark fill blocks larger than 80px.
+
+Dark slides are still permitted in the **middle** of a carousel (slides 2 to N−1) for rhythm — but apply Rule U2 to any dark slide that remains.
+
+### Rule U2 — Dark slides must have visible depth (never flat)
+
+Flat single-color dark (`#0F172A`, `#111827`, `#0E0E0E`, `#080808`) renders as a black void on mobile OLED screens — the slide loses its design and looks unfinished. Every dark slide must layer at least **two** of the following on top of the base color:
+
+| Layer | How |
+|---|---|
+| **Radial vignette** | `radial-gradient(ellipse at 50% 30%, [base+8%] 0%, [base] 60%, [base−6%] 100%)` — lifts the center, darkens edges |
+| **Grain noise** | Inline SVG `feTurbulence baseFrequency="0.9" numOctaves="2"` blended `overlay` at opacity 0.18–0.35 |
+| **Accent glow** | One subtle `radial-gradient` blob (40–60% slide width) in the template accent color at 0.04–0.08 opacity, positioned off-center |
+| **Grid or dot texture** | 22–44px grid lines at 0.04–0.08 opacity, or 1px radial dots |
+
+**Replace any flat dark token** with a layered token + texture pseudo-elements:
+
+```css
+.dark-slide {
+  background:
+    radial-gradient(ellipse at 50% 30%, #1F1E2A 0%, #15141C 55%, #0E0D14 100%);
+  position: relative;
+}
+.dark-slide::before {   /* grain */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0 0.86  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay; opacity: 0.32; z-index: 1;
+}
+.dark-slide::after {    /* accent glow */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 60% 40% at 80% 20%, rgba(0,200,180,0.06), transparent 70%);
+  z-index: 1;
+}
+```
+
+Any existing `--dark-bg: #111827` / `--dark: #0F172A` / `.dk { background: #131110 }` token in a template spec should be replaced with a 3-stop gradient using the same hue family, plus grain and accent glow layers. If the template already specifies one texture (e.g. dot grid), add at least one more (gradient + grain).
+
+**Forbidden flat dark colors when used alone:** `#000000`, `#0F172A`, `#111827`, `#0E0E0E`, `#080808`, `#131110`, `#1B1B1B`, `#161514`, `#18181B`. These may only appear inside a multi-layer gradient stop.
+
+### Rule U3 — Minimum mobile-readable text sizes
+
+Instagram carousels are viewed at ~390px wide on mobile. At that scale, anything under 18px on the source 1080px canvas is illegible. Enforce these floors **everywhere**, including labels, counters, captions, footnotes, and table cells:
+
+| Element class | Minimum on 1080px canvas | Notes |
+|---|---|---|
+| Body paragraph | **22px** | Was 16px in legacy specs — bump |
+| Eyebrow / kicker / label / tag chip | **18px** | Was 11–15px in legacy specs — bump |
+| Slide counter | **18px** | |
+| Footer / fine print / source | **18px** | |
+| Table cell / data row | **20px** | |
+| Brand handle | **20px** | |
+| Numeric step marker | **20px** | |
+| Annotation / pull quote | **22px** | |
+| Headline / hero | 64px+ | Already large in most templates |
+
+**Mono labels** (JetBrains Mono `uppercase`, letter-spacing 0.12em+) need the same 18px floor — small-caps mono at 11–13px disappears on mobile. If a mono eyebrow truly needs to read as "system / technical", set it to 18px, weight 500, and use letter-spacing 0.08em (less aggressive tracking lets the smaller-feeling letters breathe).
+
+When a template spec quotes a size below these floors, override it. Update the template spec inline when you can; otherwise note the override in the carousel's final audit report.
+
+### Applying these rules during template selection
+
+When picking a template (Section 0a / Section 3), follow this audit:
+
+1. Does the template's Slide 1 spec call for a dark background? → Apply Rule U1 light-hook treatment instead.
+2. Does the template's last slide (CTA) call for a dark background? → Apply Rule U1 light-CTA treatment instead.
+3. Does any remaining dark slide use a single flat hex? → Apply Rule U2 multi-layer depth.
+4. Scan every text-size spec under 18px → Apply Rule U3 bumps.
+
+These four checks happen before the Playwright audit. The Playwright audit (Section 4) should also assert: slide 1 + last slide have light backgrounds, dark slides have layered backgrounds, no rendered text under 18px.
+
+---
+
 ## 0. INPUTS — Collect Before Starting
 
 Always collect these before proceeding. If missing, ask in one message:
@@ -325,6 +416,11 @@ See `references/design-analysis-scaffold.md` for the full extraction protocol.
 This is the default design system, derived from forensic analysis of Wolf Media
 (@wolfmedia.in) carousels. It produces the warm-editorial dark/white alternating
 aesthetic. Do not deviate unless Section 2.5 produced a different spec.
+
+> **⚠️ Universal Rules override this section.** See the Universal Design Rules block above.
+> - Rule U1: The legacy "HOOK slide is dark `#131110`" pattern below is overridden — slide 1 **must be light**. Use the warm cream/paper background and lead with the topic accent (blue/orange) on the key headline phrase. The CTA slide must also be light (cream + accent ribbon), not a topic-accent gradient field.
+> - Rule U2: Any dark middle slide (`.dk`) keeps `#131110` only as the deepest stop of a 3-stop radial gradient; layer with grain (already specified at opacity 0.26) and add a topic-accent glow blob.
+> - Rule U3: Bump handle-tl / handle-tr 14→20, co-role 18 stays, list step number 13→20, CTA fine print 13→18.
 
 ### 3a. HTML skeleton
 

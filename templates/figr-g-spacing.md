@@ -5,6 +5,13 @@ Use for: long-form "N rules / N principles / N habits" carousels with hand-drawn
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (cover) is already light — keep it. Slide 12 (CTA) is described as dark `#1B1B1B` charcoal below; it **must be light**. Apply Rule U1 light-CTA treatment: cream paper, ink hed, coral "Rules" keyword + coral swoop arrow, dark bookmark. The takeaway slide (10) and myth slide (2) may stay dark per the alternating rhythm.
+> - Rule U2: The `--dark: #1B1B1B` token on remaining middle dark slides already layers a gradient + grain (good) — also add a subtle coral or yellow accent glow blob (40–60% slide width, opacity 0.04–0.08) to push depth further.
+> - Rule U3: Bump every sub-18px size below — cover bar label 12→18 (or move the label outside the bar if 18px breaks the vertical rotation).
+
+---
+
 ## When to use
 
 | Use figr-g-spacing | Use other figr templates |

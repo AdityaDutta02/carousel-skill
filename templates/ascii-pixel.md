@@ -9,6 +9,13 @@ user explicitly wants "ASCII", "pixel art", "terminal aesthetic", "code style", 
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (cover-light) is already light — keep it. Slide 6 (CTA-DARK, `.dk4 { background: #0F0D0B }`) **must be light**. Apply Rule U1 light-CTA treatment: warm beige paper, Space Mono headline in ink `#15110E`, ASCII frame in coral/ink, CTA prompt in 18px+ ink.
+> - Rule U2: The `--bg-dark: #0F0D0B` and `--bg-term: #111111` flat fills must be replaced with layered gradients + grain + amber/red terminal accent glow on any remaining dark middle slide.
+> - Rule U3: Bump every sub-18px size below — handle 13→20, label 13→18, ASCII box body 13→18, terminal session label 13→18, terminal body 15→18, stat-label 13→18, stat-source 12→18, corner labels 12→18, inline ASCII frame chars at 11–12px → 18+ (or treat as decorative graphic, not text).
+
+---
+
 ## Font Stack
 
 ```html

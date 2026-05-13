@@ -5,6 +5,13 @@ Use for: wrong-vs-right pattern carousels, side-by-side comparisons, "what AI/UX
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (hook) and Slide 7 (CTA) are both `#111827` dark navy below — they **must be light**. Apply Rule U1 light-hook + light-CTA treatments. Keep the terracotta accent phrase as the contrast source on a cream background instead.
+> - Rule U2: If any middle slide ends up dark, the `--dark-bg: #111827` must be replaced with a layered gradient + grain + terracotta accent glow.
+> - Rule U3: Bump every sub-18px size below — body 16→22, example card 13→18, ct-label 11→18, ct-counter 11→18, toggle text 13→18, CTA tagline 14→18.
+
+---
+
 ## When to use
 
 | Use figr-f-contrast | Use other figr templates |

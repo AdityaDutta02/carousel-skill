@@ -5,6 +5,13 @@ Use for: practical how-tos, process frameworks, "how to run / do / fix X" carous
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 and Slide 7 are already light here — keep them that way.
+> - Rule U2: If you introduce any dark middle slide, it must be layered (gradient + grain + accent glow), not flat.
+> - Rule U3: Bump every sub-18px size below — chip 14→18, slide label 11→18, slide-counter 16→18, brand handle 15→20, card label 14→18.
+
+---
+
 ## When to use
 
 | Use figr-b-toolkit | Use other templates |
@@ -33,14 +40,17 @@ Use for: practical how-tos, process frameworks, "how to run / do / fix X" carous
 ### Typography
 
 - **Font:** Inter (Google Fonts, weights 400/500/600/700)
-- **h1 (hook):** 76px, 700, line-height 1.08, letter-spacing −0.025em
-- **h2 (tip titles):** 44px, 700, line-height 1.2, letter-spacing −0.02em
-- **Body:** 22px, 400, line-height 1.65 (hook sub: 24px)
-- **Badge number:** 24px, 700 (inside 52px circle)
-- **Badge ring:** 66px circle, border 2px `rgba(0,200,180,0.25)`
-- **Chip/label:** 12px, 600, uppercase, letter-spacing 0.12em
-- **Tag chip:** 11px, 600, uppercase, letter-spacing 0.1em, background `#E6FAF8`, color `#00C8B4`, border-radius 4px, padding 5px 12px
-- **Counter:** 13px, 500, letter-spacing 0.06em
+- **h1 (hook):** 86px, 700, line-height 1.06, letter-spacing −0.025em
+- **h2 (tip titles):** 56px, 700, line-height 1.15, letter-spacing −0.02em
+- **Body:** 28px, 400, line-height 1.55 (hook sub: 28px)
+- **Badge number:** 28px, 700 (inside 56px circle)
+- **Badge ring:** 72px circle, border 2px `rgba(0,200,180,0.25)`
+- **Chip:** 14px, 600, uppercase, letter-spacing 0.12em
+- **Card label:** 14px, 600, uppercase, letter-spacing 0.14em
+- **Tag chip:** 14px, 600, uppercase, letter-spacing 0.1em, background `#E6FAF8`, color `#00C8B4`, border-radius 4px, padding 6px 14px
+- **Counter:** 16px, 500, letter-spacing 0.06em
+- **Brand name:** 22px, 700 — **Brand handle:** 15px, 500, cyan
+- **CTA heading:** 54px, 700 — **CTA sub:** 28px, 400 — **CTA button:** 18px, 500
 
 ### Brand block
 
@@ -149,13 +159,13 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
       position: absolute; bottom: 30px; right: 44px;
       display: flex; flex-direction: column; align-items: flex-end; gap: 3px; z-index: 2;
     }
-    .brand-block .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; color: #0D0D0D; }
-    .brand-block .brand-handle { font-size: 13px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
+    .brand-block .brand-name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; color: #0D0D0D; }
+    .brand-block .brand-handle { font-size: 15px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
 
     /* Counter */
     .slide-counter {
-      position: absolute; bottom: 34px; left: 44px;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: #CCCCCC; z-index: 2;
+      position: absolute; bottom: 36px; left: 44px;
+      font-size: 16px; font-weight: 500; letter-spacing: 0.06em; color: #BBBBBB; z-index: 2;
     }
 
     /* Hook */
@@ -175,12 +185,12 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
     .hook-content { position: relative; z-index: 1; }
     .chip {
       display: inline-block; background: #00C8B4; color: #ffffff;
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.12em; padding: 7px 16px; border-radius: 4px; margin-bottom: 36px;
+      font-size: 14px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.12em; padding: 8px 18px; border-radius: 4px; margin-bottom: 38px;
     }
-    h1 { font-size: 76px; font-weight: 700; color: #0D0D0D; line-height: 1.08; letter-spacing: -0.025em; max-width: 880px; margin-bottom: 0; }
-    .hook-rule { width: 72px; height: 3px; background: #00C8B4; margin: 20px 0 28px; }
-    .hook-sub { font-size: 24px; font-weight: 400; color: #6B6B6B; }
+    h1 { font-size: 86px; font-weight: 700; color: #0D0D0D; line-height: 1.06; letter-spacing: -0.025em; max-width: 920px; margin-bottom: 0; }
+    .hook-rule { width: 80px; height: 3px; background: #00C8B4; margin: 22px 0 32px; }
+    .hook-sub { font-size: 28px; font-weight: 400; color: #5C5C5C; line-height: 1.45; max-width: 880px; }
     .bottom-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: #00C8B4; }
 
     /* Content slides */
@@ -191,44 +201,44 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
       display: flex; align-items: center; justify-content: center; padding: 60px;
     }
     .card {
-      width: 920px;
+      width: 940px;
       background: #FFFFFF;
       border-left: 4px solid #00C8B4;
       box-shadow: 0 8px 48px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
       border-radius: 20px;
-      padding: 60px 68px;
+      padding: 64px 68px;
     }
-    .badge-row { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .badge-row { display: flex; align-items: center; gap: 18px; margin-bottom: 34px; }
     .badge-ring {
-      width: 66px; height: 66px; border-radius: 50%; flex-shrink: 0;
+      width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
       border: 2px solid rgba(0,200,180,0.25);
       display: flex; align-items: center; justify-content: center;
     }
     .badge {
-      width: 52px; height: 52px; border-radius: 50%; background: #00C8B4;
+      width: 56px; height: 56px; border-radius: 50%; background: #00C8B4;
       display: flex; align-items: center; justify-content: center;
-      font-size: 24px; font-weight: 700; color: #FFFFFF;
+      font-size: 28px; font-weight: 700; color: #FFFFFF;
     }
-    .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: #00C8B4; }
-    h2 { font-size: 44px; font-weight: 700; color: #0D0D0D; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 28px; }
-    .card-rule { height: 1px; background: #E8E8E8; margin-bottom: 28px; }
-    .body-text { font-size: 22px; font-weight: 400; color: #6B6B6B; line-height: 1.65; }
+    .card-label { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: #00C8B4; }
+    h2 { font-size: 56px; font-weight: 700; color: #0D0D0D; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 30px; }
+    .card-rule { height: 1px; background: #E8E8E8; margin-bottom: 30px; }
+    .body-text { font-size: 28px; font-weight: 400; color: #5C5C5C; line-height: 1.55; }
     .tag-chip {
       display: inline-block; background: #E6FAF8; color: #00C8B4;
-      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 5px 12px; border-radius: 4px; margin-top: 28px;
+      font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 6px 14px; border-radius: 4px; margin-top: 30px;
     }
 
     /* CTA */
     .slide-cta { background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px; }
-    .cta-arrow-wrap { width: 100px; height: 100px; background: #E6FAF8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 36px; }
-    .cta-arrow-icon { font-size: 44px; color: #00C8B4; line-height: 1; }
-    .cta-heading { font-size: 44px; font-weight: 700; color: #0D0D0D; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .cta-sub { font-size: 22px; color: #6B6B6B; margin-bottom: 40px; }
+    .cta-arrow-wrap { width: 110px; height: 110px; background: #E6FAF8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; }
+    .cta-arrow-icon { font-size: 50px; color: #00C8B4; line-height: 1; }
+    .cta-heading { font-size: 54px; font-weight: 700; color: #0D0D0D; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .cta-sub { font-size: 28px; color: #5C5C5C; margin-bottom: 44px; }
     .cta-btn {
       display: inline-block; border: 2px solid #00C8B4; color: #00C8B4;
-      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500;
-      padding: 14px 36px; border-radius: 8px; cursor: default;
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 500;
+      padding: 16px 40px; border-radius: 10px; cursor: default;
     }
   </style>
 </head>

@@ -5,6 +5,13 @@ Use for: step-by-step guides, tutorials, tool walkthroughs, process explainers, 
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (dark-cover, `.dk3 { background: #0E0E0E }`) **must be light**. Apply Rule U1 light-hook treatment: cream paper, dark serif/sans hero hed, accent on key phrase, decorative thin accent rule. Last slide (CTA) is already light — keep it.
+> - Rule U2: The `.dk3 #0E0E0E` flat fill (if used on any remaining middle dark slide) plus embedded terminal panels `#2D2D2D` / `#1C1C1C` must be wrapped in layered gradient + grain + accent glow. The terminal chrome may stay near-flat as it visually reads as a "chrome panel", not a slide background.
+> - Rule U3: Bump every sub-18px size below — step-text 16→18, metadata eyebrow 13→18, tag/tag-outline 14→18, terminal session label 13→18, terminal body 15→18, UI panel text 13–14→18, CTA "Follow for more" 13→18, CTA handle pill 14→20.
+
+---
+
 ## When to use
 
 | Use editorial-step | Use wolf-media-v1 or v2 |

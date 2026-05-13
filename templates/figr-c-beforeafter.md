@@ -5,6 +5,13 @@ Use for: shift-based frameworks, pattern corrections, "what changes when you do 
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (hook) and Slide 7 (CTA) **must be light** — both are described as `#0F172A` dark navy below; apply Rule U1 light-hook + light-CTA treatments instead.
+> - Rule U2: The `--dark: #0F172A` and `--panel-dark: #18181B` flat tokens must be replaced with layered gradients + grain + cyan accent glow on the middle dark zinc panels (slides 2–6 "before" zones).
+> - Rule U3: Bump every sub-18px size below — panel badge 14→18, slide-counter 16→18, brand handle 15→20, ba-label 14→18, chip 14→18.
+
+---
+
 ## When to use
 
 | Use figr-c-beforeafter | Use other figr templates |
@@ -33,13 +40,16 @@ Use for: shift-based frameworks, pattern corrections, "what changes when you do 
 ### Typography
 
 - **Font:** Inter (Google Fonts, weights 400/500/600/700)
-- **h1 (hook):** 82px, 700, line-height 1.06, letter-spacing −0.03em
-- **h2 (panel titles):** 40px, 700, line-height 1.15, letter-spacing −0.025em
-- **Panel mark (✗ / ✓):** 52px, 700, line-height 1, letter-spacing −0.02em
-- **Panel badge:** 11px, 700, uppercase, letter-spacing 0.12em
-- **Body:** 16px, 400, line-height 1.7
-- **BA label:** 11px, 600, uppercase, letter-spacing 0.15em, cyan
-- **Counter:** 13px, 500, letter-spacing 0.06em
+- **h1 (hook):** 92px, 700, line-height 1.04, letter-spacing −0.03em
+- **h2 (panel titles):** 50px, 700, line-height 1.14, letter-spacing −0.025em
+- **Panel mark (✗ / ✓):** 60px, 700, line-height 1, letter-spacing −0.02em
+- **Panel badge:** 14px, 700, uppercase, letter-spacing 0.12em
+- **Body:** 22px, 400, line-height 1.55
+- **BA label:** 14px, 600, uppercase, letter-spacing 0.15em, cyan
+- **Counter:** 16px, 500, letter-spacing 0.06em
+- **Hook sub:** 28px, 400 — **Chip:** 14px, 600
+- **CTA h2:** 64px, 700 — **CTA sub:** 26px, 400 — **CTA button:** 20px, 600 — **CTA marks:** 60px
+- **Brand name:** 22px, 700 — **Brand handle:** 15px, 500, cyan
 
 ### Brand block
 
@@ -168,13 +178,13 @@ Fixed-height stacked panels. No flex overflow. Total: `ba-header` + `panel-befor
       position: absolute; bottom: 30px; right: 44px;
       display: flex; flex-direction: column; align-items: flex-end; gap: 3px; z-index: 10;
     }
-    .brand-block .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
-    .brand-block .brand-handle { font-size: 13px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
+    .brand-block .brand-name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+    .brand-block .brand-handle { font-size: 15px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
 
     /* Counter */
     .slide-counter {
-      position: absolute; bottom: 34px; left: 44px;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.06em; z-index: 10;
+      position: absolute; bottom: 36px; left: 44px;
+      font-size: 16px; font-weight: 500; letter-spacing: 0.06em; z-index: 10;
     }
 
     /* Hook */
@@ -205,29 +215,29 @@ Fixed-height stacked panels. No flex overflow. Total: `ba-header` + `panel-befor
     .hook-content { position: relative; z-index: 1; }
     .chip {
       display: inline-block; background: #00C8B4; color: #ffffff;
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.12em; padding: 7px 16px; border-radius: 4px; margin-bottom: 36px;
+      font-size: 14px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.12em; padding: 8px 18px; border-radius: 4px; margin-bottom: 38px;
     }
-    h1 { font-size: 82px; font-weight: 700; color: #F1F5F9; line-height: 1.06; letter-spacing: -0.03em; max-width: 880px; margin-bottom: 28px; }
-    .hook-sub { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.5); }
-    .slide-hook .slide-counter { color: rgba(255,255,255,0.25); }
+    h1 { font-size: 92px; font-weight: 700; color: #F1F5F9; line-height: 1.04; letter-spacing: -0.03em; max-width: 920px; margin-bottom: 32px; }
+    .hook-sub { font-size: 28px; font-weight: 400; color: rgba(255,255,255,0.62); line-height: 1.4; }
+    .slide-hook .slide-counter { color: rgba(255,255,255,0.30); }
     .slide-hook .brand-block .brand-name { color: #F1F5F9; }
 
     /* BA slides */
     .slide-ba { display: flex; flex-direction: column; }
 
     .ba-header {
-      height: 64px; background: #18181B; flex-shrink: 0;
+      height: 68px; background: #18181B; flex-shrink: 0;
       display: flex; align-items: center; padding: 0 52px;
     }
-    .ba-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #00C8B4; }
+    .ba-label { font-size: 14px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #00C8B4; }
 
     .panel-before {
-      height: 450px; flex-shrink: 0;
+      height: 460px; flex-shrink: 0;
       background-color: #18181B;
       background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1.5px, transparent 1.5px);
       background-size: 24px 24px;
-      padding: 40px 52px;
+      padding: 38px 52px;
       display: flex; flex-direction: column; justify-content: center; gap: 14px;
     }
 
@@ -247,24 +257,24 @@ Fixed-height stacked panels. No flex overflow. Total: `ba-header` + `panel-befor
       background-color: #FFFFFF;
       background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1.5px, transparent 1.5px);
       background-size: 24px 24px;
-      padding: 40px 52px 90px;
+      padding: 38px 52px 100px;
       display: flex; flex-direction: column; justify-content: center; gap: 14px;
     }
 
-    .panel-mark { font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+    .panel-mark { font-size: 60px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
     .panel-before .panel-mark { color: #FF4D4D; }
     .panel-after  .panel-mark { color: #00C8B4; }
 
-    .panel-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-top: -6px; }
-    .panel-before .panel-badge { color: rgba(255,90,90,0.65); }
+    .panel-badge { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-top: -4px; }
+    .panel-before .panel-badge { color: rgba(255,90,90,0.72); }
     .panel-after  .panel-badge { color: #00C8B4; }
 
-    .panel-before h2 { font-size: 40px; font-weight: 700; color: #F1F5F9; line-height: 1.15; letter-spacing: -0.025em; }
-    .panel-after  h2 { font-size: 40px; font-weight: 700; color: #0D0D0D; line-height: 1.15; letter-spacing: -0.025em; }
-    .panel-before p { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.48); line-height: 1.7; max-width: 860px; }
-    .panel-after  p { font-size: 16px; font-weight: 400; color: #6B6B6B;                 line-height: 1.7; max-width: 860px; }
+    .panel-before h2 { font-size: 50px; font-weight: 700; color: #F1F5F9; line-height: 1.14; letter-spacing: -0.025em; }
+    .panel-after  h2 { font-size: 50px; font-weight: 700; color: #0D0D0D; line-height: 1.14; letter-spacing: -0.025em; }
+    .panel-before p { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.58); line-height: 1.55; max-width: 900px; }
+    .panel-after  p { font-size: 22px; font-weight: 400; color: #5C5C5C;                 line-height: 1.55; max-width: 900px; }
 
-    .slide-ba .slide-counter { color: #CCCCCC; }
+    .slide-ba .slide-counter { color: #BBBBBB; }
     .slide-ba .brand-block .brand-name { color: #0D0D0D; }
 
     /* CTA */
@@ -282,14 +292,14 @@ Fixed-height stacked panels. No flex overflow. Total: `ba-header` + `panel-befor
       z-index: 0; pointer-events: none;
     }
     .cta-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-    .cta-marks { display: flex; align-items: center; gap: 24px; margin-bottom: 40px; }
-    .cta-x     { font-size: 52px; font-weight: 700; color: #FF4D4D;              letter-spacing: -0.02em; line-height: 1; }
-    .cta-arrow { font-size: 28px; color: rgba(255,255,255,0.3); }
-    .cta-check { font-size: 52px; font-weight: 700; color: #00C8B4;              letter-spacing: -0.02em; line-height: 1; }
-    .slide-cta h2 { font-size: 54px; font-weight: 700; color: #F1F5F9; letter-spacing: -0.025em; margin-bottom: 20px; max-width: 760px; line-height: 1.1; }
-    .cta-sub { font-size: 21px; font-weight: 400; color: rgba(255,255,255,0.5); margin-bottom: 52px; max-width: 520px; line-height: 1.5; }
-    .cta-button { display: inline-block; background: #00C8B4; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; padding: 18px 48px; border-radius: 10px; cursor: default; }
-    .slide-cta .slide-counter { color: rgba(255,255,255,0.25); }
+    .cta-marks { display: flex; align-items: center; gap: 28px; margin-bottom: 44px; }
+    .cta-x     { font-size: 60px; font-weight: 700; color: #FF4D4D;              letter-spacing: -0.02em; line-height: 1; }
+    .cta-arrow { font-size: 32px; color: rgba(255,255,255,0.38); }
+    .cta-check { font-size: 60px; font-weight: 700; color: #00C8B4;              letter-spacing: -0.02em; line-height: 1; }
+    .slide-cta h2 { font-size: 64px; font-weight: 700; color: #F1F5F9; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 820px; line-height: 1.08; }
+    .cta-sub { font-size: 26px; font-weight: 400; color: rgba(255,255,255,0.6); margin-bottom: 56px; max-width: 620px; line-height: 1.5; }
+    .cta-button { display: inline-block; background: #00C8B4; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; padding: 20px 52px; border-radius: 10px; cursor: default; }
+    .slide-cta .slide-counter { color: rgba(255,255,255,0.30); }
     .slide-cta .brand-block .brand-name { color: #F1F5F9; }
   </style>
 </head>

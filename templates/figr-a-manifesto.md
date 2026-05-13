@@ -5,6 +5,13 @@ Use for: framework breakdowns, bold statements, design philosophy, "N signs/rule
 
 ---
 
+> **⚠️ Universal Rules override this spec.** See `SKILL.md` → "Universal Design Rules".
+> - Rule U1: Slide 1 (hook) and Slide 7 (CTA) **must be light** — both are described as dark below; apply the light-hook + light-CTA treatments from Rule U1 instead.
+> - Rule U2: The `--dark: #0F172A` flat fill below must be replaced with a layered gradient + grain + accent glow on any remaining middle dark slide.
+> - Rule U3: Bump every sub-18px size below to the minimums in Rule U3 (body ≥22px, label/eyebrow/counter/handle ≥18–20px).
+
+---
+
 ## When to use
 
 | Use figr-a-manifesto | Use other templates |
@@ -32,11 +39,14 @@ Use for: framework breakdowns, bold statements, design philosophy, "N signs/rule
 ### Typography
 
 - **Font:** Inter (Google Fonts, weights 400/500/600/700)
-- **h1 (hook):** 82px, 700, line-height 1.06, letter-spacing −0.03em
-- **h2 (tip titles):** 60px, 700, line-height 1.1, letter-spacing −0.03em
-- **Body:** 23px, 400, line-height 1.6
-- **Chip/label:** 12px, 600, uppercase, letter-spacing 0.12em
-- **Counter:** 13px, 500, letter-spacing 0.06em
+- **h1 (hook):** 92px, 700, line-height 1.04, letter-spacing −0.03em
+- **h2 (tip titles):** 68px, 700, line-height 1.08, letter-spacing −0.03em
+- **Body:** 28px, 400, line-height 1.55
+- **Chip:** 14px, 600, uppercase, letter-spacing 0.12em
+- **Slide label:** 14px, 600, uppercase, letter-spacing 0.14em
+- **Counter:** 16px, 500, letter-spacing 0.06em
+- **Brand name:** 22px, 700 — **Brand handle:** 15px, 500, cyan
+- **Hook sub:** 28px, 400
 
 ### Brand block
 
@@ -159,18 +169,18 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
       position: absolute; bottom: 30px; right: 44px;
       display: flex; flex-direction: column; align-items: flex-end; gap: 3px; z-index: 2;
     }
-    .brand-block .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
-    .brand-block .brand-handle { font-size: 13px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
+    .brand-block .brand-name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+    .brand-block .brand-handle { font-size: 15px; font-weight: 500; color: #00C8B4; letter-spacing: 0.02em; line-height: 1; }
     .slide-dark .brand-block .brand-name { color: #F1F5F9; }
     .slide-light .brand-block .brand-name { color: #0D0D0D; }
 
     /* Counter */
     .slide-counter {
-      position: absolute; bottom: 34px; left: 44px;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.06em; z-index: 2;
+      position: absolute; bottom: 36px; left: 44px;
+      font-size: 16px; font-weight: 500; letter-spacing: 0.06em; z-index: 2;
     }
-    .slide-dark .slide-counter { color: rgba(255,255,255,0.25); }
-    .slide-light .slide-counter { color: #CCCCCC; }
+    .slide-dark .slide-counter { color: rgba(255,255,255,0.30); }
+    .slide-light .slide-counter { color: #BBBBBB; }
 
     /* Ghost number */
     .ghost-num {
@@ -191,9 +201,9 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
     /* Chip */
     .chip {
       display: inline-block; background: #00C8B4; color: #ffffff;
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.12em; padding: 7px 16px; border-radius: 4px;
-      margin-bottom: 36px; align-self: flex-start;
+      font-size: 14px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.12em; padding: 8px 18px; border-radius: 4px;
+      margin-bottom: 38px; align-self: flex-start;
     }
 
     /* Hook */
@@ -203,26 +213,26 @@ Hook → Problem → Tip 01 → Tip 02 → Tip 03 → Tip 04 → CTA
       background: linear-gradient(180deg, transparent, #00C8B4 40%, #00C8B4 60%, transparent);
       border-radius: 0 3px 3px 0; z-index: 1;
     }
-    h1 { font-size: 82px; font-weight: 700; color: #F1F5F9; line-height: 1.06; letter-spacing: -0.03em; max-width: 880px; margin-bottom: 28px; }
-    .hook-sub { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.5); }
+    h1 { font-size: 92px; font-weight: 700; color: #F1F5F9; line-height: 1.04; letter-spacing: -0.03em; max-width: 880px; margin-bottom: 32px; }
+    .hook-sub { font-size: 28px; font-weight: 400; color: rgba(255,255,255,0.62); line-height: 1.4; }
 
     /* Content slides */
     .slide-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #00C8B4; margin-bottom: 20px;
+      font-size: 14px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #00C8B4; margin-bottom: 22px;
     }
-    h2 { font-size: 60px; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 0; }
+    h2 { font-size: 68px; font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 0; }
     .slide-dark h2 { color: #F1F5F9; }
     .slide-light h2 { color: #0D0D0D; }
-    .cyan-rule { width: 56px; height: 3px; background: #00C8B4; margin: 16px 0 28px; }
-    .body-text { font-size: 23px; font-weight: 400; line-height: 1.6; max-width: 800px; }
-    .slide-dark .body-text { color: rgba(255,255,255,0.55); }
-    .slide-light .body-text { color: #6B6B6B; }
+    .cyan-rule { width: 64px; height: 3px; background: #00C8B4; margin: 20px 0 32px; }
+    .body-text { font-size: 28px; font-weight: 400; line-height: 1.55; max-width: 860px; }
+    .slide-dark .body-text { color: rgba(255,255,255,0.62); }
+    .slide-light .body-text { color: #5C5C5C; }
 
     /* CTA */
-    .slide-cta-text { font-size: 60px; font-weight: 700; color: #F1F5F9; letter-spacing: -0.025em; margin-bottom: 20px; max-width: 760px; line-height: 1.1; text-align: center; }
-    .slide-cta-sub { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.5); margin-bottom: 40px; line-height: 1.5; text-align: center; }
-    .cta-handle { font-size: 22px; font-weight: 500; color: #00C8B4; text-align: center; }
+    .slide-cta-text { font-size: 68px; font-weight: 700; color: #F1F5F9; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 760px; line-height: 1.08; text-align: center; }
+    .slide-cta-sub { font-size: 28px; font-weight: 400; color: rgba(255,255,255,0.6); margin-bottom: 44px; line-height: 1.5; text-align: center; }
+    .cta-handle { font-size: 28px; font-weight: 500; color: #00C8B4; text-align: center; }
     .slide-7-cta .slide-inner { align-items: center; text-align: center; }
   </style>
 </head>
