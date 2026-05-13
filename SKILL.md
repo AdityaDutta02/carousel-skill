@@ -69,6 +69,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 | **figr-a-manifesto** | Bold frameworks, principle lists, editorial statements ("N signs/rules/things"). Alternating dark/light typographic rhythm. |
 | **figr-b-toolkit** | Practical how-tos, process frameworks, actionable methods. Structured card layout, all light slides. |
 | **figr-c-beforeafter** | Shift-based contrasts, pattern corrections, "before you do X / after you do X". Signals: "shifts", "before/after", "wrong vs right", "stop/start", binary state pairs. |
+| **figr-g-spacing** | Long-form "N rules / N principles / N habits" lists with sketched diagrams + handwritten coral "Note:" annotations. Notebook/working-file aesthetic (paper grain, corner crosshairs, ruler arc). 12-slide cover→myth→rules→takeaway→resources→CTA structure. Signals: "N rules", "N principles", "save this list", "things designers ignore", topic needs per-point illustrations. |
 
 #### Step 3 — Present the choice
 
@@ -122,6 +123,7 @@ Once the user confirms a template:
 - **figr-a-manifesto**: Read `templates/figr-a-manifesto.md` fully, then follow Section 0a
 - **figr-b-toolkit**: Read `templates/figr-b-toolkit.md` fully, then follow Section 0a
 - **figr-c-beforeafter**: Read `templates/figr-c-beforeafter.md` fully, then follow Section 0a
+- **figr-g-spacing**: Read `templates/figr-g-spacing.md` fully, then follow Section 0a (12-slide variant — expand the rules section between Myth and Takeaway)
 
 For Wolf Media and Editorial templates, all other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
 
@@ -138,7 +140,7 @@ Before writing any content, check for `.agents/social-media-context-sms.md` in t
 
 ## 0a. FIGR TEMPLATES — Design Pipeline
 
-**Use this section only when the user has selected figr-a-manifesto or figr-b-toolkit.**
+**Use this section only when the user has selected figr-a-manifesto, figr-b-toolkit, figr-c-beforeafter, or figr-g-spacing.**
 
 These templates target figr.design's UI/UX channel, audience: design leads and managers. They have their own design system (Inter font, cyan `#00C8B4`, deep navy `#0F172A`), brand voice (editorial, confident, direct), and 7-slide narrative structure.
 
