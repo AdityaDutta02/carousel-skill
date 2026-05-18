@@ -157,7 +157,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 
 | Template | Recommend when |
 |---|---|
-| **figr-e-system** | Data-driven research breakdowns, scanning/reading behavior, systematic design rules backed by stats and eye-tracking data. Dark-technical JetBrains Mono feel with cyan stat numbers as the visual hero. Signals: "research shows", "eye-tracking", "data reveals", real numbers + named sources. |
+| **figr-e-system** | Data-driven research breakdowns, scanning/reading behavior, systematic design rules backed by stats and eye-tracking data. Warm-editorial JetBrains Mono feel with burnt-sienna stat numbers as the visual hero. Signals: "research shows", "eye-tracking", "data reveals", real numbers + named sources. |
 | **figr-g-spacing** | Long-form "N rules / N principles / N habits" lists with sketched diagrams + handwritten coral "Note:" annotations. Notebook/working-file aesthetic (paper grain, corner crosshairs, ruler arc). 12-slide cover→myth→rules→takeaway→resources→CTA structure. Signals: "N rules", "N principles", "save this list", "things designers ignore", topic needs per-point illustrations. |
 
 #### Step 3 — Present the choice
@@ -195,7 +195,7 @@ Quick visual scan — each preview shows the cover + 3 representative slides. Fo
 
 | # | Template | Preview | Aesthetic | Best for |
 |---|---|---|---|---|
-| 1 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, dark navy left / cream right split, cyan stat numbers bleed across panels | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
+| 1 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, warm off-black / warm cream split, burnt-sienna stat numbers bleed across panels (single-accent warm palette) | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
 | 2 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
 
 → I recommend **[Template Name]** for this topic. Reply with a number (1–2) or just say "go ahead" to use the recommendation.
@@ -232,14 +232,14 @@ Before writing any content, check for `.agents/social-media-context-sms.md` in t
 
 **Use this section only when the user has selected figr-e-system or figr-g-spacing.**
 
-These templates target figr.design's UI/UX channel, audience: design leads and managers. They have their own design system (Inter font, cyan `#00C8B4`, deep navy `#0F172A`), brand voice (editorial, confident, direct), and 7-slide narrative structure.
+These templates target figr.design's UI/UX channel, audience: design leads and managers. They have their own design system (Inter font, burnt sienna `#C24D1E`, warm off-black `#1C1714`, warm cream `#EDE5D4` — single-accent, temperature-locked warm), brand voice (editorial, confident, direct), and 7-slide narrative structure.
 
 Skip Sections 1–3. Follow this pipeline instead.
 
 ### Content structure (all figr templates)
 
 ```
-Slide 1: Hook        — per template spec (figr-e: dark navy/cream split; figr-g: paper notebook cover)
+Slide 1: Hook        — per template spec (figr-e: warm off-black/warm cream split; figr-g: paper notebook cover)
 Slide 2: The Problem — frame the core failure/challenge
 Slide 3: Tip / Shift 01
 Slide 4: Tip / Shift 02
