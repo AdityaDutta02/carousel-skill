@@ -125,13 +125,13 @@ user explicitly wants "ASCII", "pixel art", "terminal aesthetic", "code style", 
 
     .sub4 {
       font-family: 'Outfit', sans-serif; font-weight: 500;
-      font-size: 22px; line-height: 1.5; color: #5A4E3C; margin-top: 24px;
+      font-size: 26px; line-height: 1.5; color: #5A4E3C; margin-top: 24px;
     }
     .dk4 .sub4 { color: rgba(240,235,224,0.65); }
 
     .body4 {
       font-family: 'Outfit', sans-serif; font-weight: 400;
-      font-size: 24px; line-height: 1.6; color: #3D3020;
+      font-size: 30px; line-height: 1.6; color: #3D3020;
     }
     .dk4 .body4 { color: rgba(240,235,224,0.80); }
 

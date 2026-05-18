@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; font-family: 'Outfit', -apple-system, 'Helvetica Neue', sans-serif; }
+
+    .slide { width: 1080px; height: 1350px; display: none; position: relative; overflow: hidden; }
+    .slide.active { display: block; }
+
+    .dk2 {
+      background: radial-gradient(ellipse at 50% 30%, #1A1010 0%, #0D0808 55%, #060404 100%);
+      position: relative;
+    }
+    .dk2::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.90  0 0 0 0 0.90  0 0 0 0.25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      mix-blend-mode: overlay; opacity: 0.28; z-index: 2;
+    }
+    .dk2::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 45% at 78% 18%, rgba(224,32,32,0.07), transparent 68%);
+      z-index: 2;
+    }
+
+    .wt2 { background: #FFFFFF; }
+
+    .map-bg {
+      position: absolute; inset: 0;
+      width: 1080px; height: 1350px;
+      opacity: 0.045; pointer-events: none; z-index: 1;
+    }
+
+    .handle2 {
+      position: absolute; top: 55px; right: 90px;
+      display: inline-flex; align-items: center;
+      border: 1px solid rgba(255,255,255,0.26);
+      border-radius: 100px; padding: 10px 20px;
+      font-size: 20px; font-weight: 500;
+      color: rgba(255,255,255,0.65); letter-spacing: 0.01em; z-index: 10;
+    }
+    .handle2-wt { border-color: rgba(0,0,0,0.18); color: rgba(0,0,0,0.55); }
+
+    .lbl2 {
+      display: block; font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; color: rgba(255,255,255,0.32);
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .lbl2-wt {
+      display: block; font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; color: rgba(0,0,0,0.38);
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+
+    .h1-t2    { font-weight: 900; font-size: 92px;  line-height: 0.92; letter-spacing: -0.03em; color: #FFFFFF; text-transform: uppercase; }
+    .h1-sm-t2 { font-weight: 900; font-size: 72px;  line-height: 0.94; letter-spacing: -0.02em; color: #FFFFFF; text-transform: uppercase; }
+    .h1-wt-t2 { font-weight: 900; font-size: 72px;  line-height: 0.94; letter-spacing: -0.02em; color: #111111; text-transform: uppercase; }
+    .hero-num  { font-weight: 900; font-size: 108px; line-height: 0.88; letter-spacing: -0.04em; color: #111111; text-transform: uppercase; }
+
+    .bb2  { font-size: 31px; font-weight: 700; line-height: 1.50; color: rgba(255,255,255,0.92); text-transform: uppercase; }
+    .br2  { font-size: 29px; font-weight: 400; line-height: 1.65; color: rgba(255,255,255,0.50); text-transform: uppercase; }
+    .wbb2 { font-size: 31px; font-weight: 700; line-height: 1.50; color: #111111; text-transform: uppercase; }
+    .wbr2 { font-size: 29px; font-weight: 400; line-height: 1.65; color: #888888; text-transform: uppercase; }
+
+    .red { color: #E02020; }
+    .red-box {
+      display: inline-flex; align-items: center;
+      background: #E02020; color: #FFFFFF;
+      padding: 5px 20px; font-weight: 900; font-size: inherit;
+      text-transform: uppercase;
+    }
+
+    .pad2    { position: absolute; inset: 0; padding: 90px; padding-top: 350px; z-index: 10; }
+    .pad2-hi { position: absolute; inset: 0; padding: 90px; padding-top: 200px; z-index: 10; }
+
+    .stat2-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 36px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat2-row:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .stat2-label { font-size: 18px; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); text-transform: uppercase; }
+    .stat2-value { font-size: 60px; font-weight: 900; letter-spacing: -0.03em; color: #FFFFFF; line-height: 1; text-transform: uppercase; }
+    .stat2-value .red { color: #E02020; }
+
+    .t2-table { width: 100%; border-collapse: collapse; margin-top: 36px; }
+    .t2-table th {
+      font-size: 20px; font-weight: 700; letter-spacing: 0.10em;
+      color: #AAAAAA; text-transform: uppercase;
+      padding: 14px 0; border-bottom: 2px solid rgba(255,255,255,0.15); text-align: left;
+    }
+    .t2-table th:last-child { text-align: right; }
+    .t2-table td {
+      font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.82);
+      text-transform: uppercase; padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .t2-table td:last-child { text-align: right; font-weight: 700; color: #E02020; }
+    .t2-table tr:last-child td { border-bottom: none; }
+
+    .wt2 .t2-table th {
+      color: #AAAAAA; border-bottom: 2px solid #DCDCDC;
+    }
+    .wt2 .t2-table td {
+      color: #111111; border-bottom: 1px solid #EBEBEB;
+    }
+    .wt2 .t2-table td:last-child { color: #E02020; }
+
+    .step2-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .step2-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .step2-num {
+      font-size: 20px; font-weight: 900; color: rgba(255,255,255,0.25);
+      letter-spacing: 0.04em; min-width: 54px; text-transform: uppercase; padding-top: 4px;
+    }
+    .step2-body { flex: 1; }
+    .step2-title { font-size: 31px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.2; }
+    .step2-desc  { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.48); text-transform: uppercase; line-height: 1.55; margin-top: 6px; }
+
+    .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 40px; }
+    .finding-cell {
+      padding: 36px 32px; border: 1px solid rgba(0,0,0,0.08);
+      min-height: 280px; display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .finding-num  { font-size: 80px; font-weight: 900; color: #E02020; letter-spacing: -0.04em; line-height: 0.9; margin-bottom: 14px; }
+    .finding-title { font-size: 28px; font-weight: 900; color: #111111; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.2; }
+    .finding-desc  { font-size: 22px; font-weight: 400; color: #888888; text-transform: uppercase; line-height: 1.55; margin-top: 8px; }
+
+    .prog-track2 { position: absolute; bottom: 60px; left: 90px; right: 90px; height: 2px; z-index: 20; }
+    .dk2 .prog-track2 { background: rgba(255,255,255,0.10); }
+    .wt2 .prog-track2 { background: rgba(0,0,0,0.08); }
+    .prog-fill2 { height: 100%; }
+    .dk2 .prog-fill2 { background: rgba(255,255,255,0.55); }
+    .wt2 .prog-fill2 { background: rgba(0,0,0,0.42); }
+  </style>
+</head>
+<body>
+
+  <section class="slide wt2 active" id="slide-1">
+    <div style="position:absolute; top:0; left:0; right:0; height:6px; background:#E02020; z-index:10;"></div>
+    <div class="handle2 handle2-wt" style="font-size:20px;">@growthstacked</div>
+
+    <div style="position:absolute; top:90px; left:90px; right:90px; z-index:3;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+        <span style="font-size:20px; font-weight:700; color:#111111; text-transform:uppercase; letter-spacing:0.10em;">WE</span>
+        <span style="font-size:20px; font-weight:700; color:#111111; text-transform:uppercase; letter-spacing:0.10em;">GENERATED</span>
+      </div>
+      <div class="hero-num">₹12,05,00,000</div>
+      <div style="display:flex; align-items:center; gap:14px; margin-top:14px; flex-wrap:wrap;">
+        <span style="font-size:32px; font-weight:900; color:#111111; text-transform:uppercase; letter-spacing:-0.01em;">CLOSED IN</span>
+        <span class="red-box" style="font-size:32px;">6 MONTHS ›</span>
+      </div>
+      <div style="margin-top:16px; font-size:18px; font-weight:700; color:#555555; text-transform:uppercase; letter-spacing:0.14em;">MARCH 2026 RECAP — HERE'S THE PLAYBOOK -></div>
+    </div>
+
+    <div style="position:absolute; bottom:0; left:0; right:0; height:750px; z-index:1; overflow:hidden;">
+      <div style="width:100%; height:100%; background:linear-gradient(180deg, #1c1c1c 0%, #343434 60%, #1c1c1c 100%);"></div>
+      <div style="position:absolute; bottom:80px; left:90px; right:90px; z-index:2; display:flex; align-items:center; gap:36px;">
+        <span style="font-size:20px; font-weight:700; color:rgba(255,255,255,0.88); text-transform:uppercase; letter-spacing:0.08em;">₹47.2 CR <span style="color:rgba(255,255,255,0.46); font-weight:400;">PIPELINE</span></span>
+        <span style="color:rgba(255,255,255,0.25);">|</span>
+        <span style="font-size:20px; font-weight:700; color:rgba(255,255,255,0.88); text-transform:uppercase; letter-spacing:0.08em;">25.4% <span style="color:rgba(255,255,255,0.46); font-weight:400;">WIN RATE</span></span>
+        <span style="color:rgba(255,255,255,0.25);">|</span>
+        <span style="font-size:20px; font-weight:700; color:rgba(255,255,255,0.88); text-transform:uppercase; letter-spacing:0.08em;">₹2.4 CR <span style="color:rgba(255,255,255,0.46); font-weight:400;">AVG DEAL</span></span>
+      </div>
+    </div>
+
+    <div class="prog-track2"><div class="prog-fill2" style="width:14.3%;"></div></div>
+  </section>
+
+  <section class="slide dk2" id="slide-2">
+    <svg class="map-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+      <g stroke="white" fill="none" stroke-width="1">
+        <polyline points="0,174 158,166 338,179 516,164 698,176 878,163 1080,171"/>
+        <polyline points="0,416 198,406 378,420 558,405 718,418 898,404 1080,413"/>
+        <polyline points="0,668 168,658 348,671 528,656 708,669 888,654 1080,663"/>
+        <polyline points="0,930 188,920 368,933 548,918 728,931 908,916 1080,925"/>
+        <polyline points="0,1176 178,1166 358,1179 538,1164 718,1177 898,1162 1080,1171"/>
+        <polyline points="202,0 194,186 204,372 194,558 204,744 194,930 204,1116 202,1350"/>
+        <polyline points="446,0 438,202 448,404 438,606 448,808 438,1010 448,1212 446,1350"/>
+        <polyline points="686,0 678,182 688,364 678,546 688,728 678,910 688,1092 686,1350"/>
+        <polyline points="900,0 892,162 902,324 892,486 902,648 892,810 902,972 900,1350"/>
+        <line x1="0"    y1="294"  x2="202" y2="174"/>
+        <line x1="202"  y1="174"  x2="446" y2="416"/>
+        <line x1="446"  y1="416"  x2="686" y2="174"/>
+        <line x1="686"  y1="174"  x2="900" y2="416"/>
+        <line x1="900"  y1="416"  x2="1080" y2="295"/>
+        <line x1="0"    y1="542"  x2="202" y2="416"/>
+        <line x1="202"  y1="416"  x2="446" y2="668"/>
+        <line x1="446"  y1="668"  x2="686" y2="416"/>
+        <line x1="686"  y1="416"  x2="900" y2="668"/>
+        <line x1="900"  y1="668"  x2="1080" y2="542"/>
+        <line x1="0"    y1="800"  x2="202" y2="668"/>
+        <line x1="202"  y1="668"  x2="446" y2="930"/>
+        <line x1="446"  y1="930"  x2="686" y2="668"/>
+        <line x1="686"  y1="668"  x2="900" y2="930"/>
+        <line x1="900"  y1="930"  x2="1080" y2="800"/>
+        <line x1="0"    y1="1054" x2="202" y2="930"/>
+        <line x1="202"  y1="930"  x2="446" y2="1176"/>
+        <line x1="446"  y1="1176" x2="686" y2="930"/>
+        <line x1="686"  y1="930"  x2="900" y2="1176"/>
+        <line x1="900"  y1="1176" x2="1080" y2="1054"/>
+        <line x1="102"  y1="0"    x2="202" y2="174"/>
+        <line x1="324"  y1="0"    x2="202" y2="174"/>
+        <line x1="562"  y1="0"    x2="446" y2="174"/>
+        <line x1="800"  y1="0"    x2="686" y2="174"/>
+        <line x1="980"  y1="0"    x2="900" y2="174"/>
+        <line x1="102"  y1="1350" x2="202" y2="1176"/>
+        <line x1="324"  y1="1350" x2="446" y2="1176"/>
+        <line x1="562"  y1="1350" x2="446" y2="1176"/>
+        <line x1="800"  y1="1350" x2="686" y2="1176"/>
+        <line x1="980"  y1="1350" x2="900" y2="1176"/>
+      </g>
+    </svg>
+    <div class="handle2">@growthstacked</div>
+    <div class="pad2">
+      <span class="lbl2">MARCH 2026 — NUMBERS</span>
+      <div class="h1-sm-t2">THE <span class="red">REAL</span><br>NUMBERS</div>
+      <div style="margin-top:54px; display:flex; flex-direction:column;">
+        <div class="stat2-row">
+          <span class="stat2-label">PIPELINE GENERATED</span>
+          <span class="stat2-value"><span class="red">₹47.2</span> CR</span>
+        </div>
+        <div class="stat2-row">
+          <span class="stat2-label">WIN RATE</span>
+          <span class="stat2-value">25.4%</span>
+        </div>
+        <div class="stat2-row">
+          <span class="stat2-label">AVG DEAL SIZE</span>
+          <span class="stat2-value">₹2.4 CR</span>
+        </div>
+      </div>
+    </div>
+    <div class="prog-track2"><div class="prog-fill2" style="width:28.6%;"></div></div>
+  </section>
+
+  <section class="slide dk2" id="slide-3">
+    <svg class="map-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+      <g stroke="white" fill="none" stroke-width="1">
+        <polyline points="0,174 158,166 338,179 516,164 698,176 878,163 1080,171"/>
+        <polyline points="0,416 198,406 378,420 558,405 718,418 898,404 1080,413"/>
+        <polyline points="0,668 168,658 348,671 528,656 708,669 888,654 1080,663"/>
+        <polyline points="0,930 188,920 368,933 548,918 728,931 908,916 1080,925"/>
+        <polyline points="0,1176 178,1166 358,1179 538,1164 718,1177 898,1162 1080,1171"/>
+        <polyline points="202,0 194,186 204,372 194,558 204,744 194,930 204,1116 202,1350"/>
+        <polyline points="446,0 438,202 448,404 438,606 448,808 438,1010 448,1212 446,1350"/>
+        <polyline points="686,0 678,182 688,364 678,546 688,728 678,910 688,1092 686,1350"/>
+        <polyline points="900,0 892,162 902,324 892,486 902,648 892,810 902,972 900,1350"/>
+        <line x1="0"    y1="294"  x2="202" y2="174"/>
+        <line x1="202"  y1="174"  x2="446" y2="416"/>
+        <line x1="446"  y1="416"  x2="686" y2="174"/>
+        <line x1="686"  y1="174"  x2="900" y2="416"/>
+        <line x1="900"  y1="416"  x2="1080" y2="295"/>
+        <line x1="0"    y1="542"  x2="202" y2="416"/>
+        <line x1="202"  y1="416"  x2="446" y2="668"/>
+        <line x1="446"  y1="668"  x2="686" y2="416"/>
+        <line x1="686"  y1="416"  x2="900" y2="668"/>
+        <line x1="900"  y1="668"  x2="1080" y2="542"/>
+        <line x1="0"    y1="800"  x2="202" y2="668"/>
+        <line x1="202"  y1="668"  x2="446" y2="930"/>
+        <line x1="446"  y1="930"  x2="686" y2="668"/>
+        <line x1="686"  y1="668"  x2="900" y2="930"/>
+        <line x1="900"  y1="930"  x2="1080" y2="800"/>
+        <line x1="0"    y1="1054" x2="202" y2="930"/>
+        <line x1="202"  y1="930"  x2="446" y2="1176"/>
+        <line x1="446"  y1="1176" x2="686" y2="930"/>
+        <line x1="686"  y1="930"  x2="900" y2="1176"/>
+        <line x1="900"  y1="1176" x2="1080" y2="1054"/>
+        <line x1="102"  y1="0"    x2="202" y2="174"/>
+        <line x1="324"  y1="0"    x2="202" y2="174"/>
+        <line x1="562"  y1="0"    x2="446" y2="174"/>
+        <line x1="800"  y1="0"    x2="686" y2="174"/>
+        <line x1="980"  y1="0"    x2="900" y2="174"/>
+        <line x1="102"  y1="1350" x2="202" y2="1176"/>
+        <line x1="324"  y1="1350" x2="446" y2="1176"/>
+        <line x1="562"  y1="1350" x2="446" y2="1176"/>
+        <line x1="800"  y1="1350" x2="686" y2="1176"/>
+        <line x1="980"  y1="1350" x2="900" y2="1176"/>
+      </g>
+    </svg>
+    <div class="handle2">@growthstacked</div>
+    <div class="pad2-hi">
+      <span class="lbl2">THE INSIGHT</span>
+      <div class="h1-t2">ONE PLAYBOOK.<br>FIVE<br>INDUSTRIES.</div>
+      <div style="margin-top:44px; display:flex; flex-direction:column; gap:22px;">
+        <div>
+          <div class="bb2">WE RAN THE SAME 7-TOUCH SEQUENCE ACROSS SAAS, FINTECH, HEALTHTECH, EDTECH, AND MANUFACTURING.</div>
+        </div>
+        <div>
+          <div class="br2">EVERY VERTICAL HIT ABOVE 20% REPLY RATE BY WEEK 3.</div>
+        </div>
+      </div>
+    </div>
+    <div class="prog-track2"><div class="prog-fill2" style="width:42.9%;"></div></div>
+  </section>
+
+  <section class="slide dk2" id="slide-4">
+    <svg class="map-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+      <g stroke="white" fill="none" stroke-width="1">
+        <polyline points="0,174 158,166 338,179 516,164 698,176 878,163 1080,171"/>
+        <polyline points="0,416 198,406 378,420 558,405 718,418 898,404 1080,413"/>
+        <polyline points="0,668 168,658 348,671 528,656 708,669 888,654 1080,663"/>
+        <polyline points="0,930 188,920 368,933 548,918 728,931 908,916 1080,925"/>
+        <polyline points="0,1176 178,1166 358,1179 538,1164 718,1177 898,1162 1080,1171"/>
+        <polyline points="202,0 194,186 204,372 194,558 204,744 194,930 204,1116 202,1350"/>
+        <polyline points="446,0 438,202 448,404 438,606 448,808 438,1010 448,1212 446,1350"/>
+        <polyline points="686,0 678,182 688,364 678,546 688,728 678,910 688,1092 686,1350"/>
+        <polyline points="900,0 892,162 902,324 892,486 902,648 892,810 902,972 900,1350"/>
+        <line x1="0"    y1="294"  x2="202" y2="174"/>
+        <line x1="202"  y1="174"  x2="446" y2="416"/>
+        <line x1="446"  y1="416"  x2="686" y2="174"/>
+        <line x1="686"  y1="174"  x2="900" y2="416"/>
+        <line x1="900"  y1="416"  x2="1080" y2="295"/>
+        <line x1="0"    y1="542"  x2="202" y2="416"/>
+        <line x1="202"  y1="416"  x2="446" y2="668"/>
+        <line x1="446"  y1="668"  x2="686" y2="416"/>
+        <line x1="686"  y1="416"  x2="900" y2="668"/>
+        <line x1="900"  y1="668"  x2="1080" y2="542"/>
+        <line x1="0"    y1="800"  x2="202" y2="668"/>
+        <line x1="202"  y1="668"  x2="446" y2="930"/>
+        <line x1="446"  y1="930"  x2="686" y2="668"/>
+        <line x1="686"  y1="668"  x2="900" y2="930"/>
+        <line x1="900"  y1="930"  x2="1080" y2="800"/>
+        <line x1="0"    y1="1054" x2="202" y2="930"/>
+        <line x1="202"  y1="930"  x2="446" y2="1176"/>
+        <line x1="446"  y1="1176" x2="686" y2="930"/>
+        <line x1="686"  y1="930"  x2="900" y2="1176"/>
+        <line x1="900"  y1="1176" x2="1080" y2="1054"/>
+        <line x1="102"  y1="0"    x2="202" y2="174"/>
+        <line x1="324"  y1="0"    x2="202" y2="174"/>
+        <line x1="562"  y1="0"    x2="446" y2="174"/>
+        <line x1="800"  y1="0"    x2="686" y2="174"/>
+        <line x1="980"  y1="0"    x2="900" y2="174"/>
+        <line x1="102"  y1="1350" x2="202" y2="1176"/>
+        <line x1="324"  y1="1350" x2="446" y2="1176"/>
+        <line x1="562"  y1="1350" x2="446" y2="1176"/>
+        <line x1="800"  y1="1350" x2="686" y2="1176"/>
+        <line x1="980"  y1="1350" x2="900" y2="1176"/>
+      </g>
+    </svg>
+    <div class="handle2">@growthstacked</div>
+    <div class="pad2-hi">
+      <span class="lbl2">VERTICAL BREAKDOWN</span>
+      <div class="h1-sm-t2">RESULTS BY<br>INDUSTRY</div>
+      <table class="t2-table">
+        <thead>
+          <tr>
+            <th>VERTICAL</th>
+            <th>REPLY %</th>
+            <th>DEALS</th>
+            <th style="text-align:right;">CLOSED VALUE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SAAS</td>
+            <td>28%</td>
+            <td>14</td>
+            <td>₹4.2 CR</td>
+          </tr>
+          <tr>
+            <td>FINTECH</td>
+            <td>24%</td>
+            <td>9</td>
+            <td>₹3.1 CR</td>
+          </tr>
+          <tr>
+            <td>HEALTHTECH</td>
+            <td>22%</td>
+            <td>6</td>
+            <td>₹2.4 CR</td>
+          </tr>
+          <tr>
+            <td>EDTECH</td>
+            <td>26%</td>
+            <td>8</td>
+            <td>₹1.5 CR</td>
+          </tr>
+          <tr>
+            <td>MFG</td>
+            <td>21%</td>
+            <td>4</td>
+            <td>₹0.7 CR</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prog-track2"><div class="prog-fill2" style="width:57.1%;"></div></div>
+  </section>
+
+  <section class="slide dk2" id="slide-5">
+    <svg class="map-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+      <g stroke="white" fill="none" stroke-width="1">
+        <polyline points="0,174 158,166 338,179 516,164 698,176 878,163 1080,171"/>
+        <polyline points="0,416 198,406 378,420 558,405 718,418 898,404 1080,413"/>
+        <polyline points="0,668 168,658 348,671 528,656 708,669 888,654 1080,663"/>
+        <polyline points="0,930 188,920 368,933 548,918 728,931 908,916 1080,925"/>
+        <polyline points="0,1176 178,1166 358,1179 538,1164 718,1177 898,1162 1080,1171"/>
+        <polyline points="202,0 194,186 204,372 194,558 204,744 194,930 204,1116 202,1350"/>
+        <polyline points="446,0 438,202 448,404 438,606 448,808 438,1010 448,1212 446,1350"/>
+        <polyline points="686,0 678,182 688,364 678,546 688,728 678,910 688,1092 686,1350"/>
+        <polyline points="900,0 892,162 902,324 892,486 902,648 892,810 902,972 900,1350"/>
+        <line x1="0"    y1="294"  x2="202" y2="174"/>
+        <line x1="202"  y1="174"  x2="446" y2="416"/>
+        <line x1="446"  y1="416"  x2="686" y2="174"/>
+        <line x1="686"  y1="174"  x2="900" y2="416"/>
+        <line x1="900"  y1="416"  x2="1080" y2="295"/>
+        <line x1="0"    y1="542"  x2="202" y2="416"/>
+        <line x1="202"  y1="416"  x2="446" y2="668"/>
+        <line x1="446"  y1="668"  x2="686" y2="416"/>
+        <line x1="686"  y1="416"  x2="900" y2="668"/>
+        <line x1="900"  y1="668"  x2="1080" y2="542"/>
+        <line x1="0"    y1="800"  x2="202" y2="668"/>
+        <line x1="202"  y1="668"  x2="446" y2="930"/>
+        <line x1="446"  y1="930"  x2="686" y2="668"/>
+        <line x1="686"  y1="668"  x2="900" y2="930"/>
+        <line x1="900"  y1="930"  x2="1080" y2="800"/>
+        <line x1="0"    y1="1054" x2="202" y2="930"/>
+        <line x1="202"  y1="930"  x2="446" y2="1176"/>
+        <line x1="446"  y1="1176" x2="686" y2="930"/>
+        <line x1="686"  y1="930"  x2="900" y2="1176"/>
+        <line x1="900"  y1="1176" x2="1080" y2="1054"/>
+        <line x1="102"  y1="0"    x2="202" y2="174"/>
+        <line x1="324"  y1="0"    x2="202" y2="174"/>
+        <line x1="562"  y1="0"    x2="446" y2="174"/>
+        <line x1="800"  y1="0"    x2="686" y2="174"/>
+        <line x1="980"  y1="0"    x2="900" y2="174"/>
+        <line x1="102"  y1="1350" x2="202" y2="1176"/>
+        <line x1="324"  y1="1350" x2="446" y2="1176"/>
+        <line x1="562"  y1="1350" x2="446" y2="1176"/>
+        <line x1="800"  y1="1350" x2="686" y2="1176"/>
+        <line x1="980"  y1="1350" x2="900" y2="1176"/>
+      </g>
+    </svg>
+    <div class="handle2">@growthstacked</div>
+    <div class="pad2-hi">
+      <span class="lbl2">THE SEQUENCE</span>
+      <div class="h1-t2">OUR<br>4-STEP<br>SEQUENCE</div>
+      <div style="margin-top:44px; display:flex; flex-direction:column;">
+        <div class="step2-item">
+          <span class="step2-num">01</span>
+          <div class="step2-body">
+            <div class="step2-title">ICP LOCK</div>
+            <div class="step2-desc">ONE VERTICAL. ONE TITLE. ONE PAIN.</div>
+          </div>
+        </div>
+        <div class="step2-item">
+          <span class="step2-num">02</span>
+          <div class="step2-body">
+            <div class="step2-title">HOOK DROP</div>
+            <div class="step2-desc">A SPECIFIC NUMBER IN THE FIRST LINE.</div>
+          </div>
+        </div>
+        <div class="step2-item">
+          <span class="step2-num">03</span>
+          <div class="step2-body">
+            <div class="step2-title">PROOF SLICE</div>
+            <div class="step2-desc">ONE CLIENT NAME FROM THEIR INDUSTRY.</div>
+          </div>
+        </div>
+        <div class="step2-item">
+          <span class="step2-num">04</span>
+          <div class="step2-body">
+            <div class="step2-title">NO-ASK CTA</div>
+            <div class="step2-desc">REPLY WITH A WORD OR EMOJI.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prog-track2"><div class="prog-fill2" style="width:71.4%;"></div></div>
+  </section>
+
+  <section class="slide wt2" id="slide-6">
+    <div style="position:absolute; top:0; left:0; right:0; height:6px; background:#E02020; z-index:10;"></div>
+    <div class="handle2 handle2-wt" style="font-size:20px;">@growthstacked</div>
+    <div class="pad2-hi">
+      <span class="lbl2-wt">FOUR LESSONS WE'D BET ON AGAIN</span>
+      <div class="h1-wt-t2">WHAT WE<br>LEARNED</div>
+      <div class="findings-grid">
+        <div class="finding-cell" style="border-right: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div class="finding-num">01</div>
+          <div class="finding-title">VOLUME DOESN'T SCALE</div>
+          <div class="finding-desc">60 BESPOKE EMAILS A DAY BEAT 600 GENERIC ONES</div>
+        </div>
+        <div class="finding-cell" style="border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div class="finding-num">02</div>
+          <div class="finding-title">REPLY > OPEN</div>
+          <div class="finding-desc">STOP TRACKING OPEN RATES, TRACK SOMETHING SOMEONE SAID</div>
+        </div>
+        <div class="finding-cell" style="border-right: 1px solid rgba(0,0,0,0.08);">
+          <div class="finding-num">03</div>
+          <div class="finding-title">BOOK MEETINGS, NOT DEMOS</div>
+          <div class="finding-desc">DEMOS BURN BANDWIDTH ON UNQUALIFIED PIPE</div>
+        </div>
+        <div class="finding-cell">
+          <div class="finding-num">04</div>
+          <div class="finding-title">OWN THE FOLLOWUP</div>
+          <div class="finding-desc">80% OF REPLIES CAME ON TOUCH 4-7</div>
+        </div>
+      </div>
+    </div>
+    <div class="prog-track2"><div class="prog-fill2" style="width:85.7%;"></div></div>
+  </section>
+
+  <section class="slide wt2" id="slide-7">
+    <div style="position:absolute; top:0; left:0; right:0; height:6px; background:#E02020; z-index:10;"></div>
+
+    <div style="position:absolute; top:55px; left:90px; z-index:10;">
+      <div style="display:inline-flex; align-items:center; border: 1px solid rgba(0,0,0,0.18); border-radius:100px; padding:10px 20px; font-size:20px; font-weight:500; color:rgba(0,0,0,0.55); letter-spacing:0.01em;">@growthstacked</div>
+    </div>
+
+    <div style="position:absolute; inset:0; padding:90px; padding-top:200px; z-index:5;">
+      <div style="font-size:18px; font-weight:700; letter-spacing:0.16em; color:rgba(0,0,0,0.36); text-transform:uppercase; margin-bottom:40px;">FOLLOW FOR MORE</div>
+
+      <div style="font-weight:900; font-size:92px; line-height:0.90; letter-spacing:-0.04em; color:#111111; text-transform:uppercase;">
+        GROWTH<br>STACKED
+      </div>
+
+      <div style="margin-top:44px; font-size:29px; font-weight:400; color:#888888; text-transform:uppercase; line-height:1.55; max-width:760px; letter-spacing:0.01em;">
+        WE WROTE THE PLAYBOOK SO YOU DON'T HAVE TO REINVENT IT.
+      </div>
+
+      <div style="margin-top:48px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <div style="display:inline-flex; align-items:center; gap:10px; background:#111111; color:#FFFFFF; border-radius:100px; padding:14px 28px; font-size:20px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">
+          SAVE THIS POST
+        </div>
+        <div style="display:inline-flex; align-items:center; border: 2px solid #E02020; border-radius:100px; padding:12px 26px; font-size:20px; font-weight:700; color:#E02020; text-transform:uppercase; letter-spacing:0.08em;">
+          @growthstacked
+        </div>
+      </div>
+
+      <div style="margin-top:36px; font-size:18px; font-weight:500; color:rgba(0,0,0,0.35); text-transform:uppercase; letter-spacing:0.10em;">
+        ₹12 CR CLOSED. HERE'S WHAT WE'D DO DIFFERENTLY NEXT TIME.
+      </div>
+    </div>
+
+    <div class="prog-track2"><div class="prog-fill2" style="width:100%;"></div></div>
+  </section>
+
+</body>
+</html>

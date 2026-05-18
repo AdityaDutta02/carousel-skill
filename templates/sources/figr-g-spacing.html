@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Template 11 — Spacing Rules | figr.design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;700&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:        #F1ECE2;
+      --paper-deep:   #E8E1D3;
+      --ink:          #15110E;
+      --ink-soft:     #2A2522;
+      --muted:        #8A8076;
+      --line:         #C8C0B0;
+      --dark:         #1B1B1B;
+      --dark-soft:    #242322;
+      --dark-line:    rgba(255,255,255,0.10);
+      --dark-muted:   rgba(255,255,255,0.55);
+      --coral:        #E85844;
+      --coral-deep:   #D44A37;
+      --yellow:       #F2D94A;
+      --yellow-glow:  #FFE85E;
+      --blue:         #3B86F7;
+      --green:        #4FE26C;
+      --green-pale:   #C8F3CF;
+      --pink:         #F1B6D8;
+      --pink-soft:    #FBDDE9;
+      --lavender:     #C8B8EA;
+      --peach:        #FAD9C2;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #6E665C;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 56px 0;
+    }
+
+    .slide {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      isolation: isolate;
+    }
+
+    /* paper texture (subtle grain) */
+    .slide.light {
+      background:
+        radial-gradient(ellipse at 50% 30%, #F5F0E6 0%, #ECE5D6 80%, #E4DDCC 100%);
+      color: var(--ink);
+    }
+    .slide.light::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.04 0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .slide.dark {
+      background: linear-gradient(180deg, #1F1E1D 0%, #161514 100%);
+      color: #F4EFE4;
+    }
+    .slide.dark::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.92 0 0 0 0 0.86 0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      mix-blend-mode: overlay;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* vertical column guides (light slides) */
+    .cols {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(90deg, transparent 0, transparent calc((100% - 4 * 1px) / 5),
+                         rgba(0,0,0,0.05) calc((100% - 4 * 1px) / 5),
+                         rgba(0,0,0,0.05) calc((100% - 4 * 1px) / 5 + 1px),
+                         transparent calc((100% - 4 * 1px) / 5 + 1px));
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cols-light {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    }
+    .cols-light::before, .cols-light::after,
+    .cols-light .c2, .cols-light .c3, .cols-light .c4 {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(0,0,0,0.05);
+    }
+    .cols-light::before { left: 20%; }
+    .cols-light .c2     { left: 40%; }
+    .cols-light .c3     { left: 60%; }
+    .cols-light .c4     { left: 80%; }
+
+    .cols-dark { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .cols-dark::before, .cols-dark::after,
+    .cols-dark .c2, .cols-dark .c3, .cols-dark .c4 {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.04);
+    }
+    .cols-dark::before { left: 20%; }
+    .cols-dark .c2     { left: 40%; }
+    .cols-dark .c3     { left: 60%; }
+    .cols-dark .c4     { left: 80%; }
+
+    /* corner crosshairs */
+    .crosshair {
+      position: absolute;
+      width: 22px; height: 22px;
+      z-index: 3;
+      opacity: 0.55;
+    }
+    .crosshair::before, .crosshair::after {
+      content: ""; position: absolute; background: currentColor;
+    }
+    .crosshair::before { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+    .crosshair::after  { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+    .crosshair-circle {
+      position: absolute; inset: 4px; border: 1px solid currentColor; border-radius: 50%;
+    }
+    .ch-tl { top: 28px; left: 28px; }
+    .ch-tr { top: 28px; right: 28px; }
+    .ch-bl { bottom: 28px; left: 28px; }
+    .ch-br { bottom: 28px; right: 28px; }
+
+    /* top progress rule */
+    .topbar {
+      position: absolute;
+      top: 78px; left: 64px; right: 64px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.22;
+      z-index: 4;
+    }
+    .topbar-tick {
+      position: absolute;
+      top: 73px;
+      height: 4px;
+      background: var(--coral);
+      z-index: 5;
+      border-radius: 1px;
+    }
+    .topbar-tick.yellow { background: var(--yellow); }
+
+    /* progress positions: 12 slides */
+    .tick-1  { left: 64px;   width: 80px; }
+    .tick-2  { left: 144px;  width: 80px; }
+    .tick-3  { left: 224px;  width: 80px; }
+    .tick-4  { left: 304px;  width: 80px; }
+    .tick-5  { left: 384px;  width: 80px; }
+    .tick-6  { left: 464px;  width: 80px; }
+    .tick-7  { left: 544px;  width: 80px; }
+    .tick-8  { left: 624px;  width: 80px; }
+    .tick-9  { left: 704px;  width: 80px; }
+    .tick-10 { left: 784px;  width: 80px; }
+    .tick-11 { left: 864px;  width: 80px; }
+    .tick-12 { left: 944px;  width: 80px; }
+
+    /* bottom ruler arc */
+    .arc {
+      position: absolute;
+      bottom: -240px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1100px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.15);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .arc::before {
+      content: ""; position: absolute; inset: -12px; border-radius: 50%;
+      background-image: repeating-conic-gradient(from 200deg,
+        rgba(0,0,0,0.28) 0deg, rgba(0,0,0,0.28) 0.25deg,
+        transparent 0.25deg, transparent 2.5deg);
+      -webkit-mask: radial-gradient(circle, transparent 295px, #000 296px, #000 312px, transparent 313px);
+              mask: radial-gradient(circle, transparent 295px, #000 296px, #000 312px, transparent 313px);
+    }
+    .arc.dark { border-color: rgba(255,255,255,0.18); }
+    .arc.dark::before {
+      background-image: repeating-conic-gradient(from 200deg,
+        rgba(255,255,255,0.35) 0deg, rgba(255,255,255,0.35) 0.25deg,
+        transparent 0.25deg, transparent 2.5deg);
+    }
+
+    /* brand row */
+    .brand {
+      position: absolute;
+      bottom: 64px; left: 64px;
+      z-index: 6;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: currentColor;
+      opacity: 0.78;
+    }
+    .brand .dot { color: var(--coral); font-weight: 700; }
+    .bookmark {
+      position: absolute;
+      bottom: 64px; right: 64px;
+      width: 22px; height: 30px;
+      background: currentColor;
+      z-index: 6;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+    }
+
+    /* shared label / kicker */
+    .kicker {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      font-style: italic;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .dark .kicker { color: rgba(244,239,228,0.55); }
+
+    /* main display headline */
+    .display {
+      font-family: 'Anton', 'Oswald', sans-serif;
+      font-weight: 400;
+      font-size: 116px;
+      line-height: 0.96;
+      letter-spacing: -0.005em;
+      text-transform: none;
+    }
+    .display-sm {
+      font-family: 'Anton', sans-serif;
+      font-size: 92px;
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .note-label {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      color: var(--coral);
+      font-size: 56px;
+      line-height: 0.9;
+    }
+    .note-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1.42;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      max-width: 720px;
+    }
+    .dark .note-body { color: rgba(244,239,228,0.92); }
+
+    .hand {
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 38px;
+      line-height: 1.05;
+    }
+
+    /* ═══════════ SLIDE 1 — COVER ═══════════ */
+    .s1 .stack {
+      position: absolute;
+      left: 64px;
+      top: 180px;
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      z-index: 4;
+    }
+    .s1 .seven {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 138px;
+      color: var(--coral);
+      line-height: 0.85;
+      margin-right: 12px;
+      margin-top: 14px;
+    }
+    .s1 .title-block {
+      display: flex; flex-direction: column;
+      gap: 6px;
+    }
+    .s1 .title-top {
+      font-family: 'Anton', sans-serif;
+      font-size: 168px;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .s1 .bars {
+      position: absolute;
+      left: 130px;
+      bottom: 130px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-end;
+      z-index: 2;
+    }
+    .s1 .bar {
+      width: 62px;
+      border-radius: 2px;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+    }
+    .s1 .bar span {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%) rotate(90deg);
+      transform-origin: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: rgba(0,0,0,0.55);
+      white-space: nowrap;
+    }
+    .s1 .bar.yellow   { background: #F4E55A; height: 340px; }
+    .s1 .bar.pink     { background: #F1B6D8; height: 290px; }
+    .s1 .bar.lavender { background: #C8B8EA; height: 230px; }
+    .s1 .bar.green    { background: #A8E89F; height: 180px; }
+    .s1 .bar.peach    { background: #FAD9C2; height: 200px; margin-left: 200px; }
+
+    .s1 .px-label {
+      position: absolute;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 22px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      letter-spacing: -0.01em;
+      z-index: 5;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+    }
+    .s1 .px-label::before {
+      content: "";
+      position: absolute;
+      background: var(--blue);
+    }
+    .s1 .px-16 { left: 64px; top: 478px; }
+    .s1 .px-16::before {
+      width: 60px; height: 1px;
+      right: -70px; top: 50%;
+    }
+    .s1 .px-64 { right: 64px; top: 230px; }
+    .s1 .px-64::before {
+      width: 1px; height: 230px;
+      left: -20px; top: 18px;
+    }
+    .s1 .px-32 { left: 540px; bottom: 320px; }
+    .s1 .px-32::before {
+      width: 1px; height: 60px;
+      left: 50%; top: -68px;
+    }
+
+    .s1 .marquee {
+      position: absolute;
+      left: 60px;
+      top: 600px;
+      right: 60px;
+      height: 220px;
+      border: 1.5px solid var(--blue);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .s1 .marquee-handle {
+      position: absolute;
+      width: 9px; height: 9px;
+      background: #fff;
+      border: 1.5px solid var(--blue);
+    }
+    .s1 .marquee-text {
+      position: absolute;
+      inset: 14px 24px;
+      display: flex; align-items: center;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 64px;
+      line-height: 1.06;
+      color: var(--coral);
+      background: rgba(241,236,226,0.84);
+      padding: 4px 6px;
+    }
+
+    /* ═══════════ SLIDE 2 — MYTH BUSTER ═══════════ */
+    .s2 .body { position: absolute; top: 170px; left: 64px; right: 64px; z-index: 4; }
+    .s2 .myth-kicker {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 44px;
+      color: rgba(244,239,228,0.62);
+      margin-bottom: 30px;
+    }
+    .s2 .myth-hed {
+      font-family: 'Anton', sans-serif;
+      font-size: 116px;
+      line-height: 1.02;
+      letter-spacing: -0.005em;
+      color: #F4EFE4;
+      max-width: 900px;
+    }
+    .s2 .not-wrap {
+      display: inline-block;
+      position: relative;
+      margin: 70px 0 40px 0;
+      padding: 10px 30px 6px 30px;
+    }
+    .s2 .not-wrap .not-text {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 78px;
+      color: var(--yellow);
+      letter-spacing: -0.01em;
+    }
+    .s2 .not-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--yellow);
+      border-radius: 50%;
+      transform: rotate(-3deg) scale(1.06, 1.18);
+      filter: blur(0.4px);
+      opacity: 0.95;
+    }
+    .s2 .myth-sub {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 72px;
+      line-height: 1.08;
+      color: var(--yellow);
+      letter-spacing: -0.005em;
+      max-width: 760px;
+    }
+
+    /* ═══════════ RULE SLIDES (3–9) ═══════════ */
+    .rule-head {
+      position: absolute;
+      top: 158px;
+      left: 64px;
+      right: 64px;
+      z-index: 4;
+    }
+    .rule-kicker {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 46px;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+    .dark .rule-kicker { color: rgba(244,239,228,0.55); }
+
+    .rule-hed {
+      font-family: 'Anton', sans-serif;
+      font-size: 96px;
+      line-height: 1.0;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+    }
+    .dark .rule-hed { color: #F4EFE4; }
+
+    .rule-note {
+      position: absolute;
+      left: 64px;
+      bottom: 220px;
+      z-index: 5;
+      max-width: 760px;
+    }
+    .rule-note .note-label { margin-bottom: 16px; }
+
+    .illustration {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    /* slide 3 — scale */
+    .s3 .ill-wrap {
+      top: 480px;
+      width: 880px;
+    }
+    .s3 .scale-row {
+      display: flex;
+      gap: 8px;
+      padding: 18px;
+      border-radius: 8px;
+      position: relative;
+      margin-bottom: 26px;
+    }
+    .s3 .scale-row.good {
+      background: var(--green-pale);
+      box-shadow: 0 0 0 1px #6fd87f inset;
+    }
+    .s3 .scale-row.bad {
+      background: #FBD9D9;
+      box-shadow: 0 0 0 1px #E89A99 inset;
+    }
+    .s3 .swatch {
+      position: relative;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .s3 .scale-row.good .swatch { background: #5BE07F; }
+    .s3 .scale-row.bad  .swatch { background: #FB9B9A; }
+    .s3 .swatch span {
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 18px;
+      color: rgba(0,0,0,0.55);
+    }
+    .s3 .scale-row.bad .swatch span { color: rgba(0,0,0,0.55); }
+    .s3 .check, .s3 .cross {
+      position: absolute; right: -56px; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 22px;
+      background: #fff; border: 1.5px solid;
+    }
+    .s3 .check { border-color: #2F9F4A; color: #2F9F4A; }
+    .s3 .cross { border-color: #D24A4A; color: #D24A4A; border-radius: 4px; }
+
+    /* slide 4 — groups */
+    .s4 .ill-wrap {
+      top: 600px;
+      width: 880px;
+      height: 280px;
+      position: relative;
+    }
+    .s4 .card {
+      position: absolute;
+      background: #3C4862;
+      border-radius: 6px;
+      top: 60px;
+      height: 200px;
+    }
+    .s4 .card-1 { left: 0; width: 250px; opacity: 0.65; }
+    .s4 .card-2 {
+      left: 290px; width: 280px;
+      outline: 2px solid var(--blue);
+      outline-offset: 4px;
+      z-index: 2;
+    }
+    .s4 .card-3 { left: 610px; width: 250px; opacity: 0.65; }
+    .s4 .card .strip {
+      position: absolute;
+      left: 18px; right: 18px;
+      background: rgba(255,255,255,0.32);
+      height: 10px;
+      border-radius: 4px;
+    }
+    .s4 .card .strip.s1 { top: 26px; height: 60px; }
+    .s4 .card .strip.s2 { top: 100px; height: 6px; }
+    .s4 .card .strip.s3 { top: 116px; height: 6px; }
+    .s4 .card .strip.s4 { top: 132px; height: 6px; }
+    .s4 .card .strip.s5 { top: 148px; height: 6px; }
+    .s4 .card .pill {
+      position: absolute; left: 18px; right: 60px;
+      bottom: 14px; height: 22px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 11px;
+    }
+    .s4 .gap-tag {
+      position: absolute;
+      top: 138px;
+      width: 50px;
+      height: 1px;
+      background: var(--coral);
+    }
+    .s4 .gap-tag::before, .s4 .gap-tag::after {
+      content: ""; position: absolute; top: -4px; width: 1px; height: 8px; background: var(--coral);
+    }
+    .s4 .gap-tag::before { left: 0; }
+    .s4 .gap-tag::after { right: 0; }
+    .s4 .gap-tag span {
+      position: absolute; left: 50%; top: -32px;
+      transform: translateX(-50%);
+      font-family: 'Caveat', cursive; color: var(--coral);
+      font-size: 22px;
+    }
+    .s4 .gap-1 { left: 250px; }
+    .s4 .gap-2 { left: 570px; }
+    .s4 .annot {
+      position: absolute;
+      right: 30px;
+      top: -38px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 28px;
+      color: var(--yellow-glow);
+      max-width: 360px;
+      line-height: 1.05;
+    }
+    .s4 .annot svg {
+      position: absolute;
+      left: -54px;
+      top: 18px;
+      width: 80px;
+      height: 60px;
+    }
+
+    /* slide 5 — heading breathing */
+    .s5 .ill-wrap {
+      top: 590px;
+      width: 640px;
+      height: 330px;
+      position: relative;
+    }
+    .s5 .frame {
+      position: absolute; inset: 0;
+      border: 1.5px dashed var(--blue);
+      border-radius: 4px;
+    }
+    .s5 .frame::before, .s5 .frame::after {
+      content: ""; position: absolute; width: 10px; height: 10px;
+      background: #fff; border: 1.5px solid var(--blue);
+    }
+    .s5 .frame::before { left: -5px; top: -5px; }
+    .s5 .frame::after  { right: -5px; bottom: -5px; }
+    .s5 .pink-col {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      top: -25px; bottom: -25px;
+      width: 70px;
+      background: var(--pink);
+      opacity: 0.85;
+      z-index: -1;
+    }
+    .s5 .mock {
+      position: absolute;
+      left: 50px; right: 50px;
+      background: linear-gradient(135deg, #555 0%, #888 100%);
+      border-radius: 4px;
+      top: 38px;
+      height: 130px;
+    }
+    .s5 .lines {
+      position: absolute;
+      left: 50px; right: 50px;
+      top: 190px;
+    }
+    .s5 .lines .ln {
+      height: 8px;
+      background: rgba(0,0,0,0.18);
+      margin-bottom: 8px;
+      border-radius: 3px;
+    }
+    .s5 .lines .ln.short { width: 70%; }
+    .s5 .pill-btn {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      bottom: 30px;
+      width: 240px; height: 26px;
+      background: linear-gradient(135deg, #888 0%, #C8C8C8 100%);
+      border-radius: 13px;
+    }
+    .s5 .annot {
+      position: absolute;
+      right: -60px;
+      top: -50px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 28px;
+      color: var(--coral);
+      line-height: 1.05;
+      max-width: 280px;
+    }
+    .s5 .annot svg { position: absolute; left: -70px; top: 30px; width: 80px; height: 80px; }
+
+    /* slide 6 — padding vs margin */
+    .s6 .ill-wrap {
+      top: 600px;
+      width: 760px;
+      height: 320px;
+      position: relative;
+    }
+    .s6 .pad-card {
+      position: absolute;
+      left: 0; top: 30px;
+      width: 240px; height: 240px;
+      background: rgba(241,182,216,0.35);
+      border: 1.5px solid var(--blue);
+    }
+    .s6 .pad-card::before, .s6 .pad-card::after,
+    .s6 .pad-card .h1, .s6 .pad-card .h2 {
+      content: ""; position: absolute; width: 10px; height: 10px;
+      background: #fff; border: 1.5px solid var(--blue);
+    }
+    .s6 .pad-card::before { left: -5px; top: -5px; }
+    .s6 .pad-card::after  { right: -5px; top: -5px; }
+    .s6 .pad-card .h1 { left: -5px; bottom: -5px; }
+    .s6 .pad-card .h2 { right: -5px; bottom: -5px; }
+    .s6 .pad-inner {
+      position: absolute;
+      inset: 50px;
+      background: var(--pink);
+    }
+    .s6 .pad-cross {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0, transparent calc(50% - 0.5px),
+                        var(--coral) calc(50% - 0.5px), var(--coral) calc(50% + 0.5px),
+                        transparent calc(50% + 0.5px)),
+        linear-gradient(0deg,  transparent 0, transparent calc(50% - 0.5px),
+                        var(--coral) calc(50% - 0.5px), var(--coral) calc(50% + 0.5px),
+                        transparent calc(50% + 0.5px));
+      opacity: 0.55;
+    }
+    .s6 .mar-pair {
+      position: absolute;
+      right: 0; top: 30px;
+      width: 440px; height: 240px;
+      display: flex;
+      gap: 4px;
+      border: 1.5px solid var(--blue);
+      padding: 4px;
+    }
+    .s6 .mar-pair::before, .s6 .mar-pair::after,
+    .s6 .mar-pair .h1, .s6 .mar-pair .h2 {
+      content: ""; position: absolute; width: 10px; height: 10px;
+      background: #fff; border: 1.5px solid var(--blue);
+    }
+    .s6 .mar-pair::before { left: -5px; top: -5px; }
+    .s6 .mar-pair::after  { right: -5px; top: -5px; }
+    .s6 .mar-pair .h1 { left: -5px; bottom: -5px; }
+    .s6 .mar-pair .h2 { right: -5px; bottom: -5px; }
+    .s6 .mar-pair .blu {
+      flex: 1;
+      background: #2F73E8;
+    }
+    .s6 .mar-pair .gap-line {
+      width: 2px;
+      background: var(--coral);
+      align-self: center;
+      height: 80%;
+    }
+    .s6 .annot-l {
+      position: absolute;
+      left: 0; top: -130px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 28px;
+      color: var(--pink);
+      line-height: 1.05;
+      max-width: 300px;
+    }
+    .s6 .annot-l svg { position: absolute; left: 40px; top: 55px; width: 80px; height: 70px; }
+    .s6 .annot-r {
+      position: absolute;
+      right: -20px; bottom: -70px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 28px;
+      color: #5AB8F0;
+      line-height: 1.05;
+      max-width: 280px;
+      text-align: right;
+    }
+    .s6 .annot-r svg { position: absolute; left: -70px; top: -50px; width: 80px; height: 70px; }
+
+    /* slide 7 — vertical rhythm */
+    .s7 .ill-wrap {
+      top: 530px;
+      width: 480px;
+      height: 410px;
+      position: relative;
+    }
+    .s7 .rhythm {
+      position: absolute; inset: 0;
+      border: 1.5px dashed var(--blue);
+      background: rgba(140,180,255,0.18);
+    }
+    .s7 .rhythm::before, .s7 .rhythm::after,
+    .s7 .rhythm .h1, .s7 .rhythm .h2 {
+      content: ""; position: absolute; width: 10px; height: 10px;
+      background: #fff; border: 1.5px solid var(--blue);
+    }
+    .s7 .rhythm::before { left: -5px; top: -5px; }
+    .s7 .rhythm::after  { right: -5px; top: -5px; }
+    .s7 .rhythm .h1 { left: -5px; bottom: -5px; }
+    .s7 .rhythm .h2 { right: -5px; bottom: -5px; }
+    .s7 .img-block {
+      position: absolute;
+      left: 36px; right: 36px;
+      top: 50px; height: 110px;
+      background: linear-gradient(135deg, #999 0%, #DDD 100%);
+    }
+    .s7 .ln {
+      position: absolute;
+      left: 36px; right: 36px;
+      background: rgba(0,0,0,0.22);
+      height: 8px;
+      border-radius: 3px;
+    }
+    .s7 .ln.l1 { top: 220px; }
+    .s7 .ln.l2 { top: 240px; }
+    .s7 .ln.l3 { top: 260px; }
+    .s7 .ln.l4 { top: 280px; width: 65%; right: auto; }
+    .s7 .pill {
+      position: absolute;
+      left: 36px; right: 36px;
+      top: 330px; height: 24px;
+      background: linear-gradient(135deg, #999 0%, #C8C8C8 100%);
+      border-radius: 12px;
+    }
+    .s7 .rhythm-tick {
+      position: absolute;
+      left: 6px;
+      width: 26px;
+      height: 1px;
+      background: var(--coral);
+    }
+    .s7 .rhythm-tick::before, .s7 .rhythm-tick::after {
+      content: ""; position: absolute; top: -3px; width: 1px; height: 6px; background: var(--coral);
+    }
+    .s7 .rhythm-tick::before { left: 0; }
+    .s7 .rhythm-tick::after  { right: 0; }
+    .s7 .rhythm-tick span {
+      position: absolute; left: -28px; top: -10px;
+      font-family: 'Caveat', cursive; color: var(--coral); font-size: 22px;
+    }
+    .s7 .t1 { top: 30px; }
+    .s7 .t2 { top: 200px; }
+    .s7 .t3 { top: 308px; }
+    .s7 .t4 { top: 388px; }
+    .s7 .annot {
+      position: absolute;
+      right: -240px; top: 80px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 30px;
+      color: var(--coral);
+      line-height: 1.05;
+      max-width: 220px;
+    }
+    .s7 .annot svg { position: absolute; left: -88px; top: -10px; width: 80px; height: 80px; }
+
+    /* slide 8 — tight vs loose */
+    .s8 .ill-wrap {
+      top: 600px;
+      width: 760px;
+      height: 360px;
+      position: relative;
+    }
+    .s8 .card {
+      position: absolute;
+      background: #2A2D33;
+      border: 1.5px solid var(--blue);
+      border-radius: 2px;
+    }
+    .s8 .card::before, .s8 .card::after,
+    .s8 .card .h1, .s8 .card .h2 {
+      content: ""; position: absolute; width: 10px; height: 10px;
+      background: #fff; border: 1.5px solid var(--blue);
+    }
+    .s8 .card::before { left: -5px; top: -5px; }
+    .s8 .card::after  { right: -5px; top: -5px; }
+    .s8 .card .h1     { left: -5px; bottom: -5px; }
+    .s8 .card .h2     { right: -5px; bottom: -5px; }
+    .s8 .tight {
+      left: 0; top: 80px;
+      width: 280px; height: 200px;
+    }
+    .s8 .tight .img { position: absolute; left: 20px; right: 20px; top: 20px; height: 60px;
+      background: linear-gradient(135deg, #777 0%, #BBB 100%); }
+    .s8 .tight .ln {
+      position: absolute; left: 20px; right: 20px;
+      height: 6px; background: rgba(140,170,220,0.4); border-radius: 3px;
+    }
+    .s8 .tight .ln1 { top: 100px; }
+    .s8 .tight .ln2 { top: 112px; }
+    .s8 .tight .ln3 { top: 124px; }
+    .s8 .tight .ln4 { top: 136px; width: 60%; }
+    .s8 .tight .pill {
+      position: absolute; left: 20px; right: 80px;
+      bottom: 20px; height: 18px;
+      background: linear-gradient(135deg, #888 0%, #BCBCBC 100%);
+      border-radius: 9px;
+    }
+    .s8 .loose {
+      right: 60px; top: 0;
+      width: 320px; height: 360px;
+    }
+    .s8 .loose .circle {
+      position: absolute;
+      left: 30px; right: 30px;
+      top: 30px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #BBB 0%, #555 70%);
+    }
+    .s8 .loose .ln {
+      position: absolute; left: 30px; right: 30px;
+      height: 6px; background: rgba(140,170,220,0.4); border-radius: 3px;
+    }
+    .s8 .loose .ln1 { top: 240px; }
+    .s8 .loose .ln2 { top: 254px; }
+    .s8 .loose .ln3 { top: 268px; }
+    .s8 .loose .pill {
+      position: absolute; left: 60px; right: 60px;
+      bottom: 24px; height: 18px;
+      background: linear-gradient(135deg, #888 0%, #BCBCBC 100%);
+      border-radius: 9px;
+    }
+    .s8 .tick {
+      position: absolute;
+      width: 14px; height: 1px;
+      background: var(--coral);
+      left: 50%; transform: translateX(-50%);
+    }
+    .s8 .tick::before, .s8 .tick::after {
+      content: ""; position: absolute; top: -3px; width: 1px; height: 6px; background: var(--coral);
+    }
+    .s8 .tick::before { left: 0; }
+    .s8 .tick::after  { right: 0; }
+    .s8 .annot {
+      position: absolute;
+      right: -10px; top: -100px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 30px;
+      color: var(--yellow-glow);
+      line-height: 1.05;
+      max-width: 320px;
+      text-align: right;
+    }
+    .s8 .annot svg { position: absolute; right: -40px; top: 40px; width: 80px; height: 70px; }
+
+    /* slide 9 — screen sizes */
+    .s9 .ill-wrap {
+      top: 600px;
+      width: 800px;
+      height: 320px;
+      position: relative;
+    }
+    .s9 .device {
+      position: absolute;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .s9 .device svg { display: block; }
+    .s9 .device .lbl {
+      margin-top: 18px;
+      font-family: 'Inter', sans-serif;
+      color: var(--blue);
+      font-size: 22px;
+      font-weight: 500;
+    }
+    .s9 .d-desktop { left: 0;    top: 0; }
+    .s9 .d-laptop  { left: 360px; top: 30px; }
+    .s9 .d-phone   { left: 620px; top: 50px; }
+    .s9 .annot {
+      position: absolute;
+      right: -10px; top: -140px;
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-size: 32px;
+      color: var(--coral);
+      line-height: 1.05;
+      max-width: 320px;
+    }
+    .s9 .annot svg { position: absolute; left: -120px; top: 30px; width: 110px; height: 80px; }
+
+    /* ═══════════ SLIDE 10 — TAKEAWAY ═══════════ */
+    .s10 .body {
+      position: absolute;
+      top: 200px;
+      left: 64px;
+      right: 64px;
+      z-index: 4;
+    }
+    .s10 .row {
+      font-family: 'Anton', sans-serif;
+      font-size: 96px;
+      line-height: 1.02;
+      letter-spacing: -0.005em;
+      color: #F4EFE4;
+      margin-bottom: 80px;
+    }
+    .s10 .row.last { margin-bottom: 0; }
+    .s10 .arr {
+      color: var(--yellow);
+      margin-right: 24px;
+    }
+    .s10 .yel { color: var(--yellow); }
+    .s10 .ul {
+      border-bottom: 5px solid #F4EFE4;
+      padding-bottom: 4px;
+    }
+
+    /* ═══════════ SLIDE 11 — RESOURCES ═══════════ */
+    .s11 .body {
+      position: absolute;
+      top: 180px;
+      left: 64px;
+      right: 64px;
+      z-index: 4;
+    }
+    .s11 .heading {
+      font-family: 'Anton', sans-serif;
+      font-size: 102px;
+      line-height: 1;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin-bottom: 60px;
+    }
+    .s11 .res {
+      margin-bottom: 44px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    .s11 .res .arr {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 56px;
+      color: var(--coral);
+      line-height: 0.9;
+      flex-shrink: 0;
+      margin-top: -4px;
+    }
+    .s11 .res-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 56px;
+      color: var(--coral);
+      line-height: 1;
+      letter-spacing: -0.005em;
+      margin-bottom: 14px;
+    }
+    .s11 .res-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .s11 .more {
+      font-family: 'Inter', sans-serif;
+      font-style: italic;
+      font-size: 26px;
+      color: var(--coral);
+      margin-top: 30px;
+      margin-left: 88px;
+    }
+
+    /* ═══════════ SLIDE 12 — CTA ═══════════ */
+    .s12 .body {
+      position: absolute;
+      top: 178px;
+      left: 64px;
+      right: 64px;
+      z-index: 4;
+    }
+    .s12 .hed {
+      font-family: 'Anton', sans-serif;
+      font-size: 104px;
+      line-height: 1.04;
+      letter-spacing: -0.005em;
+      color: #F4EFE4;
+    }
+    .s12 .hed .arr   { color: var(--coral); margin-right: 14px; }
+    .s12 .hed .quote { color: var(--coral); }
+    .s12 .save {
+      margin-top: 88px;
+      font-family: 'Anton', sans-serif;
+      font-size: 96px;
+      line-height: 1.04;
+      color: #F4EFE4;
+    }
+    .s12 .sub {
+      margin-top: 38px;
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(244,239,228,0.7);
+      letter-spacing: -0.005em;
+    }
+    .s12 .swoop {
+      position: absolute;
+      right: 100px;
+      bottom: 130px;
+      width: 280px;
+      height: 280px;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ SLIDE 01 — COVER ═══════════ -->
+  <div class="slide light s1">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-1"></div>
+
+    <div class="stack">
+      <div class="seven">7</div>
+      <div class="title-block">
+        <div class="title-top">Spacing<br>Rules</div>
+      </div>
+    </div>
+
+    <div class="bars">
+      <div class="bar yellow"><span>32pt, 2</span></div>
+      <div class="bar pink"><span>48pt, 3</span></div>
+      <div class="bar lavender"><span>16pt, 1</span></div>
+      <div class="bar green"><span>96pt, 6</span></div>
+      <div class="bar peach"><span>160pt, 10</span></div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-handle" style="left: -5px; top: -5px;"></div>
+      <div class="marquee-handle" style="right: -5px; top: -5px;"></div>
+      <div class="marquee-handle" style="left: -5px; bottom: -5px;"></div>
+      <div class="marquee-handle" style="right: -5px; bottom: -5px;"></div>
+      <div class="marquee-handle" style="left: 50%; top: -5px; transform: translateX(-50%);"></div>
+      <div class="marquee-handle" style="left: 50%; bottom: -5px; transform: translateX(-50%);"></div>
+      <div class="marquee-handle" style="left: -5px; top: 50%; transform: translateY(-50%);"></div>
+      <div class="marquee-handle" style="right: -5px; top: 50%; transform: translateY(-50%);"></div>
+      <div class="marquee-text">That Make<br>Any Design Feel Intentional</div>
+    </div>
+
+    <div class="px-label px-16">16px</div>
+    <div class="px-label px-64">64px</div>
+    <div class="px-label px-32">32px</div>
+
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 02 — MYTH BUSTER ═══════════ -->
+  <div class="slide dark s2">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-2"></div>
+
+    <div class="body">
+      <div class="myth-kicker">Myth buster</div>
+      <div class="myth-hed">I used to think spacing was about making things look "airy."</div>
+
+      <div class="not-wrap"><span class="not-text">It's not.</span></div>
+
+      <div class="myth-sub">It's about telling the<br>eye where to go next.</div>
+    </div>
+
+    <!-- subtle bottom arc -->
+    <div class="arc dark" style="bottom:-280px; width:1100px; height:560px; opacity:.6"></div>
+
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 03 — RULE 1 ═══════════ -->
+  <div class="slide light s3">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-3"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 1</div>
+      <div class="rule-hed">Use a spacing scale, not<br>random numbers.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="scale-row good">
+        <div class="swatch" style="width:36px; height:60px;"><span>16</span></div>
+        <div class="swatch" style="width:46px; height:60px;"><span>24</span></div>
+        <div class="swatch" style="width:56px; height:60px;"><span>32</span></div>
+        <div class="swatch" style="width:66px; height:60px;"><span>40</span></div>
+        <div class="swatch" style="width:76px; height:60px;"><span>48</span></div>
+        <div class="swatch" style="width:86px; height:60px;"><span>56</span></div>
+        <div class="swatch" style="width:96px; height:60px;"><span>64</span></div>
+        <div class="swatch" style="width:106px; height:60px;"><span>72</span></div>
+        <div class="swatch" style="width:124px; height:60px;"><span>80</span></div>
+        <div class="check">✓</div>
+      </div>
+      <div class="scale-row bad">
+        <div class="swatch" style="width:38px; height:60px;"><span>10</span></div>
+        <div class="swatch" style="width:48px; height:60px;"><span>26</span></div>
+        <div class="swatch" style="width:58px; height:60px;"><span>33</span></div>
+        <div class="swatch" style="width:70px; height:60px;"><span>45</span></div>
+        <div class="swatch" style="width:82px; height:60px;"><span>50</span></div>
+        <div class="swatch" style="width:92px; height:60px;"><span>64</span></div>
+        <div class="swatch" style="width:100px; height:60px;"><span>65</span></div>
+        <div class="swatch" style="width:114px; height:60px;"><span>71</span></div>
+        <div class="swatch" style="width:130px; height:60px;"><span>83</span></div>
+        <div class="cross">✕</div>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">Consistency builds trust. Random<br>spacing breaks rhythm.</div>
+    </div>
+
+    <div class="arc"></div>
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 04 — RULE 2 ═══════════ -->
+  <div class="slide dark s4">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-4"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 2</div>
+      <div class="rule-hed">Space groups, not just<br>elements.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="card card-1">
+        <span class="strip s1"></span>
+        <span class="strip s2"></span>
+        <span class="strip s3"></span>
+        <span class="strip s4"></span>
+        <span class="strip s5"></span>
+        <span class="pill"></span>
+      </div>
+      <div class="card card-2">
+        <span class="strip s1"></span>
+        <span class="strip s2"></span>
+        <span class="strip s3"></span>
+        <span class="strip s4"></span>
+        <span class="strip s5"></span>
+        <span class="pill"></span>
+      </div>
+      <div class="card card-3">
+        <span class="strip s1"></span>
+        <span class="strip s2"></span>
+        <span class="strip s3"></span>
+        <span class="strip s4"></span>
+        <span class="strip s5"></span>
+        <span class="pill"></span>
+      </div>
+
+      <div class="gap-tag gap-1"><span>20</span></div>
+      <div class="gap-tag gap-2"><span>20</span></div>
+
+      <div class="annot">
+        Unrelated items sit far
+        <svg viewBox="0 0 80 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M5 5 Q 5 50 50 45 L 40 35 M 50 45 L 48 32" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">Equal gaps flatten hierarchy. Different<br>gaps create meaning.</div>
+    </div>
+
+    <div class="arc dark"></div>
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 05 — RULE 3 ═══════════ -->
+  <div class="slide light s5">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-5"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 3</div>
+      <div class="rule-hed">Give breathing room before<br>headings, not after.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="pink-col"></div>
+      <div class="frame"></div>
+      <div class="mock"></div>
+      <div class="lines">
+        <div class="ln"></div>
+        <div class="ln"></div>
+        <div class="ln"></div>
+        <div class="ln short"></div>
+      </div>
+      <div class="pill-btn"></div>
+
+      <div class="annot">
+        More space above<br>a heading than<br>below
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M70 5 Q 75 50 30 60 L 40 50 M 30 60 L 42 70" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">Space above sets context. Space below<br>connects content.</div>
+    </div>
+
+    <div class="arc"></div>
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 06 — RULE 4 ═══════════ -->
+  <div class="slide dark s6">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-6"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 4</div>
+      <div class="rule-hed">Padding &gt; margin for<br>components.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="pad-card">
+        <span class="h1"></span><span class="h2"></span>
+        <div class="pad-cross"></div>
+        <div class="pad-inner"></div>
+      </div>
+      <div class="mar-pair">
+        <span class="h1"></span><span class="h2"></span>
+        <div class="blu"></div>
+        <div class="gap-line"></div>
+        <div class="blu"></div>
+      </div>
+
+      <div class="annot-l">
+        Padding controls internal<br>breathing room
+        <svg viewBox="0 0 80 70" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M5 5 Q 5 55 60 60 L 50 50 M 60 60 L 52 64" />
+        </svg>
+      </div>
+      <div class="annot-r">
+        Margin controls<br>external distance
+        <svg viewBox="0 0 80 70" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M5 60 Q 35 30 70 15 L 60 18 M 70 15 L 64 24" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">Padding shapes the component. Margin<br>defines relationships.</div>
+    </div>
+
+    <div class="arc dark"></div>
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 07 — RULE 5 ═══════════ -->
+  <div class="slide light s7">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-7"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 5</div>
+      <div class="rule-hed">Vertical rhythm is invisible<br>glue.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="rhythm"><span class="h1"></span><span class="h2"></span></div>
+      <div class="img-block"></div>
+      <div class="ln l1"></div>
+      <div class="ln l2"></div>
+      <div class="ln l3"></div>
+      <div class="ln l4"></div>
+      <div class="pill"></div>
+
+      <div class="rhythm-tick t1"><span>3x</span></div>
+      <div class="rhythm-tick t2"><span>2x</span></div>
+      <div class="rhythm-tick t3"><span>2x</span></div>
+      <div class="rhythm-tick t4"><span>3x</span></div>
+
+      <div class="annot">
+        Sections that<br>breathe at the<br>same intervals
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M75 70 Q 75 25 25 25 L 35 18 M 25 25 L 35 33" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">If rhythm breaks, the layout feels off even<br>if you can't explain why.</div>
+    </div>
+
+    <div class="arc"></div>
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 08 — RULE 6 ═══════════ -->
+  <div class="slide dark s8">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-8"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 6</div>
+      <div class="rule-hed">Tight spacing = importance.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="card tight">
+        <span class="h1"></span><span class="h2"></span>
+        <div class="img"></div>
+        <span class="ln ln1"></span>
+        <span class="ln ln2"></span>
+        <span class="ln ln3"></span>
+        <span class="ln ln4"></span>
+        <div class="pill"></div>
+        <div class="tick" style="top:90px;"></div>
+        <div class="tick" style="top:150px;"></div>
+      </div>
+      <div class="card loose">
+        <span class="h1"></span><span class="h2"></span>
+        <div class="circle"></div>
+        <span class="ln ln1"></span>
+        <span class="ln ln2"></span>
+        <span class="ln ln3"></span>
+        <div class="pill"></div>
+        <div class="tick" style="top:220px;"></div>
+        <div class="tick" style="top:290px;"></div>
+      </div>
+
+      <div class="annot">
+        Spacious =<br>premium, editorial
+        <svg viewBox="0 0 80 70" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M5 5 Q 75 5 65 55 L 75 45 M 65 55 L 55 50" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">Less space pulls focus. More space<br>signals separation.</div>
+    </div>
+
+    <div class="arc dark"></div>
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 09 — RULE 7 ═══════════ -->
+  <div class="slide light s9">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-9"></div>
+
+    <div class="rule-head">
+      <div class="rule-kicker">Rule 7</div>
+      <div class="rule-hed">Test spacing at actual<br>screen size.</div>
+    </div>
+
+    <div class="illustration ill-wrap">
+      <div class="device d-desktop">
+        <svg width="280" height="220" viewBox="0 0 280 220" fill="none" stroke="#15110E" stroke-width="2.5" stroke-linejoin="round">
+          <rect x="10" y="10" width="260" height="170" rx="8"/>
+          <line x1="125" y1="180" x2="155" y2="180" />
+          <line x1="105" y1="180" x2="105" y2="205" />
+          <line x1="175" y1="180" x2="175" y2="205" />
+          <line x1="100" y1="205" x2="180" y2="205" />
+        </svg>
+        <div class="lbl">1920px</div>
+      </div>
+      <div class="device d-laptop">
+        <svg width="220" height="160" viewBox="0 0 220 160" fill="none" stroke="#15110E" stroke-width="2.5" stroke-linejoin="round">
+          <rect x="20" y="10" width="180" height="120" rx="6"/>
+          <line x1="100" y1="115" x2="120" y2="115" />
+          <path d="M5 130 L 215 130 L 200 150 L 20 150 Z" />
+        </svg>
+        <div class="lbl">1024px</div>
+      </div>
+      <div class="device d-phone">
+        <svg width="130" height="200" viewBox="0 0 130 200" fill="none" stroke="#15110E" stroke-width="2.5" stroke-linejoin="round">
+          <rect x="20" y="10" width="90" height="170" rx="10"/>
+          <line x1="55" y1="22" x2="75" y2="22" />
+          <circle cx="65" cy="165" r="6" />
+        </svg>
+        <div class="lbl">479px</div>
+      </div>
+
+      <div class="annot">
+        <span style="margin-left:120px;">100% zoom only</span>
+        <svg viewBox="0 0 110 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M100 70 Q 100 10 25 30 L 32 18 M 25 30 L 38 38" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="rule-note">
+      <div class="note-label">Note:</div>
+      <div class="note-body">If you don't test at 100%, you're designing illusions.</div>
+    </div>
+
+    <div class="arc"></div>
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 10 — TAKEAWAY ═══════════ -->
+  <div class="slide dark s10">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-10"></div>
+
+    <div class="body">
+      <div class="row"><span class="arr">→</span><span class="ul">Spacing</span> isn't decoration. It's<br>communication.</div>
+      <div class="row last"><span class="arr">→</span><span class="yel">Use a system.</span> Be consistent.<br>Let it do the work.</div>
+    </div>
+
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 11 — RESOURCES ═══════════ -->
+  <div class="slide light s11">
+    <div class="cols-light"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <div class="topbar"></div>
+    <div class="topbar-tick tick-11"></div>
+
+    <div class="body">
+      <div class="heading">Valuable resources</div>
+
+      <div class="res">
+        <div class="arr">→</div>
+        <div>
+          <div class="res-title">Refactoring UI</div>
+          <div class="res-desc">Practical spacing, hierarchy, and layout decisions.</div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="arr">→</div>
+        <div>
+          <div class="res-title">8pt Grid System (Google)</div>
+          <div class="res-desc">A simple, scalable foundation for consistent spacing.</div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="arr">→</div>
+        <div>
+          <div class="res-title">Design Systems Repo</div>
+          <div class="res-desc">Real products. Real spacing systems.</div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="arr">→</div>
+        <div>
+          <div class="res-title">Laws of UX (lawsofux.com)</div>
+          <div class="res-desc">Why spacing works. Gestalt, proximity, visual grouping.</div>
+        </div>
+      </div>
+      <div class="more">(+15 additional links, videos, and books)</div>
+    </div>
+
+    <div class="brand"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark"></div>
+  </div>
+
+  <!-- ═══════════ SLIDE 12 — CTA ═══════════ -->
+  <div class="slide dark s12">
+    <div class="cols-dark"><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
+    <span class="crosshair ch-tl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-tr" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-bl" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <span class="crosshair ch-br" style="color:#F4EFE4"><span class="crosshair-circle"></span></span>
+    <div class="topbar" style="color:#F4EFE4"></div>
+    <div class="topbar-tick yellow tick-12"></div>
+
+    <div class="body">
+      <div class="hed">Want the links to resources?<br><span class="arr">→</span>Comment <span class="quote">"Rules"</span> and I'll<br>send it to you.</div>
+      <div class="save">Save this post for later.</div>
+      <div class="sub">If you drop a comment to show support, it would mean a lot.</div>
+    </div>
+
+    <svg class="swoop" viewBox="0 0 280 280" fill="none" stroke="#E85844" stroke-width="3.5" stroke-linecap="round">
+      <path d="M40 30 Q 240 60 220 160 Q 200 220 110 200 Q 50 180 90 140 Q 130 110 170 150 Q 200 190 230 240 L 220 225 M 230 240 L 215 232" />
+    </svg>
+
+    <div class="brand" style="color:#F4EFE4"><span>@</span>figr<span class="dot">.design</span></div>
+    <div class="bookmark" style="background:#F4EFE4;"></div>
+  </div>
+
+</body>
+</html>

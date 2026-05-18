@@ -96,10 +96,10 @@ Use for: results reports, metrics breakdowns, performance recaps, before/after a
     .hero-num  { font-weight: 900; font-size: 108px; line-height: 0.88; letter-spacing: -0.04em; color: #111111; text-transform: uppercase; }
 
     /* BODY TEXT — two-tier, ALL CAPS */
-    .bb2  { font-size: 22px; font-weight: 700; line-height: 1.50; color: rgba(255,255,255,0.92); text-transform: uppercase; }
-    .br2  { font-size: 20px; font-weight: 400; line-height: 1.65; color: rgba(255,255,255,0.50); text-transform: uppercase; }
-    .wbb2 { font-size: 22px; font-weight: 700; line-height: 1.50; color: #111111; text-transform: uppercase; }
-    .wbr2 { font-size: 20px; font-weight: 400; line-height: 1.65; color: #888888; text-transform: uppercase; }
+    .bb2  { font-size: 31px; font-weight: 700; line-height: 1.50; color: rgba(255,255,255,0.92); text-transform: uppercase; }
+    .br2  { font-size: 29px; font-weight: 400; line-height: 1.65; color: rgba(255,255,255,0.50); text-transform: uppercase; }
+    .wbb2 { font-size: 31px; font-weight: 700; line-height: 1.50; color: #111111; text-transform: uppercase; }
+    .wbr2 { font-size: 29px; font-weight: 400; line-height: 1.65; color: #888888; text-transform: uppercase; }
 
     /* RED ACCENT */
     .red { color: #E02020; }
@@ -111,7 +111,7 @@ Use for: results reports, metrics breakdowns, performance recaps, before/after a
     }
 
     /* CONTENT PAD — anchored from top */
-    .pad2    { position: absolute; inset: 0; padding: 90px; padding-top: 380px; z-index: 2; }
+    .pad2    { position: absolute; inset: 0; padding: 90px; padding-top: 350px; z-index: 2; }
     .pad2-hi { position: absolute; inset: 0; padding: 90px; padding-top: 200px; z-index: 2; }
 
     /* PHOTO GRID */

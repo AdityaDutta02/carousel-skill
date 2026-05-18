@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; font-family: 'Outfit', -apple-system, sans-serif; background: #E0DDD8; }
+
+    .slide { width: 1080px; height: 1350px; display: none; position: relative; overflow: hidden; }
+    .slide.active { display: block; }
+
+    /* LIGHT — warm cream */
+    .lt { background: #F5F2ED; }
+
+    /* ACCENT orange */
+    .acc { color: #E55A2B; }
+
+    /* STEP INDICATOR */
+    .step-label {
+      position: absolute; top: 56px; left: 90px;
+      display: flex; align-items: center; gap: 12px; z-index: 3;
+    }
+    .step-dash { width: 32px; height: 2px; background: #E55A2B; flex-shrink: 0; }
+    .step-text {
+      font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700;
+      color: #E55A2B; letter-spacing: 0.02em;
+    }
+
+    /* TYPOGRAPHY */
+    .h-serif {
+      font-family: 'Playfair Display', Georgia, serif; font-weight: 700;
+      font-size: 72px; line-height: 1.00; color: #1A1A1A;
+    }
+    .h-serif-sm {
+      font-family: 'Playfair Display', Georgia, serif; font-weight: 700;
+      font-size: 58px; line-height: 1.05; color: #1A1A1A;
+    }
+
+    /* BODY TEXT */
+    .body-text {
+      font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400;
+      color: #4A4540; line-height: 1.55;
+    }
+
+    /* STICKY NOTE */
+    .sticky {
+      background: #F9F5D0; padding: 20px 24px;
+      box-shadow: 2px 3px 12px rgba(0,0,0,0.14);
+      max-width: 260px; transform: rotate(2deg);
+    }
+    .sticky-text {
+      font-family: 'Caveat', cursive; font-size: 24px; font-weight: 400;
+      color: #3D2E14; line-height: 1.45;
+    }
+
+    /* VERTICAL HAIRLINE */
+    .v-line { width: 1px; background: #C8C4BC; }
+
+    /* CONTENT PAD */
+    .pad3 { position: absolute; left: 90px; right: 90px; top: 116px; z-index: 2; }
+
+    /* CHECKBOX LIST */
+    .check-list { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+    .check-item { display: flex; align-items: flex-start; gap: 18px; }
+    .check-box {
+      width: 26px; height: 26px; border: 2px solid #C0B8B0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px;
+    }
+    .check-text {
+      font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 600;
+      color: #1A1A1A; line-height: 1.4;
+    }
+
+    /* SLIDE COUNTER — bottom right on step slides */
+    .slide-counter {
+      position: absolute; bottom: 52px; right: 90px;
+      font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 500;
+      color: rgba(26,26,26,0.30); z-index: 4;
+      letter-spacing: 0.06em;
+    }
+
+    /* ACCENT RULE — thin horizontal line for light slides */
+    .accent-rule {
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: #E55A2B; z-index: 5;
+    }
+
+    /* NAV BUTTONS */
+    .nav {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 16px; z-index: 100;
+    }
+    .nav button {
+      background: #1A1A1A; color: #fff; border: none; padding: 12px 28px;
+      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600;
+      border-radius: 100px; cursor: pointer; letter-spacing: 0.02em;
+    }
+    .nav button:hover { background: #E55A2B; }
+    .nav .slide-num { color: rgba(26,26,26,0.55); font-size: 14px; line-height: 1; align-self: center; font-family: 'Outfit', sans-serif; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 1 — COVER (light, cream, Rule U1)
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt active" id="slide-1" data-testid="slide-1">
+  <div class="accent-rule"></div>
+
+  <!-- Eyebrow / label -->
+  <div style="position:absolute; top:72px; left:90px; right:90px; z-index:3;">
+    <div style="display:inline-flex; align-items:center; gap:10px;">
+      <div style="width:28px; height:2px; background:#E55A2B;"></div>
+      <span style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:700; color:#E55A2B; letter-spacing:0.08em; text-transform:uppercase;">A 7-step walkthrough</span>
+    </div>
+  </div>
+
+  <!-- Main headline -->
+  <div style="position:absolute; top:148px; left:90px; right:90px; z-index:2;">
+    <div style="font-family:'Playfair Display',Georgia,serif; font-weight:900; font-size:92px; line-height:0.96; color:#1A1A1A; letter-spacing:-0.02em;">
+      How to set up<br>
+      <span style="color:#E55A2B;">MCP servers</span><br>
+      in Claude Code.
+    </div>
+  </div>
+
+  <!-- Sticky note -->
+  <div class="sticky" style="position:absolute; top:560px; left:90px; z-index:4; transform:rotate(-1.5deg);">
+    <div class="sticky-text">From zero to working<br>server in 12 minutes</div>
+  </div>
+
+  <!-- Sub descriptor -->
+  <div style="position:absolute; top:700px; left:90px; right:90px; z-index:2;">
+    <div style="font-family:'Outfit',sans-serif; font-size:26px; font-weight:400; color:#6B6560; line-height:1.55; max-width:700px;">
+      Connect your own tools, data sources, and APIs directly to Claude — no plugin marketplace needed.
+    </div>
+  </div>
+
+  <!-- Bottom area — stats row -->
+  <div style="position:absolute; bottom:90px; left:90px; right:90px; z-index:3; display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; gap:40px; align-items:center;">
+      <div>
+        <div style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:400; color:rgba(26,26,26,0.38); text-transform:uppercase; letter-spacing:0.10em; margin-bottom:4px;">Read time</div>
+        <div style="font-family:'Outfit',sans-serif; font-size:26px; font-weight:700; color:#1A1A1A;">12 min</div>
+      </div>
+      <div style="width:1px; height:40px; background:#C8C4BC;"></div>
+      <div>
+        <div style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:400; color:rgba(26,26,26,0.38); text-transform:uppercase; letter-spacing:0.10em; margin-bottom:4px;">Format</div>
+        <div style="font-family:'Outfit',sans-serif; font-size:26px; font-weight:700; color:#1A1A1A;">Step-by-step</div>
+      </div>
+    </div>
+    <div style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:500; color:rgba(26,26,26,0.40); letter-spacing:0.04em;">@claudebuilders</div>
+  </div>
+
+  <!-- Bottom accent rule -->
+  <div style="position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#E55A2B 0%,#F0894F 50%,#E55A2B 100%); z-index:5;"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 2 — STEP 01: Install the MCP CLI
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-2" data-testid="slide-2">
+  <div class="accent-rule"></div>
+
+  <!-- Step label -->
+  <div class="step-label">
+    <div class="step-dash"></div>
+    <span class="step-text">— Step 01</span>
+  </div>
+
+  <!-- Content -->
+  <div class="pad3">
+    <div class="h-serif">Install the<br>MCP CLI</div>
+    <div class="body-text" style="margin-top:24px; max-width:780px;">
+      Run <code style="font-family:'JetBrains Mono',monospace; font-size:20px; background:#EAE7E2; padding:2px 8px; border-radius:4px; color:#1A1A1A;">npm install -g @anthropic/mcp-cli</code> — this gives you the <strong style="font-weight:700; color:#1A1A1A;">mcp</strong> command globally.
+    </div>
+  </div>
+
+  <!-- Terminal window -->
+  <div style="position:absolute; left:0; right:0; top:540px; bottom:0; z-index:2; overflow:hidden;">
+    <div style="background:#2D2D2D; height:44px; display:flex; align-items:center; padding:0 18px; gap:8px; flex-shrink:0;">
+      <div style="width:13px; height:13px; border-radius:50%; background:#FF5F57;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#FFBD2E;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#28CA41;"></div>
+      <div style="margin-left:12px; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.40);">install · ~ · zsh</div>
+    </div>
+    <div style="background:#1C1C1C; padding:32px 48px; height:calc(100% - 44px); overflow:hidden;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:22px; line-height:1.85; display:flex; flex-direction:column;">
+        <div><span style="color:#E8E8E8;">$ npm install -g @anthropic/mcp-cli</span></div>
+        <div style="color:#6B6B6B;">&nbsp;</div>
+        <div style="color:#6B6B6B;">npm warn deprecated rimraf@3.0.2: ...</div>
+        <div style="color:#6B6B6B;">added 47 packages in 3s</div>
+        <div>&nbsp;</div>
+        <div><span style="color:#E8E8E8;">$ mcp --version</span></div>
+        <div style="color:#6B6B6B;">0.9.2</div>
+        <div>&nbsp;</div>
+        <div><span style="color:#E55A2B;">✓ mcp command available globally</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-counter">01 / 07</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 3 — STEP 02: Create a server stub
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-3" data-testid="slide-3">
+  <div class="accent-rule"></div>
+
+  <!-- Step label -->
+  <div class="step-label">
+    <div class="step-dash"></div>
+    <span class="step-text">— Step 02</span>
+  </div>
+
+  <!-- Sticky note — top right -->
+  <div class="sticky" style="position:absolute; top:52px; right:90px; z-index:4; transform:rotate(1.8deg); max-width:220px;">
+    <div class="sticky-text">Pick a name that<br>describes the tool</div>
+  </div>
+
+  <!-- Content -->
+  <div class="pad3">
+    <div class="h-serif">Create a<br>server stub</div>
+    <div class="body-text" style="margin-top:24px; max-width:740px;">
+      Use <code style="font-family:'JetBrains Mono',monospace; font-size:20px; background:#EAE7E2; padding:2px 8px; border-radius:4px; color:#1A1A1A;">mcp init my-server</code> to scaffold a new MCP server with example tools already wired up.
+    </div>
+  </div>
+
+  <!-- Terminal window -->
+  <div style="position:absolute; left:0; right:0; top:540px; bottom:0; z-index:2; overflow:hidden;">
+    <div style="background:#2D2D2D; height:44px; display:flex; align-items:center; padding:0 18px; gap:8px; flex-shrink:0;">
+      <div style="width:13px; height:13px; border-radius:50%; background:#FF5F57;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#FFBD2E;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#28CA41;"></div>
+      <div style="margin-left:12px; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.40);">scaffold · ~ · zsh</div>
+    </div>
+    <div style="background:#1C1C1C; padding:32px 48px; height:calc(100% - 44px); overflow:hidden;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:22px; line-height:1.85; display:flex; flex-direction:column;">
+        <div><span style="color:#E8E8E8;">$ mcp init weather-server</span></div>
+        <div>&nbsp;</div>
+        <div><span style="color:#E55A2B;">✓ created weather-server/</span></div>
+        <div><span style="color:#E55A2B;">✓ added tools/get_weather.ts</span></div>
+        <div><span style="color:#E55A2B;">✓ added package.json</span></div>
+        <div><span style="color:#E55A2B;">✓ added tsconfig.json</span></div>
+        <div>&nbsp;</div>
+        <div><span style="color:#E8E8E8;">$ ls weather-server/</span></div>
+        <div style="color:#6B6B6B;">tools/  package.json  tsconfig.json  index.ts</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-counter">02 / 07</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 4 — STEP 03: Define your tool (code panel)
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-4" data-testid="slide-4">
+  <div class="accent-rule"></div>
+
+  <!-- Step label -->
+  <div class="step-label">
+    <div class="step-dash"></div>
+    <span class="step-text">— Step 03</span>
+  </div>
+
+  <!-- Content above panel -->
+  <div class="pad3">
+    <div class="h-serif-sm">Define<br>your tool</div>
+    <div class="body-text" style="margin-top:18px; max-width:780px;">
+      Open <code style="font-family:'JetBrains Mono',monospace; font-size:19px; background:#EAE7E2; padding:2px 7px; border-radius:4px; color:#1A1A1A;">tools/get_weather.ts</code> and replace the stub with a typed tool definition.
+    </div>
+  </div>
+
+  <!-- Claude Code UI panel — code view -->
+  <div style="position:absolute; left:60px; right:60px; top:480px; bottom:60px; z-index:2; overflow:hidden; background:#1E1E2E; border-radius:14px; box-shadow:0 4px 32px rgba(0,0,0,0.18);">
+    <!-- Panel chrome -->
+    <div style="background:#2A2A3E; height:44px; display:flex; align-items:center; padding:0 18px; gap:8px;">
+      <div style="width:13px; height:13px; border-radius:50%; background:#FF5F57;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#FFBD2E;"></div>
+      <div style="width:13px; height:13px; border-radius:50%; background:#28CA41;"></div>
+      <div style="margin-left:12px; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.45);">tools/get_weather.ts</div>
+    </div>
+    <!-- Code area -->
+    <div style="padding:28px 40px; overflow:hidden; height:calc(100% - 44px);">
+      <pre style="font-family:'JetBrains Mono',monospace; font-size:19px; line-height:1.70; color:#CDD6F4; white-space:pre; overflow:hidden;"><span style="color:#89B4FA;">import</span> <span style="color:#CDD6F4;">{ tool, z }</span> <span style="color:#89B4FA;">from</span> <span style="color:#A6E3A1;">'@anthropic/mcp-cli'</span><span style="color:#CDD6F4;">;</span>
+
+<span style="color:#89B4FA;">export const</span> <span style="color:#89DCEB;">get_weather</span> <span style="color:#CDD6F4;">= tool({</span>
+  <span style="color:#A6E3A1;">name</span><span style="color:#CDD6F4;">: </span><span style="color:#A6E3A1;">'get_weather'</span><span style="color:#CDD6F4;">,</span>
+  <span style="color:#A6E3A1;">description</span><span style="color:#CDD6F4;">: </span><span style="color:#A6E3A1;">'Get current weather for a city'</span><span style="color:#CDD6F4;">,</span>
+  <span style="color:#A6E3A1;">input_schema</span><span style="color:#CDD6F4;">: z.object({</span>
+    <span style="color:#A6E3A1;">city</span><span style="color:#CDD6F4;">: z.string()</span>
+             <span style="color:#CDD6F4;">.describe(</span><span style="color:#A6E3A1;">'City name, e.g. Tokyo'</span><span style="color:#CDD6F4;">),</span>
+  <span style="color:#CDD6F4;">}),</span>
+  <span style="color:#89B4FA;">async</span> <span style="color:#89DCEB;">run</span><span style="color:#CDD6F4;">({ city }) {</span>
+    <span style="color:#89B4FA;">return</span> <span style="color:#CDD6F4;">fetchWeather(city);</span>
+  <span style="color:#CDD6F4;">},</span>
+<span style="color:#CDD6F4;">});</span></pre>
+    </div>
+  </div>
+
+  <div class="slide-counter">03 / 07</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 5 — STEP 04: Wire it to Claude
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-5" data-testid="slide-5">
+  <div class="accent-rule"></div>
+
+  <!-- Step label -->
+  <div class="step-label">
+    <div class="step-dash"></div>
+    <span class="step-text">— Step 04</span>
+  </div>
+
+  <!-- Sticky note — bottom left -->
+  <div class="sticky" style="position:absolute; bottom:90px; left:90px; z-index:4; transform:rotate(-2deg); max-width:250px;">
+    <div class="sticky-text">Relative path<br>from project root</div>
+  </div>
+
+  <!-- Content -->
+  <div class="pad3">
+    <div class="h-serif">Wire it<br>to Claude</div>
+    <div class="body-text" style="margin-top:22px; max-width:780px;">
+      Add the server to <code style="font-family:'JetBrains Mono',monospace; font-size:20px; background:#EAE7E2; padding:2px 8px; border-radius:4px; color:#1A1A1A;">.claude/mcp.json</code> under the <strong style="font-weight:700; color:#1A1A1A;">mcpServers</strong> key with your stub's path.
+    </div>
+  </div>
+
+  <!-- JSON panel -->
+  <div style="position:absolute; left:60px; right:60px; top:520px; bottom:160px; z-index:2; overflow:hidden; background:#FAFAF8; border-radius:14px; box-shadow:0 2px 20px rgba(0,0,0,0.08); border:1px solid #E0DCD6;">
+    <div style="background:#F0EDE8; height:40px; display:flex; align-items:center; padding:0 20px; border-bottom:1px solid #E0DCD6;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(26,26,26,0.50); font-weight:500;">.claude/mcp.json</span>
+    </div>
+    <div style="padding:24px 36px;">
+      <pre style="font-family:'JetBrains Mono',monospace; font-size:20px; line-height:1.70; color:#1A1A1A; white-space:pre;"><span style="color:#5C6BC0;">{</span>
+  <span style="color:#E55A2B;">"mcpServers"</span><span style="color:#1A1A1A;">: {</span>
+    <span style="color:#E55A2B;">"weather"</span><span style="color:#1A1A1A;">: {</span>
+      <span style="color:#E55A2B;">"command"</span><span style="color:#1A1A1A;">: </span><span style="color:#2E7D32;">"node"</span><span style="color:#1A1A1A;">,</span>
+      <span style="color:#E55A2B;">"args"</span><span style="color:#1A1A1A;">: [</span><span style="color:#2E7D32;">"weather-server/index.js"</span><span style="color:#1A1A1A;">]</span>
+    <span style="color:#1A1A1A;">}</span>
+  <span style="color:#1A1A1A;">}</span>
+<span style="color:#5C6BC0;">}</span></pre>
+    </div>
+  </div>
+
+  <div class="slide-counter">04 / 07</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 6 — STEP 05: Test it
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-6" data-testid="slide-6">
+  <div class="accent-rule"></div>
+
+  <!-- Step label -->
+  <div class="step-label">
+    <div class="step-dash"></div>
+    <span class="step-text">— Step 05</span>
+  </div>
+
+  <!-- Sticky note — top right -->
+  <div class="sticky" style="position:absolute; top:52px; right:90px; z-index:4; transform:rotate(1.2deg); max-width:230px;">
+    <div class="sticky-text">If it doesn't fire,<br>check Claude logs.</div>
+  </div>
+
+  <!-- Content -->
+  <div class="pad3">
+    <div class="h-serif">Test it</div>
+    <div class="body-text" style="margin-top:24px; max-width:780px;">
+      Restart Claude Code. Ask: <em style="font-style:italic; color:#1A1A1A;">"what's the weather in Tokyo?"</em> — the tool should fire automatically.
+    </div>
+
+    <div class="check-list" style="margin-top:32px;">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <span class="check-text">Quit and relaunch Claude Code completely</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <span class="check-text">Verify mcp.json is saved in your project root</span>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <span class="check-text">Ask Claude to call get_weather with your city</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual result panel -->
+  <div style="position:absolute; left:90px; right:90px; top:840px; bottom:80px; z-index:2; background:#FFFFFF; border-radius:12px; box-shadow:0 2px 20px rgba(0,0,0,0.09); overflow:hidden; border:1px solid #E8E4DE;">
+    <div style="padding:18px 24px; background:#F5F2ED; border-bottom:1px solid #E8E4DE; display:flex; align-items:center; gap:12px;">
+      <div style="width:8px; height:8px; border-radius:50%; background:#28CA41;"></div>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:18px; font-weight:700; color:#22C55E;">tool: get_weather · connected</span>
+    </div>
+    <div style="padding:20px 24px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:19px; color:#4A4540; line-height:1.55;">
+        <span style="color:#6B6B6B;">→ calling </span><span style="color:#E55A2B;">get_weather</span><span style="color:#6B6B6B;"> with city=</span><span style="color:#1A1A1A;">"Tokyo"</span><br>
+        <span style="color:#22C55E;">✓ 18°C, partly cloudy, humidity 64%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-counter">05 / 07</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 7 — CTA (light cream, Rule U1)
+═══════════════════════════════════════════════════════════ -->
+<section class="slide lt" id="slide-7" data-testid="slide-7">
+  <div class="accent-rule"></div>
+
+  <!-- Handle pill — top right -->
+  <div style="position:absolute; top:50px; right:90px; display:inline-flex; align-items:center; border:1.5px solid rgba(0,0,0,0.20); border-radius:100px; padding:10px 22px; font-family:'Outfit',sans-serif; font-size:18px; font-weight:500; color:rgba(0,0,0,0.50); z-index:4;">@claudebuilders</div>
+
+  <!-- Top hairline -->
+  <div class="v-line" style="position:absolute; top:60px; left:50%; height:90px; z-index:2;"></div>
+
+  <!-- CTA content -->
+  <div style="position:absolute; top:210px; left:90px; right:90px; z-index:2; text-align:left;">
+    <div style="font-family:'Outfit',sans-serif; font-size:18px; font-weight:700; letter-spacing:0.14em; color:rgba(0,0,0,0.35); text-transform:uppercase; margin-bottom:36px;">Claude Builders</div>
+
+    <div style="font-family:'Playfair Display',Georgia,serif; font-weight:900; font-size:96px; line-height:0.94; letter-spacing:-0.02em; color:#1A1A1A;">
+      That's it.<br>You're an<br>MCP author<br>now.
+    </div>
+
+    <div style="margin-top:40px; font-family:'Outfit',sans-serif; font-size:26px; font-weight:400; color:#6B6560; line-height:1.55; max-width:780px;">
+      Five steps to bring your own tools into Claude Code. Save this so you can reference it when you build your first server.
+    </div>
+
+    <!-- Save ask + follow CTA -->
+    <div style="margin-top:44px; display:flex; align-items:center; gap:28px; flex-wrap:wrap;">
+      <div style="display:inline-flex; align-items:center; gap:10px; background:#E55A2B; border-radius:100px; padding:16px 32px;">
+        <span style="font-size:22px;">🔖</span>
+        <span style="font-family:'Outfit',sans-serif; font-size:22px; font-weight:700; color:#FFFFFF;">Save for later</span>
+      </div>
+      <div style="font-family:'Outfit',sans-serif; font-size:22px; font-weight:500; color:#4A4540;">
+        Follow <strong style="color:#E55A2B; font-weight:700;">@claudebuilders</strong> for more
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom hairline -->
+  <div class="v-line" style="position:absolute; bottom:60px; left:50%; height:90px; z-index:2;"></div>
+
+  <!-- Bottom accent -->
+  <div style="position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#E55A2B 0%,#F0894F 50%,#E55A2B 100%); z-index:5;"></div>
+</section>
+
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <span class="slide-num" id="nav-counter">1 / 7</span>
+  <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+  let current = 1;
+  const total = 7;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(function(s) {
+      s.classList.remove('active');
+    });
+    document.getElementById('slide-' + n).classList.add('active');
+    document.getElementById('nav-counter').textContent = n + ' / ' + total;
+    current = n;
+  }
+
+  function nextSlide() {
+    if (current < total) showSlide(current + 1);
+  }
+
+  function prevSlide() {
+    if (current > 1) showSlide(current - 1);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+</script>
+
+</body>
+</html>

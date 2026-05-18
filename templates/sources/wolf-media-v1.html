@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; font-family: 'Outfit', -apple-system, 'Helvetica Neue', sans-serif; }
+
+    .slide { width: 1080px; height: 1350px; display: none; position: relative; overflow: hidden; }
+    .slide.active { display: block; }
+
+    /* DARK SLIDE — Rule U2: layered gradient + grain + accent glow */
+    .dk {
+      background:
+        radial-gradient(ellipse at 50% 30%, #1F1E2A 0%, #15141C 55%, #0E0D14 100%);
+      position: relative;
+    }
+    .dk::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.92 0 0 0 0 0.86 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: 0.32;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .dk::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 60% 40% at 80% 20%, rgba(27,106,228,0.06), transparent 70%);
+      z-index: 1;
+    }
+
+    /* WHITE SLIDE */
+    .wt { background: #FFFFFF; }
+
+    /* LIGHT HOOK SLIDE — Rule U1: cream/paper background */
+    .lt {
+      background: #F7F6F3;
+      position: relative;
+    }
+    .lt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: #1B6AE4;
+      z-index: 3;
+    }
+
+    /* LIGHT CTA SLIDE — Rule U1: paper background */
+    .lc {
+      background: #F1ECE2;
+      position: relative;
+    }
+    .lc::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: #1B6AE4;
+      z-index: 3;
+    }
+
+    /* CONTENT — anchored from top */
+    .pad { position: absolute; inset: 0; padding: 90px; padding-top: 490px; z-index: 2; }
+    .wt .pad { padding-top: 460px; }
+
+    /* HANDLE PILL — dark slides (white border) */
+    .handle-tl { position: absolute; top: 55px; left: 90px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.30); border-radius: 100px; padding: 10px 20px; font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.68); letter-spacing: 0.01em; z-index: 3; }
+    .handle-tr { position: absolute; top: 55px; right: 90px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.30); border-radius: 100px; padding: 10px 20px; font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.68); letter-spacing: 0.01em; z-index: 3; }
+
+    /* HANDLE PILL — light slides (dark border) */
+    .handle-tl-dk { position: absolute; top: 55px; left: 90px; display: inline-flex; align-items: center; border: 1px solid rgba(0,0,0,0.18); border-radius: 100px; padding: 10px 20px; font-size: 20px; font-weight: 500; color: rgba(0,0,0,0.52); letter-spacing: 0.01em; z-index: 3; }
+    .handle-tr-dk { position: absolute; top: 55px; right: 90px; display: inline-flex; align-items: center; border: 1px solid rgba(0,0,0,0.18); border-radius: 100px; padding: 10px 20px; font-size: 20px; font-weight: 500; color: rgba(0,0,0,0.52); letter-spacing: 0.01em; z-index: 3; }
+
+    /* PROGRESS BAR */
+    .prog-track { position: absolute; bottom: 60px; left: 90px; right: 90px; height: 2px; z-index: 3; }
+    .dk .prog-track { background: rgba(255,255,255,0.14); }
+    .wt .prog-track { background: rgba(0,0,0,0.10); }
+    .lt .prog-track { background: rgba(0,0,0,0.10); }
+    .lc .prog-track { background: rgba(0,0,0,0.10); }
+    .prog-fill { height: 100%; }
+    .dk .prog-fill { background: rgba(255,255,255,0.68); }
+    .wt .prog-fill { background: rgba(0,0,0,0.52); }
+    .lt .prog-fill { background: #1B6AE4; }
+    .lc .prog-fill { background: #1B6AE4; }
+
+    /* TYPOGRAPHY */
+    .h1    { font-weight: 800; font-size: 100px; line-height: 0.92; letter-spacing: -0.04em; color: #FFFFFF; }
+    .h1-xl { font-weight: 800; font-size: 116px; line-height: 0.90; letter-spacing: -0.04em; color: #FFFFFF; }
+    .h1-sm { font-weight: 800; font-size: 86px;  line-height: 0.93; letter-spacing: -0.04em; color: #FFFFFF; }
+
+    /* GRADIENT TEXT */
+    .gd { background: linear-gradient(90deg, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.22) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; width: fit-content; }
+    .gl { background: linear-gradient(90deg, #2C2C2C 0%, #ABABAB 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; width: fit-content; }
+    .blk { color: #111111; }
+    .acc { color: #1B6AE4; }
+
+    /* BODY TEXT */
+    .bb  { font-size: 26px; font-weight: 700; line-height: 1.45; color: rgba(255,255,255,0.92); }
+    .br  { font-size: 24px; font-weight: 400; line-height: 1.60; color: rgba(255,255,255,0.50); }
+    .wbb { font-size: 26px; font-weight: 700; line-height: 1.45; color: #141414; }
+    .wbr { font-size: 24px; font-weight: 400; line-height: 1.60; color: #888888; }
+
+    /* SUBTITLE PILL — hook slide (dark) */
+    .sub-pill { display: inline-flex; align-items: center; border: 1.5px solid rgba(255,255,255,0.26); border-radius: 100px; padding: 14px 34px; font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.80); margin-top: 46px; letter-spacing: 0.01em; }
+
+    /* SUBTITLE PILL — light hook slide */
+    .sub-pill-lt { display: inline-flex; align-items: center; border: 1.5px solid rgba(0,0,0,0.16); border-radius: 100px; padding: 14px 34px; font-size: 22px; font-weight: 500; color: rgba(0,0,0,0.52); margin-top: 46px; letter-spacing: 0.01em; }
+
+    /* STAT BOXES */
+    .stat-row { display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 20px 28px; background: rgba(255,255,255,0.04); width: fit-content; min-width: 580px; }
+    .stat-row + .stat-row { margin-top: 12px; }
+    .stat-lbl { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.68); }
+    .stat-val { font-size: 24px; font-weight: 800; color: #FFFFFF; }
+
+    /* FINDINGS GRID */
+    .findings-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .finding { padding: 24px 0; border-bottom: 1px solid #E4E4E4; }
+    .finding:nth-child(odd) { padding-right: 50px; }
+    .finding:nth-child(even) { padding-left: 50px; border-left: 1px solid #E4E4E4; }
+    .finding:nth-last-child(-n+2) { border-bottom: none; }
+    .finding-title { font-size: 26px; font-weight: 700; color: #111111; line-height: 1.3; margin-bottom: 8px; }
+    .finding-desc { font-size: 22px; font-weight: 400; color: #888888; line-height: 1.55; }
+
+    /* COMPANY GRID */
+    .co-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 36px; }
+    .co-item { padding: 16px 0; border-bottom: 1px solid #E4E4E4; }
+    .co-item:nth-child(odd) { padding-right: 44px; }
+    .co-item:nth-child(even) { padding-left: 44px; border-left: 1px solid #E4E4E4; }
+    .co-item:nth-last-child(-n+2) { border-bottom: none; }
+    .co-name { font-size: 24px; font-weight: 700; color: #111111; }
+    .co-role { font-size: 18px; color: #999999; margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- SLIDE 1 — HOOK (LIGHT per Rule U1) -->
+<section class="slide lt active" id="slide-1">
+  <div class="handle-tr-dk">@thefounderlab</div>
+  <div style="position:absolute; inset:0; padding:90px; padding-top:420px; z-index:2;">
+    <div style="font-size:20px; font-weight:700; letter-spacing:0.12em; color:#1B6AE4; text-transform:uppercase; margin-bottom:32px;">AI Safety</div>
+    <div style="font-family:'Outfit',sans-serif; font-weight:800; font-size:100px; line-height:0.92; letter-spacing:-0.04em; color:#0D0D0D;">
+      Anthropic's Mythos<br>
+      just hit <span style="color:#1B6AE4;">73%</span><br>
+      <span style="background:linear-gradient(90deg,#2C2C2C 0%,#ABABAB 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">on expert hacking</span>
+    </div>
+    <div class="sub-pill-lt">Every other AI scored 0% before this month</div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:14.3%;"></div></div>
+</section>
+
+<!-- SLIDE 2 — STATS (DARK, Rule U2 layered) -->
+<section class="slide dk" id="slide-2">
+  <div class="handle-tl">@thefounderlab</div>
+  <div class="pad">
+    <div class="h1">The numbers<br><span class="gd">that matter</span></div>
+    <div style="margin-top: 46px;">
+      <div class="stat-row">
+        <span class="stat-lbl">Test benchmark:&nbsp;</span>
+        <span class="stat-val">73% pass rate</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Prior best score:&nbsp;</span>
+        <span class="stat-val">0%</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Time to surpass:&nbsp;</span>
+        <span class="stat-val">18 months</span>
+      </div>
+    </div>
+    <div style="margin-top: 30px;"><p class="br">MITRE expert hacking eval, April 2026</p></div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:28.6%;"></div></div>
+</section>
+
+<!-- SLIDE 3 — INSIGHT (WHITE) -->
+<section class="slide wt" id="slide-3">
+  <div class="pad">
+    <div class="h1 blk">Why this number<br><span class="gl">broke the safety</span><br><span class="gl">community</span></div>
+    <div style="margin-top: 44px; max-width: 820px;">
+      <p class="wbb">AI now meets the offensive-security bar of a paid penetration tester.</p>
+      <p class="wbr" style="margin-top: 10px;">Every major lab assumed this milestone was 5 years out. Mythos hit it in 18 months.</p>
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:42.9%;"></div></div>
+</section>
+
+<!-- SLIDE 4 — NUMBERED LIST (DARK, Rule U2 layered) -->
+<section class="slide dk" id="slide-4">
+  <div class="handle-tl">@thefounderlab</div>
+  <div class="pad" style="padding-top: 370px;">
+    <div class="h1-sm">How Mythos<br><span class="gd">got there</span></div>
+    <div style="margin-top: 50px; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: flex-start; gap: 32px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.10);">
+        <span style="font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; min-width: 32px; padding-top: 4px;">01</span>
+        <div>
+          <div style="font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.92); line-height: 1.3; margin-bottom: 8px;">Synthetic CTF training</div>
+          <div style="font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.46); line-height: 1.50;">Trained on 40,000 simulated penetration scenarios</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 32px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.10);">
+        <span style="font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; min-width: 32px; padding-top: 4px;">02</span>
+        <div>
+          <div style="font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.92); line-height: 1.3; margin-bottom: 8px;">Tool-use loops</div>
+          <div style="font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.46); line-height: 1.50;">Given full shell access in a sandboxed VM</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 32px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10);">
+        <span style="font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; min-width: 32px; padding-top: 4px;">03</span>
+        <div>
+          <div style="font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.92); line-height: 1.3; margin-bottom: 8px;">Self-critique passes</div>
+          <div style="font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.46); line-height: 1.50;">Generated and graded its own attack chains</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:57.1%;"></div></div>
+</section>
+
+<!-- SLIDE 5 — COMPANY GRID (WHITE) -->
+<section class="slide wt" id="slide-5">
+  <div class="pad" style="padding-top: 390px;">
+    <div class="h1-sm blk">Labs racing<br><span class="gl">to match it</span></div>
+    <div class="co-grid">
+      <div class="co-item">
+        <div class="co-name">OpenAI</div>
+        <div class="co-role">Building red-team agent for GPT-6</div>
+      </div>
+      <div class="co-item">
+        <div class="co-name">Google DeepMind</div>
+        <div class="co-role">Project Aegis, due Q3 2026</div>
+      </div>
+      <div class="co-item">
+        <div class="co-name">Meta AI</div>
+        <div class="co-role">Internal benchmark only, no public eval</div>
+      </div>
+      <div class="co-item">
+        <div class="co-name" style="color:#1B6AE4;">Anthropic</div>
+        <div class="co-role">Mythos shipped April 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:71.4%;"></div></div>
+</section>
+
+<!-- SLIDE 6 — FINDINGS GRID (WHITE) -->
+<section class="slide wt" id="slide-6">
+  <div class="pad" style="padding-top: 390px;">
+    <div class="h1 blk">What it<br><span class="gl">means</span></div>
+    <div class="findings-grid" style="margin-top: 44px;">
+      <div class="finding">
+        <div class="finding-title">Defenders need AI too</div>
+        <div class="finding-desc">Manual SOC analysts can't keep pace with offensive-grade AI operating at machine speed.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Disclosure rules change</div>
+        <div class="finding-desc">Coordinated disclosure timelines compress from 90 days to days when AI finds exploits faster than humans patch them.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Talent gap widens</div>
+        <div class="finding-desc">Offensive AI engineers now command 3x the salary of defensive AI roles across major tech employers.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Regulation lags</div>
+        <div class="finding-desc">No federal AI safety rule currently covers offensive capability benchmarks like the MITRE eval.</div>
+      </div>
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:85.7%;"></div></div>
+</section>
+
+<!-- SLIDE 7 — CTA (LIGHT per Rule U1) -->
+<section class="slide lc" id="slide-7">
+  <div class="handle-tl-dk">@thefounderlab</div>
+  <div style="position:absolute; inset:0; padding:90px; padding-top:430px; z-index:2;">
+    <div style="font-size:20px; font-weight:700; letter-spacing:0.14em; color:rgba(0,0,0,0.38); text-transform:uppercase; margin-bottom:36px;">Follow for more</div>
+    <div style="font-family:'Outfit',sans-serif; font-weight:800; font-size:108px; line-height:0.90; letter-spacing:-0.04em; color:#0D0D0D;">
+      The Founder<br>Lab
+    </div>
+    <div style="margin-top:40px; max-width:740px; font-size:28px; font-weight:400; line-height:1.50; color:rgba(0,0,0,0.60);">
+      Six months from now, this story is everywhere. You read it today.
+    </div>
+    <div style="margin-top:36px; font-size:32px; font-weight:700; color:#0D0D0D;">
+      Save this. <span style="color:#1B6AE4;">Follow</span> for what's next.
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" style="width:100%;"></div></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Template E — System | figr.design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0D0D0D;
+      --muted: #6B6B6B;
+      --faint: rgba(255,255,255,0.3);
+      --bg: #FFFFFF;
+      --cream: #F4F3EF;
+      --dark-bg: #111827;
+      --accent: #00C8B4;
+      --border: #E0DED9;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #8C8C8C;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 48px 0;
+    }
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    /* Figma-canvas grid background */
+    .canvas-grid {
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    /* Brand block */
+    .brand {
+      position: absolute;
+      bottom: 36px; right: 44px;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+      z-index: 4;
+    }
+    .brand-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+    .brand-dot  { font-size: 13px; font-weight: 500; color: var(--accent); line-height: 1; }
+    .on-dark .brand-name  { color: rgba(255,255,255,0.45); }
+    .on-light .brand-name { color: var(--muted); }
+
+    /* ════════════════════════════════════════════
+       HOOK SLIDE
+    ════════════════════════════════════════════ */
+    .hook {
+      display: flex;
+      flex-direction: column;
+      padding: 84px 92px;
+      height: 1080px;
+    }
+    .hook-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 72px;
+    }
+    .mono-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .mono-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+    }
+    .hook-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .hook-hed {
+      font-size: 84px;
+      font-weight: 800;
+      line-height: 1.0;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      max-width: 860px;
+    }
+    .hook-hed .cyan { color: var(--accent); }
+    .hook-rule {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 52px 0 40px;
+    }
+    .hook-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .hook-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.58;
+      max-width: 520px;
+    }
+    .hook-stat-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .hook-stat-big {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .hook-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ════════════════════════════════════════════
+       CONTENT SLIDES — dark left / light right
+    ════════════════════════════════════════════ */
+    .sys {
+      display: flex;
+      height: 1080px;
+      background-color: var(--cream);
+      background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    /* Dark stat column */
+    .sys-left {
+      width: 320px;
+      flex-shrink: 0;
+      background: var(--dark-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 0 52px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Big number — overflows/bleeds for visual drama */
+    .stat-bg-num {
+      position: absolute;
+      top: -32px;
+      left: -24px;
+      font-size: 280px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      opacity: 0.9;
+      pointer-events: none;
+      user-select: none;
+    }
+    /* A faint grid overlay on dark panel */
+    .sys-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .sys-left-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 36px 0 40px;
+    }
+    .stat-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .stat-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+    /* Cyan left accent bar on dark panel */
+    .sys-left::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+    }
+
+    /* Light content column */
+    .sys-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(0px);
+    }
+    .sys-right-top {
+      padding: 52px 72px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 36px;
+    }
+    .rule-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--border);
+      letter-spacing: 0.06em;
+    }
+    .sys-right-body {
+      flex: 1;
+      padding: 56px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .sys-hed {
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--ink);
+      letter-spacing: -0.018em;
+      max-width: 560px;
+    }
+    .sys-divider {
+      width: 40px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 28px 0 32px;
+    }
+    .sys-body-text {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 540px;
+    }
+    .sys-body-text b { color: var(--ink); font-weight: 600; }
+    .sys-right-footer {
+      padding: 28px 72px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-source {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--border);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════════
+       CTA SLIDE
+    ════════════════════════════════════════════ */
+    .cta {
+      display: flex;
+      flex-direction: column;
+      height: 1080px;
+    }
+    /* Top section — dark with grid */
+    .cta-dark {
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 92px;
+    }
+    .cta-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .cta-hed {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.04;
+      color: #FFFFFF;
+      letter-spacing: -0.026em;
+      max-width: 820px;
+    }
+    .cta-hed .cyan { color: var(--accent); }
+    .cta-rule { width: 48px; height: 3px; background: var(--accent); border-radius: 2px; margin: 40px 0; }
+    .cta-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      max-width: 620px;
+    }
+    /* Bottom strip — light */
+    .cta-light {
+      background: var(--cream);
+      padding: 36px 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 3px solid var(--accent);
+    }
+    .cta-handle {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .cta-handle span { color: var(--accent); }
+    .cta-action {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ SLIDE 1 — Hook ══ -->
+<div class="slide canvas-grid hook">
+  <div class="hook-top">
+    <span class="mono-label">// ux_research · scanning_behavior</span>
+    <span class="mono-counter">01 / 07</span>
+  </div>
+  <div class="hook-body">
+    <div class="hook-hed">Your users<br>aren't reading.<br>They're <span class="cyan">pattern-<br>matching.</span></div>
+    <div class="hook-rule"></div>
+    <div class="hook-bottom">
+      <div class="hook-sub">Design for the brain you have — not the reader you want.</div>
+      <div class="hook-stat-pill">
+        <div class="hook-stat-big">232</div>
+        <div class="hook-stat-label">users tracked<br>NNGroup · 2024</div>
+      </div>
+    </div>
+  </div>
+  <div class="brand on-dark"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 2 ══════════ -->
+<div class="slide sys">
+  <div class="sys-left">
+    <div class="stat-bg-num">20</div>
+    <div class="sys-left-content">
+      <div class="stat-unit">% of words</div>
+      <div class="stat-desc">read on a<br>typical page</div>
+    </div>
+  </div>
+  <div class="sys-right">
+    <div class="sys-right-top">
+      <span class="rule-label">Research · 01</span>
+      <span class="slide-counter">02.07</span>
+    </div>
+    <div class="sys-right-body">
+      <div class="sys-hed">The average page visit. How much gets read.</div>
+      <div class="sys-divider"></div>
+      <p class="sys-body-text">Nielsen Norman Group tracked 232 users across thousands of pages. They scan in an F-shape. Two horizontal passes at the top. Then a vertical skim down the left. <b>Not because they're lazy — because time is limited and content is everywhere.</b></p>
+    </div>
+    <div class="sys-right-footer">
+      <span class="footer-source">NNGroup · 2024</span>
+      <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 3 ══════════ -->
+<div class="slide sys">
+  <div class="sys-left">
+    <div class="stat-bg-num" style="font-size:260px;top:-24px;left:-20px;">2</div>
+    <div class="sys-left-content">
+      <div class="stat-unit">first words</div>
+      <div class="stat-desc">decide if<br>line gets read</div>
+    </div>
+  </div>
+  <div class="sys-right">
+    <div class="sys-right-top">
+      <span class="rule-label">Rule · 01</span>
+      <span class="slide-counter">03.07</span>
+    </div>
+    <div class="sys-right-body">
+      <div class="sys-hed">The first two words of every line are critical.</div>
+      <div class="sys-divider"></div>
+      <p class="sys-body-text">The third word is read far less often. Write headings so the most informative word comes first. <b>Not: "This is a guide to improving conversion." But: "Conversion guide: 5 things that move the number."</b></p>
+    </div>
+    <div class="sys-right-footer">
+      <span class="footer-source">NNGroup · F-pattern research</span>
+      <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 4 ══════════ -->
+<div class="slide sys">
+  <div class="sys-left">
+    <div class="stat-bg-num" style="font-size:200px;top:-10px;left:-16px;letter-spacing:-0.05em;">3×</div>
+    <div class="sys-left-content">
+      <div class="stat-unit">more fixations</div>
+      <div class="stat-desc">on bold text<br>vs body copy</div>
+    </div>
+  </div>
+  <div class="sys-right">
+    <div class="sys-right-top">
+      <span class="rule-label">Rule · 02</span>
+      <span class="slide-counter">04.07</span>
+    </div>
+    <div class="sys-right-body">
+      <div class="sys-hed">Statistics and bold text create scanning anchors.</div>
+      <div class="sys-divider"></div>
+      <p class="sys-body-text">"7 in 10 users abandon at this point" — the eye stops. <b>A single bolded phrase in a paragraph becomes a natural landing point.</b> Subheadings create a layer-cake pattern — the best scanning pattern your users can follow.</p>
+    </div>
+    <div class="sys-right-footer">
+      <span class="footer-source">Scanning anchors · visual hierarchy</span>
+      <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 5 ══════════ -->
+<div class="slide sys">
+  <div class="sys-left">
+    <div class="stat-bg-num" style="font-size:200px;top:-16px;left:-28px;letter-spacing:-0.08em;">2–3</div>
+    <div class="sys-left-content">
+      <div class="stat-unit">lines per</div>
+      <div class="stat-desc">paragraph<br>before eyes skip</div>
+    </div>
+  </div>
+  <div class="sys-right">
+    <div class="sys-right-top">
+      <span class="rule-label">Rule · 03</span>
+      <span class="slide-counter">05.07</span>
+    </div>
+    <div class="sys-right-body">
+      <div class="sys-hed">Short paragraphs give the eye a natural resting point.</div>
+      <div class="sys-divider"></div>
+      <p class="sys-body-text">Long paragraphs get skimmed from the first line and dropped. Two to three lines, then break. <b>This creates white space, resting points, and a visual rhythm that invites reading instead of triggering the skip reflex.</b></p>
+    </div>
+    <div class="sys-right-footer">
+      <span class="footer-source">Content density · readability</span>
+      <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 6 ══════════ -->
+<div class="slide sys">
+  <div class="sys-left">
+    <div class="stat-bg-num" style="font-size:210px;top:-18px;left:-18px;letter-spacing:-0.05em;">80%</div>
+    <div class="sys-left-content">
+      <div class="stat-unit">never read</div>
+      <div class="stat-desc">below the fold<br>on most pages</div>
+    </div>
+  </div>
+  <div class="sys-right">
+    <div class="sys-right-top">
+      <span class="rule-label">Rule · 04</span>
+      <span class="slide-counter">06.07</span>
+    </div>
+    <div class="sys-right-body">
+      <div class="sys-hed">Most of your content lives where eyes never land.</div>
+      <div class="sys-divider"></div>
+      <p class="sys-body-text">Captions under images. Content after the third scroll. The middle of a sentence. Your most important point buried mid-paragraph. <b>If it's not in the first word of a heading or the first line of a paragraph — it might as well not exist.</b></p>
+    </div>
+    <div class="sys-right-footer">
+      <span class="footer-source">UX writing · information architecture</span>
+      <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 7 — CTA ════ -->
+<div class="slide cta">
+  <div class="cta-dark">
+    <div class="cta-eyebrow">// apply_to_your_product</div>
+    <div class="cta-hed">Cover everything<br>except the <span class="cyan">first word</span><br>of each line.</div>
+    <div class="cta-rule"></div>
+    <div class="cta-sub">If it still tells the story — it's well structured. If not, rewrite until it does.</div>
+  </div>
+  <div class="cta-light">
+    <div class="cta-handle">@<span>figr</span>.design</div>
+    <div class="cta-action">Weekly frameworks for design leads →</div>
+  </div>
+</div>
+
+</body>
+</html>

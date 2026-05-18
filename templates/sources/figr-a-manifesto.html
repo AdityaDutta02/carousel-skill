@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template A — Manifesto Carousel | figr.design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --bg: #FAFAFA;
+      --ink: #0D0D0D;
+      --ink-muted: #6B6B6B;
+      --accent: #00C8B4;
+      --dark: #0F172A;
+      --ghost: #EBEBEB;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #D0D0D0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 40px 0;
+    }
+
+    /* ── Shared slide base ── */
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       Dot Grid Backgrounds
+    ══════════════════════════════════════════ */
+    .slide-light {
+      background-color: #FAFAFA;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.10) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
+
+    /* Change 1 + Change 3: Deep navy + more visible dots */
+    .slide-dark {
+      background-color: #0F172A;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.09) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
+
+    /* Radial glow (::before) */
+    .slide-dark::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,180,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Subtle gradient overlay (::after) */
+    .slide-dark::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(15,23,42,0) 0%, rgba(0,200,180,0.04) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       Brand Block
+    ══════════════════════════════════════════ */
+    .brand-block {
+      position: absolute;
+      bottom: 30px;
+      right: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      z-index: 2;
+    }
+    .brand-block .brand-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .brand-block .brand-handle {
+      font-size: 13px;
+      font-weight: 500;
+      color: #00C8B4;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    /* Light slide brand */
+    .slide-light .brand-block .brand-name { color: #0D0D0D; }
+    /* Dark slide brand — Change 1: off-white instead of pure white */
+    .slide-dark .brand-block .brand-name { color: #F1F5F9; }
+
+    /* ══════════════════════════════════════════
+       Dark slide content styling (Change 2)
+    ══════════════════════════════════════════ */
+    .slide-dark .slide-label { color: var(--accent); }
+    .slide-dark h2 { color: #F1F5F9; }
+    .slide-dark .body-text { color: rgba(255,255,255,0.65); }
+    .slide-dark .slide-counter { color: rgba(255,255,255,0.25); }
+    .slide-dark .ghost-number { color: rgba(255,255,255,0.05); }
+
+    /* ══════════════════════════════════════════
+       SLIDE 1 — Hook (dark)
+    ══════════════════════════════════════════ */
+    .slide-1 .cyan-bar {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 140px;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+      z-index: 1;
+    }
+
+    .slide-1 .content {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 860px;
+      z-index: 1;
+    }
+
+    .slide-1 .chip {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #FFFFFF;
+      background: var(--accent);
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin-bottom: 28px;
+    }
+
+    .slide-1 h1 {
+      font-size: 82px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      max-width: 820px;
+    }
+
+    .slide-1 .sub {
+      font-size: 24px;
+      font-weight: 400;
+      color: #888888;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDES 2–6 — Problem + Tips (shared light/dark)
+    ══════════════════════════════════════════ */
+    .ghost-number {
+      position: absolute;
+      top: -20px;
+      right: -10px;
+      font-size: 280px;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      z-index: 0;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Light ghost number */
+    .slide-light .ghost-number {
+      color: var(--ghost);
+    }
+
+    /* Dark ghost number handled by .slide-dark .ghost-number above */
+
+    .slide-content {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 860px;
+      z-index: 1;
+    }
+
+    /* Preserve .slide-light .content for slide 2 */
+    .slide-light .content {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 860px;
+      z-index: 1;
+    }
+
+    .slide-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 24px;
+    }
+
+    /* Light slide label */
+    .slide-light .slide-label {
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      max-width: 760px;
+    }
+
+    /* Light slide h2 */
+    .slide-light h2 {
+      color: var(--ink);
+    }
+
+    .cyan-underline {
+      width: 64px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    .body-text {
+      font-size: 23px;
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    /* Light slide body text */
+    .slide-light .body-text {
+      color: var(--ink-muted);
+    }
+
+    .slide-counter {
+      position: absolute;
+      bottom: 32px;
+      left: 80px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1;
+    }
+
+    .slide-light .slide-counter {
+      color: #CCCCCC;
+    }
+
+    /* Accent bar for dark content slides (slides 3, 5) */
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 140px;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 7 — CTA (dark)
+    ══════════════════════════════════════════ */
+    .slide-7 .cyan-bar {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 140px;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+      z-index: 1;
+    }
+
+    .slide-7 .content {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 860px;
+      z-index: 1;
+    }
+
+    .slide-7 .small-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #555555;
+      margin-bottom: 20px;
+    }
+
+    .slide-7 h2 {
+      font-size: 86px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    .slide-7 .sub {
+      font-size: 24px;
+      font-weight: 400;
+      color: #888888;
+      margin-bottom: 32px;
+    }
+
+    .slide-7 .handle {
+      font-size: 29px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 1 — Hook (dark)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-1 slide-dark">
+    <div class="cyan-bar"></div>
+    <div class="content">
+      <span class="chip">Design Systems</span>
+      <h1>Your design system is lying to you.</h1>
+      <p class="sub">4 signs it's quietly failing your team</p>
+    </div>
+    <span class="slide-counter">01 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2 — The Problem (light)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-light">
+    <span class="ghost-number">01</span>
+    <div class="content">
+      <p class="slide-label">The Problem</p>
+      <h2>Most design systems die in silence.</h2>
+      <div class="cyan-underline"></div>
+      <p class="body-text">Teams stop using them. Components drift. No one calls it — until the codebase is three versions behind the design file.</p>
+    </div>
+    <span class="slide-counter">02 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 3 — Sign 01 (dark)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-dark">
+    <span class="ghost-number">02</span>
+    <div class="accent-bar"></div>
+    <div class="slide-content">
+      <p class="slide-label">Sign 01</p>
+      <h2>Designers are overriding tokens.</h2>
+      <div class="cyan-underline"></div>
+      <p class="body-text">If your team is manually typing hex values instead of using design tokens, the system doesn't reflect reality — and engineers will follow the file, not the spec.</p>
+    </div>
+    <span class="slide-counter">03 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 4 — Sign 02 (light)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-light">
+    <span class="ghost-number">03</span>
+    <div class="content">
+      <p class="slide-label">Sign 02</p>
+      <h2>No one owns the changelog.</h2>
+      <div class="cyan-underline"></div>
+      <p class="body-text">A system without a changelog is a system no one trusts. If updates appear without notice, teams build their own copies — and you get five slightly different button components.</p>
+    </div>
+    <span class="slide-counter">04 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5 — Sign 03 (dark)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-dark">
+    <span class="ghost-number">04</span>
+    <div class="accent-bar"></div>
+    <div class="slide-content">
+      <p class="slide-label">Sign 03</p>
+      <h2>Adoption is tracked by vibes, not data.</h2>
+      <div class="cyan-underline"></div>
+      <p class="body-text">If you don't know your component coverage rate, you don't know if the system is working. Measure coverage quarterly — it's the one metric that reveals real adoption vs. polite compliance.</p>
+    </div>
+    <span class="slide-counter">05 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6 — Sign 04 (light)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-light">
+    <span class="ghost-number">05</span>
+    <div class="content">
+      <p class="slide-label">Sign 04</p>
+      <h2>The system lives in Figma only.</h2>
+      <div class="cyan-underline"></div>
+      <p class="body-text">A design system that isn't in code is a style guide. If engineers are not co-owners — if there's no component library in the repo — the system will always lag two sprints behind.</p>
+    </div>
+    <span class="slide-counter">06 / 07</span>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7 — CTA (dark)
+  ══════════════════════════════════════════ -->
+  <div class="slide slide-7 slide-dark">
+    <div class="cyan-bar"></div>
+    <div class="content">
+      <p class="small-label">Save this for your next system audit</p>
+      <h2>Save this.</h2>
+      <p class="sub">More frameworks for design leads →</p>
+      <span class="handle">@figr.design</span>
+    </div>
+    <div class="brand-block">
+      <span class="brand-name">figr.design</span>
+      <span class="brand-handle">@figr.design</span>
+    </div>
+  </div>
+
+</body>
+</html>

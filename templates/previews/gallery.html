@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>instagram-carousel — Template Gallery</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --panel: #131313;
+    --ink: #f5f5f5;
+    --muted: #888;
+    --accent: #00c8b4;
+    --border: #1f1f1f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    min-height: 100vh;
+  }
+  header { padding: 56px 64px 32px; border-bottom: 1px solid var(--border); }
+  h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .sub { margin-top: 8px; color: var(--muted); font-size: 15px; max-width: 720px; line-height: 1.55; }
+  .legend { margin-top: 24px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  .legend b { color: var(--ink); }
+  main { padding: 40px 64px 80px; display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .card .grid-img { width: 100%; aspect-ratio: 1 / 1; background: #000; object-fit: cover; display: block; }
+  .meta { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 6px; }
+  .tname { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .tchannel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; }
+  .tdesc { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin-top: 6px; }
+  .actions { margin-top: 14px; display: flex; gap: 14px; font-size: 12.5px; }
+  .actions a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .missing { aspect-ratio: 1 / 1; background: repeating-linear-gradient(45deg, #1a1a1a, #1a1a1a 10px, #131313 10px, #131313 20px); display: grid; place-items: center; color: #555; font-size: 13px; }
+  footer { padding: 24px 64px 56px; color: var(--muted); font-size: 12px; line-height: 1.6; border-top: 1px solid var(--border); }
+  footer code { background: var(--panel); padding: 2px 8px; border-radius: 4px; font-size: 11.5px; color: var(--ink); }
+</style>
+</head>
+<body>
+<header>
+  <h1>instagram-carousel — template gallery</h1>
+  <p class="sub">Visual reference for every template in the skill. Each card shows a 2&times;2 grid of representative slides (cover, two mid-deck samples, last). Click "full strip" for the complete deck or "spec" for the markdown source of truth.</p>
+  <div class="legend">
+    <span><b>Wolf Media / General</b> — broad audience, data-driven, dark/light alternation</span>
+    <span><b>figr.design / UI-UX</b> — design leads, Inter + cyan, editorial voice</span>
+  </div>
+</header>
+<main id="cards"></main>
+<footer>
+  Rebuild previews after any visual change with: <code>node ~/.claude/skills/instagram-carousel/scripts/build-previews.mjs</code><br>
+  Build a single template: <code>node ~/.claude/skills/instagram-carousel/scripts/build-previews.mjs wolf-media-v1</code>
+</footer>
+<script>
+  const templates = [
+    { name: 'wolf-media-v1',     label: 'Wolf Media v1',     channel: 'Wolf Media / General', desc: 'Dark charcoal + film grain, Outfit, gradient text fades. Data explainers, trend reports, insight breakdowns.' },
+    { name: 'wolf-media-v2',     label: 'Wolf Media v2',     channel: 'Wolf Media / General', desc: 'Stark near-black, ALL CAPS, red accent, road-map texture. Performance reports, case studies, metrics breakdowns.' },
+    { name: 'editorial-step',    label: 'Editorial Step',    channel: 'Wolf Media / General', desc: 'Cream paper, Playfair serif, Caveat sticky notes, terminal panels. Step-by-step tutorials, tool walkthroughs.' },
+    { name: 'ascii-pixel',       label: 'ASCII / Pixel',     channel: 'Wolf Media / General', desc: 'Warm beige, Space Mono, ASCII globe SVG, pixel bot, orange accent. AI/tech announcements, Anthropic-style.' },
+    { name: 'figr-a-manifesto',  label: 'Figr A — Manifesto', channel: 'figr.design / UI-UX', desc: 'Inter, dark navy + light alternation, ghost numbers, cyan accents. Bold frameworks, principle lists, editorial statements.' },
+    { name: 'figr-b-toolkit',    label: 'Figr B — Toolkit',  channel: 'figr.design / UI-UX', desc: 'Inter, all-light slides, elevated cards with cyan border-left, concentric rings. Practical how-tos, actionable processes.' },
+    { name: 'figr-c-beforeafter',label: 'Figr C — Before / After', channel: 'figr.design / UI-UX', desc: 'Dark BEFORE / white AFTER stack, red marker + cyan check, bridge gradient. Sequential before/after shift frameworks.' },
+    { name: 'figr-e-system',     label: 'Figr E — System',   channel: 'figr.design / UI-UX', desc: 'Inter + JetBrains Mono, dark navy left / cream right split, cyan stat numbers bleed across panels. Research-driven systems, eye-tracking data.' },
+    { name: 'figr-f-contrast',   label: 'Figr F — Contrast', channel: 'figr.design / UI-UX', desc: 'Inter + JetBrains Mono, cream + terracotta wrong-panel / cyan-pale right-panel side-by-side split. Wrong-vs-right pattern critique.' },
+    { name: 'figr-g-spacing',    label: 'Figr G — Spacing',  channel: 'figr.design / UI-UX', desc: 'Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows. 12-slide notebook aesthetic for "N rules" lists.' },
+  ];
+
+  function el(tag, attrs = {}, children = []) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === 'class') node.className = v;
+      else if (k === 'text') node.textContent = v;
+      else node.setAttribute(k, v);
+    }
+    for (const c of children) node.appendChild(c);
+    return node;
+  }
+
+  const cards = document.getElementById('cards');
+  templates.forEach(t => {
+    const img = el('img', { class: 'grid-img', src: t.name + '/grid.webp', alt: t.label + ' preview' });
+    img.addEventListener('error', () => {
+      const missing = el('div', { class: 'missing', text: 'preview not yet built' });
+      img.replaceWith(missing);
+    });
+
+    const channel = el('span', { class: 'tchannel', text: t.channel });
+    const name = el('span', { class: 'tname', text: t.label });
+    const desc = el('div', { class: 'tdesc', text: t.desc });
+
+    const actions = el('div', { class: 'actions' }, [
+      el('a', { href: t.name + '/cover.webp', target: '_blank', text: 'cover' }),
+      el('a', { href: t.name + '/grid.webp', target: '_blank', text: 'grid' }),
+      el('a', { href: t.name + '/full.webp', target: '_blank', text: 'full strip' }),
+      el('a', { href: '../' + t.name + '.md', target: '_blank', text: 'spec' }),
+    ]);
+
+    const meta = el('div', { class: 'meta' }, [channel, name, desc, actions]);
+    const card = el('article', { class: 'card' }, [img, meta]);
+    cards.appendChild(card);
+  });
+</script>
+</body>
+</html>

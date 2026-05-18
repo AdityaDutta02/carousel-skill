@@ -160,6 +160,8 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 | **figr-a-manifesto** | Bold frameworks, principle lists, editorial statements ("N signs/rules/things"). Alternating dark/light typographic rhythm. |
 | **figr-b-toolkit** | Practical how-tos, process frameworks, actionable methods. Structured card layout, all light slides. |
 | **figr-c-beforeafter** | Shift-based contrasts, pattern corrections, "before you do X / after you do X". Signals: "shifts", "before/after", "wrong vs right", "stop/start", binary state pairs. |
+| **figr-e-system** | Data-driven research breakdowns, scanning/reading behavior, systematic design rules backed by stats and eye-tracking data. Dark-technical JetBrains Mono feel with cyan stat numbers as the visual hero. Signals: "research shows", "eye-tracking", "data reveals", real numbers + named sources. |
+| **figr-f-contrast** | Wrong-vs-right side-by-side comparisons, "what users do vs what they should do". Warm terracotta/cream split layout — reads in one glance. Signals: "wrong vs right", "this vs that", "the pattern you use vs the pattern you should use". Use C instead for sequential before/after. |
 | **figr-g-spacing** | Long-form "N rules / N principles / N habits" lists with sketched diagrams + handwritten coral "Note:" annotations. Notebook/working-file aesthetic (paper grain, corner crosshairs, ruler arc). 12-slide cover→myth→rules→takeaway→resources→CTA structure. Signals: "N rules", "N principles", "save this list", "things designers ignore", topic needs per-point illustrations. |
 
 #### Step 3 — Present the choice
@@ -172,12 +174,14 @@ Show this message (adapt the recommendation marker to whichever template fits be
 
 **Which visual template would you like?**
 
-| # | Template | Aesthetic | Best for |
-|---|---|---|---|
-| 1 | **Wolf Media v1** | Dark charcoal + film grain, Outfit font, gradient text fades | Data explainers, trend reports, insight breakdowns |
-| 2 | **Wolf Media v2** | Stark black + bold ALL CAPS, red accent, map textures | Performance reports, metrics, case studies |
-| 3 | **Editorial Step** | Cream paper + Playfair serif, sticky notes, terminal panels | Step-by-step tutorials, tool walkthroughs, how-to guides |
-| 4 | **ASCII/Pixel** | Warm beige + Space Mono, ASCII globe, pixel bot, orange accent | AI/tech marketing, Anthropic-style, cutting-edge topics |
+Quick visual scan — each preview shows the cover + 3 representative slides. For full-strip inspection open `templates/previews/[name]/full.webp`, or open `templates/previews/gallery.html` for side-by-side comparison.
+
+| # | Template | Preview | Aesthetic | Best for |
+|---|---|---|---|---|
+| 1 | **Wolf Media v1** | ![wolf-media-v1](templates/previews/wolf-media-v1/grid.webp) | Dark charcoal + film grain, Outfit font, gradient text fades | Data explainers, trend reports, insight breakdowns |
+| 2 | **Wolf Media v2** | ![wolf-media-v2](templates/previews/wolf-media-v2/grid.webp) | Stark black + bold ALL CAPS, red accent, map textures | Performance reports, metrics, case studies |
+| 3 | **Editorial Step** | ![editorial-step](templates/previews/editorial-step/grid.webp) | Cream paper + Playfair serif, sticky notes, terminal panels | Step-by-step tutorials, tool walkthroughs, how-to guides |
+| 4 | **ASCII/Pixel** | ![ascii-pixel](templates/previews/ascii-pixel/grid.webp) | Warm beige + Space Mono, ASCII globe, pixel bot, orange accent | AI/tech marketing, Anthropic-style, cutting-edge topics |
 
 → I recommend **[Template Name]** for this topic. Reply with a number (1–4) or just say "go ahead" to use the recommendation.
 
@@ -191,13 +195,18 @@ Show this message:
 
 **Which figr.design template would you like?**
 
-| # | Template | Aesthetic | Best for |
-|---|---|---|---|
-| 1 | **Figr A — Manifesto** | Inter, alternating dark navy / light, ghost numbers, cyan accents | Frameworks, principle lists, bold editorial statements |
-| 2 | **Figr B — Toolkit** | Inter, all-light, elevated card with cyan border-left, concentric rings | How-tos, practical methods, actionable processes |
-| 3 | **Figr C — Before / After** | Dark zinc BEFORE / white AFTER split, red ✗ cyan ✓ markers, bridge gradient | Shift-based frameworks, before/after contrasts, pattern corrections |
+Quick visual scan — each preview shows the cover + 3 representative slides. For full-strip inspection open `templates/previews/[name]/full.webp`, or open `templates/previews/gallery.html` for side-by-side comparison.
 
-→ I recommend **[Template Name]** for this topic. Reply with a number (1–3) or just say "go ahead" to use the recommendation.
+| # | Template | Preview | Aesthetic | Best for |
+|---|---|---|---|---|
+| 1 | **Figr A — Manifesto** | ![figr-a](templates/previews/figr-a-manifesto/grid.webp) | Inter, alternating dark navy / light, ghost numbers, cyan accents | Frameworks, principle lists, bold editorial statements |
+| 2 | **Figr B — Toolkit** | ![figr-b](templates/previews/figr-b-toolkit/grid.webp) | Inter, all-light, elevated card with cyan border-left, concentric rings | How-tos, practical methods, actionable processes |
+| 3 | **Figr C — Before / After** | ![figr-c](templates/previews/figr-c-beforeafter/grid.webp) | Dark zinc BEFORE / white AFTER split, red ✗ cyan ✓ markers, bridge gradient | Shift-based frameworks, before/after contrasts, pattern corrections |
+| 4 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, dark navy left / cream right split, cyan stat numbers bleed across panels | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
+| 5 | **Figr F — Contrast** | ![figr-f](templates/previews/figr-f-contrast/grid.webp) | Inter + JetBrains Mono, cream + terracotta wrong-panel / cyan-pale right-panel side-by-side | Wrong-vs-right pattern comparisons, AI/UX critique frameworks |
+| 6 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
+
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–6) or just say "go ahead" to use the recommendation.
 
 ---
 
@@ -214,6 +223,8 @@ Once the user confirms a template:
 - **figr-a-manifesto**: Read `templates/figr-a-manifesto.md` fully, then follow Section 0a
 - **figr-b-toolkit**: Read `templates/figr-b-toolkit.md` fully, then follow Section 0a
 - **figr-c-beforeafter**: Read `templates/figr-c-beforeafter.md` fully, then follow Section 0a
+- **figr-e-system**: Read `templates/figr-e-system.md` fully, then follow Section 0a
+- **figr-f-contrast**: Read `templates/figr-f-contrast.md` fully, then follow Section 0a
 - **figr-g-spacing**: Read `templates/figr-g-spacing.md` fully, then follow Section 0a (12-slide variant — expand the rules section between Myth and Takeaway)
 
 For Wolf Media and Editorial templates, all other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
@@ -387,7 +398,7 @@ Slide N   — CTA         : left-aligned editorial with page name + tagline
 | FINDINGS | 2×2 grid of title + desc | White |
 | CTA | Last slide always | Accent color |
 
-Alternation rule: dark slides anchor data and hooks. White slides reveal concepts and lists. Never put two white slides back to back.
+Alternation rule: dark and white slides MUST strictly alternate. Never place two dark slides or two white slides consecutively. The CTA (accent color) always ends the sequence and is exempt from this rule.
 
 ### Per-slide copy checks — AEO/extractability
 Apply these to the carousel-writer-sms output before building HTML. Fix any that fail.
@@ -910,7 +921,7 @@ Before reporting done, verify every item:
 - [ ] Token usage reported via `rtk gain --history`
 
 **Wolf Media v1 only:**
-- [ ] Dark/white alternation holds (no two white slides back to back)
+- [ ] Dark/white alternation holds (strict alternation — no two consecutive dark or white slides; CTA exempt)
 - [ ] Film grain texture visible on dark slides
 - [ ] Gradient text uses `display: inline-block; width: fit-content`
 

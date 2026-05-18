@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Template F — Contrast | figr.design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0D0D0D;
+      --muted: #6B6B6B;
+      --bg: #F7F6F3;
+      --dark-bg: #111827;
+      --accent: #00C8B4;
+      --accent-pale: #EBF9F7;
+      --wrong-bg: #EEE5E1;
+      --wrong-mid: #E0D4CF;
+      --wrong-ink: #B8624F;
+      --border: #DDD9D5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #8C8C8C;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 48px 0;
+    }
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .brand {
+      position: absolute;
+      bottom: 36px; right: 44px;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+      z-index: 4;
+    }
+    .brand-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+    .brand-dot  { font-size: 13px; font-weight: 500; color: var(--accent); line-height: 1; }
+    .on-dark .brand-name  { color: rgba(255,255,255,0.4); }
+    .on-light .brand-name { color: var(--muted); }
+
+    /* ════════════════════════════════════════════
+       HOOK SLIDE
+    ════════════════════════════════════════════ */
+    .hook {
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      padding: 84px 92px;
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+      position: relative;
+    }
+    .hook-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 72px;
+      flex-shrink: 0;
+    }
+    .hook-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--wrong-ink);
+      letter-spacing: 0.04em;
+    }
+    .hook-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+    }
+    .hook-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hook-hed {
+      font-size: 84px;
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      max-width: 860px;
+    }
+    .hook-hed .accent { color: var(--wrong-ink); }
+    .hook-rule {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 52px 0 40px;
+    }
+    .hook-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .hook-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.58;
+      max-width: 520px;
+    }
+    .hook-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .hook-badge-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--wrong-ink);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .hook-badge-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ════════════════════════════════════════════
+       CONTRAST CONTENT SLIDES
+    ════════════════════════════════════════════ */
+    .contrast {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Header */
+    .ct-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 80px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+    .ct-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .ct-counter {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--border);
+      letter-spacing: 0.06em;
+    }
+    /* Full-width toggle bar — shows the contrast pairing */
+    .ct-toggle {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .toggle-half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 80px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toggle-wrong {
+      background: var(--wrong-bg);
+      color: var(--wrong-ink);
+      border-right: 1px solid var(--wrong-mid);
+    }
+    .toggle-right {
+      background: var(--accent-pale);
+      color: #008A7C;
+    }
+    .toggle-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-wrong { background: var(--wrong-ink); }
+    .dot-right { background: var(--accent); }
+    /* Two-panel body */
+    .ct-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 0;
+    }
+    /* Wrong panel */
+    .ct-wrong {
+      background: var(--wrong-bg);
+      padding: 52px 60px 52px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--wrong-mid);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Diagonal hatch texture on wrong panel */
+    .ct-wrong::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 12px,
+        rgba(191,114,101,0.05) 12px,
+        rgba(191,114,101,0.05) 13px
+      );
+      pointer-events: none;
+    }
+    /* Right panel */
+    .ct-right {
+      background: var(--accent-pale);
+      padding: 52px 80px 52px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    /* Cyan left accent on right panel */
+    .ct-right::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent);
+    }
+    .panel-top { position: relative; z-index: 1; }
+    .panel-hed {
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.018em;
+      margin-bottom: 20px;
+    }
+    .wrong-hed { color: var(--ink); }
+    .right-hed { color: var(--ink); }
+    .panel-body {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.68;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+    .panel-body b { color: var(--ink); font-weight: 600; }
+    /* Bottom quote/example card */
+    .panel-example {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.55;
+      padding: 16px 18px;
+      border-radius: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .ex-wrong {
+      background: rgba(191,114,101,0.1);
+      color: var(--wrong-ink);
+      border-left: 3px solid var(--wrong-ink);
+    }
+    .ex-right {
+      background: rgba(0,200,180,0.08);
+      color: #008A7C;
+      border-left: 3px solid var(--accent);
+    }
+    /* Footer */
+    .ct-footer {
+      padding: 20px 80px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+
+    /* ════════════════════════════════════════════
+       CTA SLIDE — split dark / cream
+    ════════════════════════════════════════════ */
+    .cta {
+      display: flex;
+      flex-direction: column;
+      height: 1080px;
+    }
+    .cta-dark {
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 92px;
+      position: relative;
+    }
+    .cta-counter-abs {
+      position: absolute;
+      top: 44px; right: 92px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+    }
+    .cta-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .cta-hed {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.04;
+      color: #FFFFFF;
+      letter-spacing: -0.026em;
+      max-width: 820px;
+    }
+    .cta-hed .accent { color: var(--wrong-ink); }
+    .cta-rule {
+      width: 48px; height: 3px;
+      background: var(--wrong-ink);
+      border-radius: 2px;
+      margin: 40px 0;
+    }
+    .cta-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      max-width: 620px;
+    }
+    .cta-light {
+      background: var(--bg);
+      border-top: 3px solid var(--wrong-ink);
+      padding: 32px 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cta-handle {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .cta-tagline {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ SLIDE 1 — Hook ══ -->
+<div class="slide hook">
+  <div class="hook-top">
+    <span class="hook-label">// ai_ux · consent_design</span>
+    <span class="hook-counter">01 / 07</span>
+  </div>
+  <div class="hook-body">
+    <div class="hook-hed">Your AI feature acts.<br>Your users <span class="accent">never agreed</span> to it.</div>
+    <div class="hook-rule"></div>
+    <div class="hook-bottom">
+      <div class="hook-sub">5 consent patterns that rebuild trust between AI products and the people using them.</div>
+      <div class="hook-badge">
+        <div class="hook-badge-num">5</div>
+        <div class="hook-badge-label">design<br>patterns</div>
+      </div>
+    </div>
+  </div>
+  <div class="brand on-dark"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 2 ══════════ -->
+<div class="slide contrast">
+  <div class="ct-header">
+    <span class="ct-label">The Core Problem</span>
+    <span class="ct-counter">02 / 07</span>
+  </div>
+  <div class="ct-toggle">
+    <div class="toggle-half toggle-wrong"><span class="toggle-dot dot-wrong"></span>Acts without asking</div>
+    <div class="toggle-half toggle-right"><span class="toggle-dot dot-right"></span>Shows + waits for choice</div>
+  </div>
+  <div class="ct-body">
+    <div class="ct-wrong">
+      <div class="panel-top">
+        <div class="panel-hed wrong-hed">AI changes<br>something<br>uninvited.</div>
+        <p class="panel-body">The AI rewrites your sentence. Autocompletes a word you didn't choose. Replaces what you typed. <b>You didn't ask. It just did.</b></p>
+      </div>
+      <div class="panel-example ex-wrong">"Your autocomplete replaced my word with something I didn't write. It felt like the app was putting words in my mouth."</div>
+    </div>
+    <div class="ct-right">
+      <div class="panel-top">
+        <div class="panel-hed right-hed">AI shows the<br>option and<br>waits.</div>
+        <p class="panel-body">The suggestion appears — greyed out, ahead of the cursor. To accept: Tab. To ignore: keep typing. <b>The user stays in control at every step.</b></p>
+      </div>
+      <div class="panel-example ex-right">Gmail Smart Compose: ghost text, user decides. This is why it feels helpful — not invasive.</div>
+    </div>
+  </div>
+  <div class="ct-footer">
+    <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 3 ══════════ -->
+<div class="slide contrast">
+  <div class="ct-header">
+    <span class="ct-label">The Chatbot Problem</span>
+    <span class="ct-counter">03 / 07</span>
+  </div>
+  <div class="ct-toggle">
+    <div class="toggle-half toggle-wrong"><span class="toggle-dot dot-wrong"></span>Ambush</div>
+    <div class="toggle-half toggle-right"><span class="toggle-dot dot-right"></span>Choice</div>
+  </div>
+  <div class="ct-body">
+    <div class="ct-wrong">
+      <div class="panel-top">
+        <div class="panel-hed wrong-hed">Full-screen<br>chatbot on<br>first load.</div>
+        <p class="panel-body">Takes over the entire viewport. Forces engagement before any trust has been established. <b>Removes control before the user even knows where they are.</b></p>
+      </div>
+      <div class="panel-example ex-wrong">"I opened the page and a chat window took over everything. I just closed the tab."</div>
+    </div>
+    <div class="ct-right">
+      <div class="panel-top">
+        <div class="panel-hed right-hed">Floating<br>bubble the<br>user opens.</div>
+        <p class="panel-body">The user opens it when they want help. On their terms. <b>Same feature — completely different trust level. One removes control. One preserves it.</b></p>
+      </div>
+      <div class="panel-example ex-right">The bubble sits quietly. When the user needs it, it's there. When they don't, it's invisible.</div>
+    </div>
+  </div>
+  <div class="ct-footer">
+    <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 4 ══════════ -->
+<div class="slide contrast">
+  <div class="ct-header">
+    <span class="ct-label">Why It Feels Creepy</span>
+    <span class="ct-counter">04 / 07</span>
+  </div>
+  <div class="ct-toggle">
+    <div class="toggle-half toggle-wrong"><span class="toggle-dot dot-wrong"></span>Crosses the line</div>
+    <div class="toggle-half toggle-right"><span class="toggle-dot dot-right"></span>Stays in lane</div>
+  </div>
+  <div class="ct-body">
+    <div class="ct-wrong">
+      <div class="panel-top">
+        <div class="panel-hed wrong-hed">Too human.<br>Unexpected<br>action.</div>
+        <p class="panel-body">Your brain detects unexpected action as a threat. <b>When software acts without being asked, it triggers the same response as someone reading over your shoulder.</b> Creepiness isn't about the feature — it's about consent.</p>
+      </div>
+      <div class="panel-example ex-wrong">Google Duplex demo (2018): technically impressive, universally described as "creepy." Not because it failed — because it was too human.</div>
+    </div>
+    <div class="ct-right">
+      <div class="panel-top">
+        <div class="panel-hed right-hed">Shows the<br>suggestion.<br>Waits.</div>
+        <p class="panel-body">The moment you add a deliberate pause — a ghost suggestion, a card to accept or dismiss — the user feels in control. <b>Show → wait → let the user decide. Skip the wait and trust erodes immediately.</b></p>
+      </div>
+      <div class="panel-example ex-right">GitHub commit suggestions: shown above the input. User accepts or ignores. Helpful every time.</div>
+    </div>
+  </div>
+  <div class="ct-footer">
+    <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 5 ══════════ -->
+<div class="slide contrast">
+  <div class="ct-header">
+    <span class="ct-label">The Pattern That Works</span>
+    <span class="ct-counter">05 / 07</span>
+  </div>
+  <div class="ct-toggle">
+    <div class="toggle-half toggle-wrong"><span class="toggle-dot dot-wrong"></span>Creepy AI</div>
+    <div class="toggle-half toggle-right"><span class="toggle-dot dot-right"></span>Helpful AI</div>
+  </div>
+  <div class="ct-body">
+    <div class="ct-wrong">
+      <div class="panel-top">
+        <div class="panel-hed wrong-hed">Rewrites.<br>Replaces.<br>Acts silently.</div>
+        <p class="panel-body">Autocomplete that replaces text. AI that edits content without being asked. Features that change things the user didn't request. <b>Every silent action is a trust withdrawal.</b></p>
+      </div>
+      <div class="panel-example ex-wrong">Autocorrect that changes a word mid-sentence and the user doesn't notice until they read it back.</div>
+    </div>
+    <div class="ct-right">
+      <div class="panel-top">
+        <div class="panel-hed right-hed">Suggests.<br>Highlights.<br>Waits for yes.</div>
+        <p class="panel-body">The AI suggests, the user decides. Every time. <b>The product says: here's an option. It never says: I already did it.</b> This is the entire difference between feeling helped and feeling controlled.</p>
+      </div>
+      <div class="panel-example ex-right">Figma AI layout suggestions: shown as an overlay the user applies or dismisses. Trust intact.</div>
+    </div>
+  </div>
+  <div class="ct-footer">
+    <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 6 ══════════ -->
+<div class="slide contrast">
+  <div class="ct-header">
+    <span class="ct-label">The Test Before You Ship</span>
+    <span class="ct-counter">06 / 07</span>
+  </div>
+  <div class="ct-toggle">
+    <div class="toggle-half toggle-wrong"><span class="toggle-dot dot-wrong"></span>Broken trust</div>
+    <div class="toggle-half toggle-right"><span class="toggle-dot dot-right"></span>Built trust</div>
+  </div>
+  <div class="ct-body">
+    <div class="ct-wrong">
+      <div class="panel-top">
+        <div class="panel-hed wrong-hed">The AI acts<br>before the<br>user chooses.</div>
+        <p class="panel-body">Does your AI feature make a change before the user confirms? Take over screen space without being invited? <b>If yes — you've crossed the line.</b></p>
+      </div>
+      <div class="panel-example ex-wrong">Users don't complain about bad AI features. They just stop using the product.</div>
+    </div>
+    <div class="ct-right">
+      <div class="panel-top">
+        <div class="panel-hed right-hed">The user stays<br>in control at<br>every step.</div>
+        <p class="panel-body">Does the AI act or does it suggest? Does the user stay in control or does the AI take over? <b>If the AI acts without consent — fix it before your users feel it.</b></p>
+      </div>
+      <div class="panel-example ex-right">Google Maps alternate route card: suggests, doesn't redirect. Same data. Zero creep.</div>
+    </div>
+  </div>
+  <div class="ct-footer">
+    <div class="brand on-light" style="position:static;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 7 — CTA ════ -->
+<div class="slide cta">
+  <div class="cta-dark">
+    <span class="cta-counter-abs">07 / 07</span>
+    <div class="cta-eyebrow">// apply_to_your_product</div>
+    <div class="cta-hed">Design AI that <span class="accent">asks first,</span><br>acts second.</div>
+    <div class="cta-rule"></div>
+    <div class="cta-sub">Users trust features they feel in control of. Consent isn't a barrier — it's the feature.</div>
+    <div class="brand on-dark" style="position:absolute; bottom:36px; right:92px;"><span class="brand-name">figr</span><span class="brand-dot">.design</span></div>
+  </div>
+  <div class="cta-light">
+    <div class="cta-handle">@figr.design</div>
+    <div class="cta-tagline">Weekly AI/UX frameworks for design leads →</div>
+  </div>
+</div>
+
+</body>
+</html>
