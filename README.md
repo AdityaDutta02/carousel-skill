@@ -88,7 +88,7 @@ Rebuild previews **any time you do one of:**
 node ~/.claude/skills/instagram-carousel/scripts/build-previews.mjs
 
 # One or a few templates
-node ~/.claude/skills/instagram-carousel/scripts/build-previews.mjs figr-a-manifesto figr-b-toolkit
+node ~/.claude/skills/instagram-carousel/scripts/build-previews.mjs figr-e-system figr-g-spacing
 ```
 
 The script uses Playwright (Chromium) to screenshot each slide from the template's source HTML, composites them via in-memory HTML grids, then converts to WebP via Pillow (Python).

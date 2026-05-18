@@ -8,7 +8,7 @@
 //
 // Usage:
 //   node scripts/build-previews.mjs              # build all
-//   node scripts/build-previews.mjs figr-a-manifesto figr-b-toolkit   # build subset
+//   node scripts/build-previews.mjs figr-e-system figr-g-spacing   # build subset
 
 import { createRequire } from 'module';
 import { mkdir, rm, writeFile, readFile } from 'fs/promises';
@@ -33,11 +33,7 @@ const TEMPLATES = [
   { name: 'wolf-media-v2',     dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'editorial-step',    dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'ascii-pixel',       dims: [1080, 1350], slideMode: 'toggle'  },
-  { name: 'figr-a-manifesto',  dims: [1080, 1080], slideMode: 'stacked' },
-  { name: 'figr-b-toolkit',    dims: [1080, 1080], slideMode: 'stacked' },
-  { name: 'figr-c-beforeafter',dims: [1080, 1080], slideMode: 'stacked' },
   { name: 'figr-e-system',     dims: [1080, 1080], slideMode: 'stacked' },
-  { name: 'figr-f-contrast',   dims: [1080, 1080], slideMode: 'stacked' },
   { name: 'figr-g-spacing',    dims: [1080, 1350], slideMode: 'stacked' },
 ];
 

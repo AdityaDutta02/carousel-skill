@@ -157,11 +157,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 
 | Template | Recommend when |
 |---|---|
-| **figr-a-manifesto** | Bold frameworks, principle lists, editorial statements ("N signs/rules/things"). Alternating dark/light typographic rhythm. |
-| **figr-b-toolkit** | Practical how-tos, process frameworks, actionable methods. Structured card layout, all light slides. |
-| **figr-c-beforeafter** | Shift-based contrasts, pattern corrections, "before you do X / after you do X". Signals: "shifts", "before/after", "wrong vs right", "stop/start", binary state pairs. |
 | **figr-e-system** | Data-driven research breakdowns, scanning/reading behavior, systematic design rules backed by stats and eye-tracking data. Dark-technical JetBrains Mono feel with cyan stat numbers as the visual hero. Signals: "research shows", "eye-tracking", "data reveals", real numbers + named sources. |
-| **figr-f-contrast** | Wrong-vs-right side-by-side comparisons, "what users do vs what they should do". Warm terracotta/cream split layout — reads in one glance. Signals: "wrong vs right", "this vs that", "the pattern you use vs the pattern you should use". Use C instead for sequential before/after. |
 | **figr-g-spacing** | Long-form "N rules / N principles / N habits" lists with sketched diagrams + handwritten coral "Note:" annotations. Notebook/working-file aesthetic (paper grain, corner crosshairs, ruler arc). 12-slide cover→myth→rules→takeaway→resources→CTA structure. Signals: "N rules", "N principles", "save this list", "things designers ignore", topic needs per-point illustrations. |
 
 #### Step 3 — Present the choice
@@ -199,14 +195,10 @@ Quick visual scan — each preview shows the cover + 3 representative slides. Fo
 
 | # | Template | Preview | Aesthetic | Best for |
 |---|---|---|---|---|
-| 1 | **Figr A — Manifesto** | ![figr-a](templates/previews/figr-a-manifesto/grid.webp) | Inter, alternating dark navy / light, ghost numbers, cyan accents | Frameworks, principle lists, bold editorial statements |
-| 2 | **Figr B — Toolkit** | ![figr-b](templates/previews/figr-b-toolkit/grid.webp) | Inter, all-light, elevated card with cyan border-left, concentric rings | How-tos, practical methods, actionable processes |
-| 3 | **Figr C — Before / After** | ![figr-c](templates/previews/figr-c-beforeafter/grid.webp) | Dark zinc BEFORE / white AFTER split, red ✗ cyan ✓ markers, bridge gradient | Shift-based frameworks, before/after contrasts, pattern corrections |
-| 4 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, dark navy left / cream right split, cyan stat numbers bleed across panels | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
-| 5 | **Figr F — Contrast** | ![figr-f](templates/previews/figr-f-contrast/grid.webp) | Inter + JetBrains Mono, cream + terracotta wrong-panel / cyan-pale right-panel side-by-side | Wrong-vs-right pattern comparisons, AI/UX critique frameworks |
-| 6 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
+| 1 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, dark navy left / cream right split, cyan stat numbers bleed across panels | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
+| 2 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
 
-→ I recommend **[Template Name]** for this topic. Reply with a number (1–6) or just say "go ahead" to use the recommendation.
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–2) or just say "go ahead" to use the recommendation.
 
 ---
 
@@ -220,11 +212,7 @@ Once the user confirms a template:
 - **wolf-media-v2**: Read `templates/wolf-media-v2.md` fully before touching Section 3
 - **editorial-step**: Read `templates/editorial-step.md` fully before touching Section 3
 - **ascii-pixel**: Read `templates/ascii-pixel.md` fully before touching Section 3
-- **figr-a-manifesto**: Read `templates/figr-a-manifesto.md` fully, then follow Section 0a
-- **figr-b-toolkit**: Read `templates/figr-b-toolkit.md` fully, then follow Section 0a
-- **figr-c-beforeafter**: Read `templates/figr-c-beforeafter.md` fully, then follow Section 0a
 - **figr-e-system**: Read `templates/figr-e-system.md` fully, then follow Section 0a
-- **figr-f-contrast**: Read `templates/figr-f-contrast.md` fully, then follow Section 0a
 - **figr-g-spacing**: Read `templates/figr-g-spacing.md` fully, then follow Section 0a (12-slide variant — expand the rules section between Myth and Takeaway)
 
 For Wolf Media and Editorial templates, all other sections (research, carousel-writer-sms, Playwright audit, export, caption) run identically.
@@ -242,7 +230,7 @@ Before writing any content, check for `.agents/social-media-context-sms.md` in t
 
 ## 0a. FIGR TEMPLATES — Design Pipeline
 
-**Use this section only when the user has selected figr-a-manifesto, figr-b-toolkit, figr-c-beforeafter, or figr-g-spacing.**
+**Use this section only when the user has selected figr-e-system or figr-g-spacing.**
 
 These templates target figr.design's UI/UX channel, audience: design leads and managers. They have their own design system (Inter font, cyan `#00C8B4`, deep navy `#0F172A`), brand voice (editorial, confident, direct), and 7-slide narrative structure.
 
@@ -251,7 +239,7 @@ Skip Sections 1–3. Follow this pipeline instead.
 ### Content structure (all figr templates)
 
 ```
-Slide 1: Hook        — dark (figr-a) or light (figr-b)
+Slide 1: Hook        — per template spec (figr-e: dark navy/cream split; figr-g: paper notebook cover)
 Slide 2: The Problem — frame the core failure/challenge
 Slide 3: Tip / Shift 01
 Slide 4: Tip / Shift 02
@@ -266,7 +254,6 @@ Write all 7 slides before touching the HTML. For each slide:
 - Slide label (e.g. "PROBLEM", "TIP 01")
 - Headline (h2 / h1): max 2 lines, confident, direct, no hedging
 - Body: max 3–4 lines. Cut until each sentence earns its place.
-- Tag chip (figr-b only): 1–2 word theme
 
 Content rules for figr.design voice:
 - No listicles ("Here are 3 things…") — write in declarative statements
@@ -281,10 +268,8 @@ Read the template spec file fully. Use the HTML skeleton from the spec as the st
 Replace all `[PLACEHOLDER]` tokens with actual content. Do not invent new CSS classes — use only what the spec defines.
 
 Key rules:
-- Slide counter format: `01 / 07` through `07 / 07` (zero-padded, space around slash)
+- Slide counter format: `01 / 07` through `07 / 07` (zero-padded, space around slash) — figr-g uses `01 / 12` etc.
 - Brand block always: `<span class="brand-name">figr.design</span><span class="brand-handle">@figr.design</span>`
-- Ghost numbers (figr-a only): 01–05 on slides 2–6, counting content order not slide position
-- Badge numbers (figr-b only): 1–5 on slides 2–6
 
 ### Step 3 — Playwright audit
 
