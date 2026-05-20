@@ -33,6 +33,7 @@ const TEMPLATES = [
   { name: 'wolf-media-v2',     dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'editorial-step',    dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'ascii-pixel',       dims: [1080, 1350], slideMode: 'toggle'  },
+  { name: 'bold-blue-grotesk', dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'figr-e-system',     dims: [1080, 1080], slideMode: 'stacked' },
   { name: 'figr-g-spacing',    dims: [1080, 1350], slideMode: 'stacked' },
 ];

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .slide { width: 1080px; height: 1350px; display: none; position: relative; overflow: hidden; }
+  .slide.active { display: block; }
+
+  .bg-blue {
+    background:
+      radial-gradient(ellipse 130% 90% at 50% 35%, rgba(80,80,255,0.18) 0%, transparent 60%),
+      #1A1AF0;
+  }
+  .bg-blue::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.22) 1.4px, transparent 1.6px);
+    background-size: 36px 36px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .bg-grey {
+    background: #D8D6D2;
+  }
+  .bg-grey::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.55'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 320px 320px;
+    mix-blend-mode: multiply;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rail-top {
+    position: absolute;
+    top: 76px; left: 90px; right: 90px;
+    display: flex; justify-content: space-between;
+    z-index: 4;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .bg-blue .rail-top { color: #FFFFFF; }
+  .bg-grey .rail-top { color: #0D0D0D; }
+
+  .rail-bot {
+    position: absolute;
+    bottom: 76px; left: 90px; right: 90px;
+    display: flex; justify-content: space-between;
+    z-index: 4;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .bg-blue .rail-bot { color: #FFFFFF; }
+  .bg-grey .rail-bot { color: #0D0D0D; }
+
+  .pad-center {
+    position: absolute;
+    inset: 0;
+    padding: 0 90px;
+    display: flex; flex-direction: column; justify-content: center;
+    z-index: 3;
+  }
+  .pad-cover {
+    position: absolute;
+    inset: 0;
+    padding: 240px 90px 0;
+    z-index: 3;
+  }
+
+  .h-cover {
+    font-weight: 900;
+    font-size: 124px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: #FFFFFF;
+  }
+  .h-body {
+    font-weight: 900;
+    font-size: 92px;
+    line-height: 0.98;
+    letter-spacing: -0.030em;
+  }
+  .bg-blue .h-body { color: #FFFFFF; }
+  .bg-grey .h-body { color: #0D0D0D; }
+
+  .h-body-sm {
+    font-weight: 900;
+    font-size: 76px;
+    line-height: 1.00;
+    letter-spacing: -0.025em;
+  }
+  .bg-blue .h-body-sm { color: #FFFFFF; }
+  .bg-grey .h-body-sm { color: #0D0D0D; }
+
+  .sub {
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 1.06;
+    letter-spacing: -0.020em;
+    margin-top: 38px;
+  }
+  .bg-blue .sub { color: #FFFFFF; }
+  .bg-grey .sub { color: #0D0D0D; }
+
+  .sub-cover {
+    font-weight: 500;
+    font-size: 58px;
+    line-height: 1.06;
+    letter-spacing: -0.020em;
+    color: #FFFFFF;
+    margin-top: 56px;
+  }
+
+  .highlight {
+    display: inline;
+    background: #1A1AF0;
+    color: #FFFFFF;
+    padding: 4px 18px 14px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    line-height: 1.08;
+  }
+  .h-highlight {
+    font-weight: 900;
+    font-size: 84px;
+    line-height: 1.40;
+    letter-spacing: -0.030em;
+  }
+
+  .pixel-cursor {
+    position: absolute;
+    top: 360px;
+    right: 80px;
+    width: 280px;
+    height: 320px;
+    z-index: 3;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    shape-rendering: crispEdges;
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1 — COVER (BLUE + pixel cursor) -->
+<section class="slide bg-blue active" id="slide-1">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-cover">
+    <div class="h-cover">
+      Things<br>
+      We<br>
+      Should<br>
+      Normalize
+    </div>
+    <div class="sub-cover">
+      Designer's side<br>
+      at Marketing Agency
+    </div>
+  </div>
+  <svg class="pixel-cursor" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <g shape-rendering="crispEdges">
+      <rect x="1" y="1" width="2" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="2" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="3" width="4" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="4" width="5" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="5" width="6" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="6" width="7" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="7" width="8" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="8" width="9" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="9" width="10" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="10" width="11" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="11" width="12" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="12" width="13" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="13" width="6" height="1" fill="#FFFFFF"/>
+      <rect x="9" y="13" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="1" y="14" width="5" height="1" fill="#FFFFFF"/>
+      <rect x="10" y="14" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="2" y="15" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="10" y="15" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="11" y="16" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="11" y="17" width="3" height="1" fill="#FFFFFF"/>
+      <rect x="12" y="18" width="2" height="1" fill="#FFFFFF"/>
+      <rect x="2" y="2" width="1" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="3" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="4" width="3" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="5" width="4" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="6" width="5" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="7" width="6" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="8" width="7" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="9" width="8" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="10" width="9" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="11" width="10" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="12" width="4" height="1" fill="#0D0D0D"/>
+      <rect x="8" y="12" width="4" height="1" fill="#0D0D0D"/>
+      <rect x="2" y="13" width="4" height="1" fill="#0D0D0D"/>
+      <rect x="9" y="13" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="3" y="14" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="10" y="14" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="3" y="15" width="1" height="1" fill="#0D0D0D"/>
+      <rect x="10" y="15" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="11" y="16" width="2" height="1" fill="#0D0D0D"/>
+      <rect x="11" y="17" width="2" height="1" fill="#0D0D0D"/>
+    </g>
+  </svg>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 2 — GREY-HIGHLIGHT -->
+<section class="slide bg-grey" id="slide-2">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-highlight">
+      <span class="highlight">Designers not<br>replying instantly</span>
+    </div>
+    <div class="sub" style="margin-top: 56px; color: #0D0D0D;">
+      Good work takes focus,<br>not constant chat.
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 3 — BLUE-PLAIN -->
+<section class="slide bg-blue" id="slide-3">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-body">
+      Feeling proud<br>
+      of work even when<br>
+      it doesn't go viral
+    </div>
+    <div class="sub">
+      Impact isn't always immediate
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 4 — GREY-HIGHLIGHT -->
+<section class="slide bg-grey" id="slide-4">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-highlight">
+      <span class="highlight">Asking for help from<br>teammates instead<br>of struggling alone</span>
+    </div>
+    <div class="sub" style="margin-top: 56px; color: #0D0D0D;">
+      Collaboration &gt; ego
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 5 — BLUE-PLAIN (4 lines, no subline, period ending) -->
+<section class="slide bg-blue" id="slide-5">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-body-sm">
+      Mixing personal style<br>
+      with brand guidelines<br>
+      to keep designs fresh<br>
+      and authentic.
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 6 — GREY-HIGHLIGHT -->
+<section class="slide bg-grey" id="slide-6">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-highlight">
+      <span class="highlight">Taking time to learn<br>new skills during<br>work hours</span>
+    </div>
+    <div class="sub" style="margin-top: 56px; color: #0D0D0D;">
+      Growth fuels better results
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 7 — BLUE-PLAIN (4 lines, period ending) -->
+<section class="slide bg-blue" id="slide-7">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-body-sm">
+      Using humor and<br>
+      memes in internal<br>
+      chats to keep spirits<br>
+      high under pressure.
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+<!-- Slide 8 — CTA (BLUE) -->
+<section class="slide bg-blue" id="slide-8">
+  <div class="rail-top">
+    <span>things we should</span>
+    <span>normalize</span>
+  </div>
+  <div class="pad-center">
+    <div class="h-body" style="font-size: 124px; line-height: 1.00;">
+      Have<br>
+      something<br>
+      to add?
+    </div>
+    <div class="sub" style="margin-top: 52px;">
+      Let's chat<br>in the comments!
+    </div>
+  </div>
+  <div class="rail-bot">
+    <span>sharing as a designer</span>
+    <span>at marketing agency</span>
+  </div>
+</section>
+
+</body>
+</html>

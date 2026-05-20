@@ -127,7 +127,7 @@ Always collect these before proceeding. If missing, ask in one message:
 | **Topic** | "seed funding for startups" | Yes |
 | **Page handle** | `@thefounderlab` | Yes |
 | **Page name** | "The Founder Lab" | Yes |
-| **Template** | wolf-media-v1 / wolf-media-v2 | No — auto-select from topic |
+| **Template** | wolf-media-v1 / wolf-media-v2 / editorial-step / ascii-pixel / bold-blue-grotesk / figr-e-system / figr-g-spacing | No — auto-select from topic |
 | **Reference images** | New creator screenshots | No — only needed for Section 2.5 |
 
 The last slide is always a CTA. Page name + handle always appear.
@@ -152,6 +152,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 | **wolf-media-v2** | Topic is a results/performance report, case study, or before/after analysis. Signals: "results", "closed", "we generated", "performance", "report", "₹/$ total", "how we", city/channel comparison with real numbers |
 | **editorial-step** | Step-by-step tutorials, how-to guides, tool walkthroughs. Signals: "how to", "step by step", "tutorial", "guide", "walkthrough", "set up", "using Claude", "prompt", "workflow", "automate" |
 | **ascii-pixel** | Major AI/tech company announcements, frontier-tech news, abstract/futuristic topics where a standard infographic would feel generic. Signals: "ASCII", "pixel art", "terminal style", "Anthropic aesthetic", Anthropic/OpenAI/SpaceX news |
+| **bold-blue-grotesk** | Opinion lists, manifesto/"things we should normalize" posts, hot takes, principle decks, creative-industry confessionals. Signals: "things we should normalize", "things to stop doing", "N hot takes", "N principles I live by", short declarative statements per slide, no body paragraphs, designer/marketer POV |
 
 **figr.design channel** — use these signals:
 
@@ -178,8 +179,9 @@ Quick visual scan — each preview shows the cover + 3 representative slides. Fo
 | 2 | **Wolf Media v2** | ![wolf-media-v2](templates/previews/wolf-media-v2/grid.webp) | Stark black + bold ALL CAPS, red accent, map textures | Performance reports, metrics, case studies |
 | 3 | **Editorial Step** | ![editorial-step](templates/previews/editorial-step/grid.webp) | Cream paper + Playfair serif, sticky notes, terminal panels | Step-by-step tutorials, tool walkthroughs, how-to guides |
 | 4 | **ASCII/Pixel** | ![ascii-pixel](templates/previews/ascii-pixel/grid.webp) | Warm beige + Space Mono, ASCII globe, pixel bot, orange accent | AI/tech marketing, Anthropic-style, cutting-edge topics |
+| 5 | **Bold Blue Grotesk** | ![bold-blue-grotesk](templates/previews/bold-blue-grotesk/grid.webp) | Electric blue + grey-grain alternation, Inter Black, pixel-cursor cover, blue highlight blocks on grey | Opinion lists, "things we should normalize" posts, hot takes, principle decks |
 
-→ I recommend **[Template Name]** for this topic. Reply with a number (1–4) or just say "go ahead" to use the recommendation.
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–5) or just say "go ahead" to use the recommendation.
 
 ---
 
@@ -212,6 +214,7 @@ Once the user confirms a template:
 - **wolf-media-v2**: Read `templates/wolf-media-v2.md` fully before touching Section 3
 - **editorial-step**: Read `templates/editorial-step.md` fully before touching Section 3
 - **ascii-pixel**: Read `templates/ascii-pixel.md` fully before touching Section 3
+- **bold-blue-grotesk**: Read `templates/bold-blue-grotesk.md` fully before touching Section 3
 - **figr-e-system**: Read `templates/figr-e-system.md` fully, then follow Section 0a
 - **figr-g-spacing**: Read `templates/figr-g-spacing.md` fully, then follow Section 0a (12-slide variant — expand the rules section between Myth and Takeaway)
 
@@ -942,6 +945,21 @@ Before reporting done, verify every item:
 - [ ] ASCII box label on PIXEL-HERO uses CSS border divs — not `<pre>` (pre wraps unpredictably)
 - [ ] No CSS animations (globe is static SVG — no `animation:` rules)
 - [ ] Warm beige `#FBF6EC` on light slides — not pure white
+
+**Bold Blue Grotesk only:**
+- [ ] Inter Black (weight 900) loaded — not falling back to Helvetica Neue
+- [ ] Electric blue `#1A1AF0` only — no other blues, no purple drift
+- [ ] Dot grid visible but subtle on blue slides (1.4px white at 22% opacity)
+- [ ] Heavy SVG grain visible on grey slides (looks like newsprint, not flat grey)
+- [ ] Highlight `box-decoration-break: clone` working — each visual line has its own blue box, not one merged block
+- [ ] Highlight padding asymmetric (4px top, 14px bottom) — not symmetric
+- [ ] Strict blue ↔ grey alternation on body slides (no two greys consecutive)
+- [ ] All rail text lowercase (top + bottom rails)
+- [ ] All headline text title-case (no CSS uppercase)
+- [ ] Pixel cursor present on cover only — `shape-rendering="crispEdges"` set
+- [ ] No em dashes, no emojis, no additional accent colors
+- [ ] No slide counter, no handle pill — rails replace both
+- [ ] Rail text fits without wrapping at 28px (shorten if it wraps)
 
 ---
 
