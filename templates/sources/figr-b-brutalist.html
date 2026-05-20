@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Template B — Brutalist Stack | figr.design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#0A0A0A; --yolk:#F5E614; --flare:#FF3D00; --panel:#FFFFFF;
+      --grey-1:#E5E5E5; --grey-2:#EFEFEF;
+      --ink-55:rgba(10,10,10,0.55); --ink-40:rgba(10,10,10,0.40);
+      --ink-30:rgba(10,10,10,0.30); --ink-25:rgba(10,10,10,0.25); --ink-20:rgba(10,10,10,0.20);
+      --yolk-70:rgba(245,230,20,0.70); --yolk-55:rgba(245,230,20,0.55);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:1080px; }
+    body {
+      font-family:'Inter',system-ui,-apple-system,sans-serif;
+      background:#F5F4EF; -webkit-font-smoothing:antialiased;
+    }
+
+    .slide {
+      width:1080px; height:1350px; position:relative; overflow:hidden;
+      color:var(--ink); display:none;
+    }
+    .slide.active { display:flex; flex-direction:column; }
+
+    /* DARK SLIDE — Cover, Principle. U2-compliant */
+    .dk {
+      color: var(--yolk);
+      background:
+        radial-gradient(ellipse 130% 90% at 30% 22%, rgba(245,230,20,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 110% 70% at 70% 70%, #1A1A1A 0%, #0A0A0A 60%, #050505 100%);
+    }
+    .dk::before {
+      content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.90  0 0 0 0 0.12  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      mix-blend-mode: overlay; opacity:0.22;
+    }
+
+    /* YELLOW SLIDE */
+    .yl { background: var(--yolk); color: var(--ink); }
+
+    /* Outer borders */
+    .bd-8  { border:8px solid var(--ink); }
+    .bd-10 { border:10px solid var(--ink); }
+
+    /* Padding wrappers */
+    .pad { padding:80px; flex:1; display:flex; flex-direction:column; justify-content:space-between; position:relative; z-index:2; }
+    .pad-crit { padding:72px; flex:1; display:flex; flex-direction:column; gap:40px; position:relative; z-index:2; }
+
+    .row-top { display:flex; align-items:baseline; justify-content:space-between; }
+
+    /* Eyebrows */
+    .eb { font-weight:800; font-size:18px; letter-spacing:0.22em; text-transform:uppercase; }
+    .eb-22 { font-weight:800; font-size:22px; letter-spacing:0.22em; text-transform:uppercase; }
+    .eb-tight { font-weight:700; font-size:18px; letter-spacing:0.22em; text-transform:uppercase; }
+    .counter { font-weight:700; font-size:18px; letter-spacing:0.22em; text-transform:uppercase; opacity:0.55; }
+
+    /* Hero type */
+    .hero { font-weight:900; text-transform:uppercase; letter-spacing:-0.045em; }
+    .h180 { font-size:180px; line-height:0.92; }
+    .h200 { font-size:170px; line-height:0.92; white-space:nowrap; }
+    .h185 { font-size:185px; line-height:0.90; }
+    .h150 { font-size:150px; line-height:0.92; }
+    .h88  { font-size:88px;  line-height:0.88; letter-spacing:-0.04em; font-weight:900; text-transform:uppercase; }
+    .h-num{ font-size:200px; line-height:0.78; letter-spacing:-0.06em; font-weight:900; }
+    .flare { color: var(--flare); }
+
+    /* Body */
+    .body-30 { font-weight:500; font-size:30px; line-height:1.4; max-width:820px; }
+    .body-26 { font-weight:500; font-size:26px; line-height:1.4; max-width:620px; }
+    .body-24 { font-weight:500; font-size:24px; line-height:1.5; max-width:720px; }
+    .body-22 { font-weight:500; font-size:22px; line-height:1.4; max-width:800px; }
+
+    .ul-flare {
+      font-weight:900;
+      text-decoration:underline;
+      text-decoration-color:var(--flare);
+      text-decoration-thickness:6px;
+      text-underline-offset:6px;
+    }
+
+    /* Bars */
+    .bar-yolk      { width:44px; height:4px; background:var(--yolk); }
+    .bar-yolk-tall { width:64px; height:5px; background:var(--yolk); }
+    .bar-ink       { width:60px; height:5px; background:var(--ink); }
+    .bar-ink-tall  { width:50px; height:5px; background:var(--ink); }
+
+    /* Mockup */
+    .mock { background:var(--panel); border:5px solid var(--ink); flex:1; position:relative; padding:36px; display:flex; flex-direction:column; }
+    .mock-form  { padding:48px; align-items:center; justify-content:center; }
+    .mock-modal { padding:32px; align-items:center; justify-content:center; }
+
+    .x-badge { position:absolute; top:-7px; right:-7px; background:var(--yolk); border:5px solid var(--ink); padding:8px; line-height:0; }
+
+    /* CTA pill */
+    .cta-pill { background:var(--ink); color:var(--yolk); padding:20px 36px; font-weight:900; font-size:28px; letter-spacing:0.12em; text-transform:uppercase; }
+
+    /* Greys */
+    .gb1 { background:var(--grey-1); }
+    .gb2 { background:var(--grey-2); }
+  </style>
+</head>
+<body>
+
+<!-- ─────────────── SLIDE 1 — COVER ─────────────── -->
+<section class="slide dk active" id="s1">
+  <div class="pad">
+    <div class="row-top">
+      <div class="eb">[ VOL · 14 ]</div>
+      <div class="eb-tight" style="color:var(--yolk-70);">A FIGR FIELD GUIDE</div>
+    </div>
+    <div class="hero h180">
+      <div>7 UI</div>
+      <div>Mistakes</div>
+      <div>You're</div>
+      <div>Still</div>
+      <div>Making<span class="flare">.</span></div>
+    </div>
+    <div class="row-top" style="align-items:center;">
+      <div class="eb" style="font-size:26px; letter-spacing:0.24em;">↳ SWIPE</div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="bar-yolk"></div>
+        <div class="eb">@FIGR.DESIGN</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 2 — INTRO ─────────────── -->
+<section class="slide yl" id="s2">
+  <div class="pad">
+    <div class="row-top">
+      <div class="eb-22">INTRO / 02</div>
+      <div class="eb-tight" style="color:var(--ink-55);">3 CRITIQUES INCOMING</div>
+    </div>
+    <div class="hero h200">
+      <div>Let's be</div>
+      <div>Honest →</div>
+    </div>
+    <div>
+      <div class="body-30">
+        We audited <span class="ul-flare">50 SaaS dashboards</span> shipped this year. Here's what hurt to look at — and what to fix before yours ships.
+      </div>
+      <div style="margin-top:40px; display:flex; align-items:center; gap:16px;">
+        <div class="bar-ink"></div>
+        <div class="eb">KEEP SCROLLING</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 3 — CRITIQUE 01 (NAV / FAIL) ─────────────── -->
+<section class="slide yl bd-8" id="s3">
+  <div class="pad-crit">
+    <div class="row-top" style="align-items:flex-start;">
+      <div style="display:flex; align-items:baseline; gap:28px;">
+        <div class="h-num">01</div>
+        <div>
+          <div class="eb-22">NAV / FAIL</div>
+          <div class="eb-tight" style="margin-top:8px; color:var(--ink-55); letter-spacing:0.2em;">CRITIQUE 01 / 03</div>
+        </div>
+      </div>
+      <div class="counter" style="padding-top:12px;">03 / 07</div>
+    </div>
+
+    <div class="h88">Nav crammed<br>with 9 items.</div>
+
+    <div class="mock">
+      <div style="display:flex; align-items:center; gap:20px; border-bottom:3px solid var(--ink); padding-bottom:20px;">
+        <div style="width:90px; height:24px; background:var(--ink); flex-shrink:0;"></div>
+        <div style="display:flex; align-items:center; gap:12px; font-weight:800; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; white-space:nowrap;">
+          <span>Dashboard</span><span>Projects</span><span>Calendar</span><span>Inbox</span>
+          <span>Reports</span><span>Goals</span><span>Team</span><span>Billing</span><span>Settings</span>
+        </div>
+      </div>
+      <div style="margin-top:36px; display:flex; gap:24px; flex:1;">
+        <div style="width:200px; display:flex; flex-direction:column; gap:16px;">
+          <div class="gb1" style="height:16px;"></div>
+          <div class="gb1" style="height:16px; width:75%;"></div>
+          <div class="gb1" style="height:16px; width:66%;"></div>
+          <div class="gb1" style="height:16px; width:50%;"></div>
+          <div class="gb1" style="height:16px; width:60%;"></div>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+          <div style="height:28px; background:var(--ink); width:50%;"></div>
+          <div class="gb2" style="height:12px;"></div>
+          <div class="gb2" style="height:12px; width:83%;"></div>
+          <div class="gb2" style="height:12px; width:75%;"></div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:12px; flex:1;">
+            <div class="gb2"></div><div class="gb2"></div><div class="gb2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="x-badge">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#FF3D00" stroke-width="5" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="body-22">
+      <span style="font-weight:900;">Five items, max.</span> Past that you're hiding things from yourself, not your user.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 4 — CRITIQUE 02 (BUTTON / FAIL) ─────────────── -->
+<section class="slide yl bd-8" id="s4">
+  <div class="pad-crit">
+    <div class="row-top" style="align-items:flex-start;">
+      <div style="display:flex; align-items:baseline; gap:28px;">
+        <div class="h-num">02</div>
+        <div>
+          <div class="eb-22">BUTTON / FAIL</div>
+          <div class="eb-tight" style="margin-top:8px; color:var(--ink-55); letter-spacing:0.2em;">CRITIQUE 02 / 03</div>
+        </div>
+      </div>
+      <div class="counter" style="padding-top:12px;">04 / 07</div>
+    </div>
+
+    <div class="h88">Button labeled<br>"Submit".</div>
+
+    <div class="mock mock-form">
+      <div style="width:640px; display:flex; flex-direction:column; gap:28px;">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="height:16px; background:var(--ink); width:30%;"></div>
+          <div style="height:56px; border:3px solid var(--ink); background:var(--panel);"></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="height:16px; background:var(--ink); width:22%;"></div>
+          <div style="height:56px; border:3px solid var(--ink); background:var(--panel);"></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="height:16px; background:var(--ink); width:36%;"></div>
+          <div style="height:56px; border:3px solid var(--ink); background:var(--panel);"></div>
+        </div>
+        <div style="margin-top:24px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="font-weight:700; font-size:16px; letter-spacing:0.16em; color:var(--ink-40); text-transform:uppercase;">STEP 3 OF 3</div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF3D00" stroke-width="5" stroke-linecap="round">
+              <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+            </svg>
+            <div style="background:var(--ink); color:var(--yolk); padding:16px 32px; font-weight:900; font-size:17px; letter-spacing:0.18em;">SUBMIT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-22">
+      <span style="font-weight:900;">"Submit" ends nothing.</span> Try "Create account", "Send invite", "Publish post". Verbs that name the act.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 5 — CRITIQUE 03 (MODAL / FAIL) ─────────────── -->
+<section class="slide yl bd-8" id="s5">
+  <div class="pad-crit">
+    <div class="row-top" style="align-items:flex-start;">
+      <div style="display:flex; align-items:baseline; gap:28px;">
+        <div class="h-num">03</div>
+        <div>
+          <div class="eb-22">MODAL / FAIL</div>
+          <div class="eb-tight" style="margin-top:8px; color:var(--ink-55); letter-spacing:0.2em;">CRITIQUE 03 / 03</div>
+        </div>
+      </div>
+      <div class="counter" style="padding-top:12px;">05 / 07</div>
+    </div>
+
+    <div class="h88">A modal opens<br>another modal.</div>
+
+    <div class="mock mock-modal">
+      <div style="position:absolute; inset:32px; display:flex; flex-direction:column; gap:12px; padding:24px; opacity:0.30;">
+        <div style="height:16px; background:var(--ink); width:33%;"></div>
+        <div style="height:12px; background:var(--ink-40);"></div>
+        <div style="height:12px; background:var(--ink-40); width:83%;"></div>
+        <div style="height:12px; background:var(--ink-40); width:66%;"></div>
+      </div>
+      <div style="position:absolute; inset:0; background:var(--ink-25);"></div>
+
+      <div style="position:relative; background:var(--panel); border:5px solid var(--ink); width:78%; height:80%; display:flex; align-items:center; justify-content:center; padding:24px;">
+        <div style="position:absolute; top:16px; left:24px; font-weight:800; font-size:16px; letter-spacing:0.2em;">EDIT ITEM</div>
+        <div style="position:absolute; top:16px; right:20px; width:24px; height:24px; border:3px solid var(--ink);"></div>
+        <div style="position:absolute; inset:0; background:var(--ink-20);"></div>
+
+        <div style="position:relative; background:var(--yolk); border:5px solid var(--ink); width:72%; height:72%; display:flex; align-items:center; justify-content:center; padding:20px;">
+          <div style="position:absolute; top:12px; left:20px; font-weight:800; font-size:15px; letter-spacing:0.2em;">CONFIRM CHANGE</div>
+          <div style="position:absolute; top:12px; right:16px; width:20px; height:20px; border:3px solid var(--ink);"></div>
+
+          <div style="background:var(--panel); border:4px solid var(--ink); width:78%; height:70%; display:flex; flex-direction:column; padding:20px; gap:12px;">
+            <div style="font-weight:800; font-size:14px; letter-spacing:0.18em;">ARE YOU SURE?</div>
+            <div class="gb1" style="height:10px;"></div>
+            <div class="gb1" style="height:10px; width:80%;"></div>
+            <div style="margin-top:auto; align-self:flex-end; display:flex; gap:12px;">
+              <div style="height:32px; width:80px; border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">CANCEL</div>
+              <div style="height:32px; width:80px; background:var(--ink); color:var(--yolk); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">YES</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="x-badge">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#FF3D00" stroke-width="5" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="body-22">
+      <span style="font-weight:900;">If a decision needs a second modal,</span> the first one asked the wrong question.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 6 — PRINCIPLE ─────────────── -->
+<section class="slide dk" id="s6">
+  <div class="pad">
+    <div class="row-top">
+      <div class="eb-22">PRINCIPLE / 06</div>
+      <div class="eb-tight" style="color:var(--yolk-55);">THE TAKEAWAY</div>
+    </div>
+    <div class="hero h185">
+      <div>Design</div>
+      <div>Hurts</div>
+      <div>When it</div>
+      <div class="flare">Works.</div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:40px;">
+      <div style="max-width:620px;">
+        <div class="bar-yolk-tall" style="margin-bottom:24px;"></div>
+        <div class="body-26" style="color:var(--yolk);">
+          Good UI annoys you by removing the comfort you grew up with. The friction is the feature — it's the old habit dying.
+        </div>
+      </div>
+      <div class="counter" style="color:var(--yolk-55); white-space:nowrap; padding-bottom:4px; opacity:1;">06 / 07</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SLIDE 7 — CTA ─────────────── -->
+<section class="slide yl bd-10" id="s7">
+  <div class="pad">
+    <div class="row-top">
+      <div class="eb-22">END / 07</div>
+      <div class="eb-tight" style="color:var(--ink-55);">YOUR TURN</div>
+    </div>
+    <div class="hero h150">
+      <div>↳ Tag a</div>
+      <div>Designer</div>
+      <div>Who needs</div>
+      <div>This<span class="flare">.</span></div>
+    </div>
+    <div>
+      <div class="body-24" style="margin-bottom:40px;">
+        Save it. Share it. Send it to the PM who insisted on the 9-item nav.
+      </div>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+        <div class="cta-pill">@FIGR.DESIGN</div>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div class="bar-ink-tall"></div>
+          <div class="eb">↻ FOLLOW FOR MORE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
