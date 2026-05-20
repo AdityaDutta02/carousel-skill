@@ -37,6 +37,7 @@ const TEMPLATES = [
   { name: 'figr-b-brutalist',  dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'figr-e-system',     dims: [1080, 1080], slideMode: 'stacked' },
   { name: 'figr-g-spacing',    dims: [1080, 1350], slideMode: 'stacked' },
+  { name: 'figr-h-color-blocks', dims: [1080, 1350], slideMode: 'toggle' },
 ];
 
 // Grid: which slide indexes to sample (1-based). Falls back to first/mid/last if fewer.

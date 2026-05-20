@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Template H — Color Blocks | figr.design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#F1ECDB;
+    --red:#D04437;
+    --navy:#1B2540;
+    --ink:#1A1A1C;
+    --cream-70:rgba(241,236,219,0.70);
+    --cream-55:rgba(241,236,219,0.55);
+    --cream-85:rgba(241,236,219,0.85);
+    --ink-55:rgba(26,26,28,0.55);
+    --ink-65:rgba(26,26,28,0.65);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0a0a;-webkit-font-smoothing:antialiased;}
+
+  .slide{width:1080px;height:1350px;position:relative;overflow:hidden;display:none;color:var(--ink);font-family:'Inter',system-ui,sans-serif;}
+  .slide.active{display:flex;}
+
+  /* color fields */
+  .cream{background:var(--cream);color:var(--ink);}
+  .red{background:var(--red);color:var(--cream);}
+  /* Navy panel uses Rule U2 depth: 3-stop radial + grain + soft red glow */
+  .navy{
+    color:var(--cream);
+    background:
+      radial-gradient(ellipse 110% 80% at 30% 22%, rgba(208,68,55,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 130% 100% at 70% 80%, #243056 0%, #1B2540 55%, #131A32 100%);
+    position:relative;
+  }
+  .navy::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.92 0 0 0 0 0.86 0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode:overlay;opacity:0.22;z-index:1;
+  }
+
+  /* eyebrow type (U3: 18px floor) */
+  .eb{font-weight:700;font-size:18px;letter-spacing:0.22em;text-transform:uppercase;}
+  .eb-tight{font-weight:600;font-size:18px;letter-spacing:0.22em;text-transform:uppercase;}
+
+  /* hero base */
+  .hero{font-weight:900;line-height:0.92;letter-spacing:-0.045em;}
+  .hero-up{text-transform:uppercase;}
+
+  /* body */
+  .body-24{font-weight:500;font-size:24px;line-height:1.45;}
+
+  /* slide-internal stack layer above ::before grain */
+  .lay{position:relative;z-index:2;width:100%;height:100%;display:flex;}
+
+  /* split helpers */
+  .col{display:flex;flex-direction:column;height:100%;}
+  .pad-80{padding:80px;}
+  .pad-72{padding:72px;}
+  .pad-64{padding:64px;}
+
+  /* slide 1 — Cover */
+  .s1 .num7{font-weight:900;font-size:920px;line-height:0.78;letter-spacing:-0.06em;color:var(--cream);}
+  .s1 .stack{font-weight:900;font-size:62px;line-height:0.92;letter-spacing:-0.035em;text-transform:uppercase;color:var(--cream);}
+
+  /* slide 2 — Intro */
+  .s2 .why{font-weight:900;font-size:360px;line-height:0.85;letter-spacing:-0.05em;text-transform:uppercase;color:var(--cream);}
+  .s2 .lead{font-weight:900;font-size:78px;line-height:0.95;letter-spacing:-0.035em;color:var(--ink);}
+
+  /* slides 3 / 5 — Critique with NAVY block + CREAM content */
+  .crit-num{font-weight:900;line-height:0.82;letter-spacing:-0.06em;color:var(--cream);}
+  .crit-hd{font-weight:900;line-height:0.9;letter-spacing:-0.04em;text-transform:uppercase;color:var(--ink);}
+  .crit-body{font-weight:500;font-size:24px;line-height:1.45;color:var(--ink-65);max-width:520px;}
+
+  /* slide 4 — Critique on RED */
+  .crit-hd-red{font-weight:900;font-size:108px;line-height:0.9;letter-spacing:-0.04em;text-transform:uppercase;color:var(--cream);}
+
+  /* slide 6 — Principle */
+  .s6 .principle{font-weight:900;font-size:380px;line-height:0.85;letter-spacing:-0.05em;text-transform:uppercase;color:var(--cream);}
+
+  /* slide 7 — CTA */
+  .s7 .arrow{font-weight:900;font-size:700px;line-height:0.78;letter-spacing:-0.06em;color:var(--cream);}
+  .s7 .share{font-weight:900;font-size:92px;line-height:0.9;letter-spacing:-0.04em;text-transform:uppercase;color:var(--cream);}
+
+  .spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — Cover (RED) -->
+<section class="slide red active s1" id="s1">
+  <div class="lay">
+    <div style="flex:0.66;display:flex;align-items:center;justify-content:center;padding-left:40px;">
+      <div class="num7">7</div>
+    </div>
+    <div style="flex:0.34;display:flex;flex-direction:column;justify-content:space-between;padding:64px 64px 64px 0;">
+      <div class="eb" style="color:var(--cream-70);">Issue 14</div>
+      <div class="stack">
+        <div>Mistakes</div>
+        <div>your UI</div>
+        <div>keeps</div>
+        <div>making.</div>
+      </div>
+      <div class="eb" style="color:var(--cream-70);">@figr.design</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — Intro (NAVY top + CREAM bottom) -->
+<section class="slide cream s2" id="s2">
+  <div class="lay" style="flex-direction:column;">
+    <div class="navy" style="flex:0.55;display:flex;align-items:center;justify-content:center;">
+      <div class="lay" style="align-items:center;justify-content:center;">
+        <div class="why">Why?</div>
+      </div>
+    </div>
+    <div style="flex:0.45;display:flex;flex-direction:column;justify-content:space-between;padding:80px;color:var(--ink);">
+      <div class="eb" style="color:var(--red);">02 · Preface</div>
+      <div class="lead">Because the same five flaws ship in fifty different products.</div>
+      <div class="eb-tight" style="color:var(--ink-55);">Three of them are next.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 — Critique 01 / Nav (NAVY left + CREAM right) -->
+<section class="slide cream s3" id="s3">
+  <div class="lay">
+    <div class="navy" style="flex:0.42;display:flex;align-items:center;justify-content:center;">
+      <div class="lay" style="align-items:center;justify-content:center;">
+        <div class="crit-num" style="font-size:620px;">01</div>
+      </div>
+    </div>
+    <div style="flex:0.58;display:flex;flex-direction:column;justify-content:space-between;padding:72px;">
+      <div class="eb" style="color:var(--red);">Navigation</div>
+      <div>
+        <div class="crit-hd" style="font-size:92px;">
+          <div>Nine items.</div>
+          <div style="color:var(--red);">Zero recall.</div>
+        </div>
+        <div class="crit-body" style="margin-top:32px;max-width:480px;">
+          Five items, maximum. The nav is a contract — honor it.
+        </div>
+      </div>
+      <div class="eb-tight" style="color:var(--ink-55);">Cut to five · 03 / 07</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — Critique 02 / Button (RED left + CREAM right) -->
+<section class="slide red s4" id="s4">
+  <div class="lay">
+    <div style="flex:0.58;display:flex;flex-direction:column;justify-content:space-between;padding:72px;color:var(--cream);">
+      <div class="eb" style="color:var(--cream-85);">Call to action</div>
+      <div>
+        <div class="crit-hd-red" style="font-size:96px;">
+          <div>Submit</div>
+          <div>submits</div>
+          <div style="color:var(--navy);">nothing.</div>
+        </div>
+        <div class="body-24" style="margin-top:32px;color:var(--cream-85);max-width:480px;">
+          Create account. Send invite. Publish post. Verb of consequence.
+        </div>
+      </div>
+      <div class="eb-tight" style="color:var(--cream-85);">Name the act · 04 / 07</div>
+    </div>
+    <div style="flex:0.42;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--navy);overflow:hidden;">
+      <div style="font-weight:900;font-size:340px;line-height:0.82;letter-spacing:-0.06em;white-space:nowrap;">02</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — Critique 03 / Modal (NAVY top + CREAM bottom) -->
+<section class="slide cream s5" id="s5">
+  <div class="lay" style="flex-direction:column;">
+    <div class="navy" style="flex:0.45;display:flex;align-items:center;justify-content:center;">
+      <div class="lay" style="align-items:center;justify-content:center;">
+        <div class="crit-num" style="font-size:480px;">03</div>
+      </div>
+    </div>
+    <div style="flex:0.55;display:flex;flex-direction:column;justify-content:space-between;padding:72px;color:var(--ink);">
+      <div class="eb" style="color:var(--red);">Modal depth</div>
+      <div>
+        <div class="crit-hd" style="font-size:92px;">
+          <div>A modal inside</div>
+          <div style="color:var(--red);">a modal.</div>
+        </div>
+        <div class="crit-body" style="margin-top:32px;max-width:680px;">
+          Every nested layer is an architecture confession. Simplify the model, not the UI on top.
+        </div>
+      </div>
+      <div class="eb-tight" style="color:var(--ink-55);">One layer, always · 05 / 07</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 — Principle (NAVY full) -->
+<section class="slide navy s6" id="s6">
+  <div class="lay" style="align-items:center;justify-content:center;">
+    <div class="eb" style="position:absolute;top:80px;left:80px;color:var(--cream-55);z-index:3;">Principle · 06</div>
+    <div class="eb" style="position:absolute;bottom:80px;right:80px;color:var(--red);z-index:3;">Always.</div>
+    <div class="principle" style="text-align:center;">Less<span style="color:var(--red);">.</span></div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — CTA (RED) -->
+<section class="slide red s7" id="s7">
+  <div class="lay" style="flex-direction:column;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;padding:72px 72px 0 72px;">
+      <div class="eb-tight" style="color:var(--cream-85);">Postscript</div>
+      <div class="eb-tight" style="color:var(--cream-85);">07 of 07</div>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+      <div class="arrow">→</div>
+    </div>
+    <div style="padding:0 72px 72px 72px;display:flex;align-items:flex-end;justify-content:space-between;">
+      <div class="share">
+        <div>Share</div>
+        <div>this.</div>
+      </div>
+      <div class="eb" style="color:var(--cream-85);padding-bottom:12px;">@figr.design</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
