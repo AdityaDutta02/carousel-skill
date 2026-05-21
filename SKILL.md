@@ -127,7 +127,7 @@ Always collect these before proceeding. If missing, ask in one message:
 | **Topic** | "seed funding for startups" | Yes |
 | **Page handle** | `@thefounderlab` | Yes |
 | **Page name** | "The Founder Lab" | Yes |
-| **Template** | wolf-media-v1 / wolf-media-v2 / editorial-step / ascii-pixel / bold-blue-grotesk / figr-b-brutalist / figr-e-system / figr-g-spacing / figr-h-color-blocks | No — auto-select from topic |
+| **Template** | wolf-media-v1 / wolf-media-v2 / editorial-step / ascii-pixel / bold-blue-grotesk / figr-b-brutalist / figr-e-system / figr-f-color-sequence / figr-g-spacing / figr-h-color-blocks | No — auto-select from topic |
 | **Reference images** | New creator screenshots | No — only needed for Section 2.5 |
 
 The last slide is always a CTA. Page name + handle always appear.
@@ -160,6 +160,7 @@ If the channel is unclear, ask: "Is this for figr.design's UI/UX channel, or a d
 |---|---|
 | **figr-b-brutalist** | Opinionated UI critique decks — "N UI mistakes / nav fails / modal anti-patterns" where every point is paired with an actual UI mockup that gets called out with an orange X. Yellow-black brutalist zine aesthetic, Inter Black 200px heroes, locked 7-slide cover→intro→3 critiques→principle→CTA. Signals: "UI mistakes", "design crimes", "stop doing", "/ fail", "we audited", "honest review", "audit", "anti-pattern". |
 | **figr-e-system** | Data-driven research breakdowns, scanning/reading behavior, systematic design rules backed by stats and eye-tracking data. Warm-editorial JetBrains Mono feel with burnt-sienna stat numbers as the visual hero. Signals: "research shows", "eye-tracking", "data reveals", real numbers + named sources. |
+| **figr-f-color-sequence** | Opinionated UI critique decks where every verdict can stand on a 2–3 line typographic poster and the deck's visual rhythm comes from cycling through **seven full-bleed colors** (aubergine → cream → terracotta → sage → ochre → navy → cream). Inter Black 178–220px heroes, no mockups, no splits, no numerals. Locked 7-slide cover→intro→3 critiques→principle→CTA. Signals: "color sequence", "color cycle", "palette deck", "editorial poster series", "Pentagram poster", "one statement per slide", or when figr-b and figr-h both feel too loud / too rigid for the topic. |
 | **figr-g-spacing** | Long-form "N rules / N principles / N habits" lists with sketched diagrams + handwritten coral "Note:" annotations. Notebook/working-file aesthetic (paper grain, corner crosshairs, ruler arc). 12-slide cover→myth→rules→takeaway→resources→CTA structure. Signals: "N rules", "N principles", "save this list", "things designers ignore", topic needs per-point illustrations. |
 | **figr-h-color-blocks** | Bauhaus / Swiss-editorial UI critique decks where the number IS the graphic — split-screen flat color fields (cream/red/navy), giant Inter 900 numerals, no mockups, no borders. Locked 7-slide cover→intro→3 critiques→principle→CTA. Same critique-deck job as figr-b but with a clean poster-series aesthetic instead of a yolk-yellow zine. Signals: "Bauhaus", "Swiss", "poster series", "Pentagram", "editorial issue N", "color blocks", "minimal critique", or when figr-b feels too loud for the topic. |
 
@@ -201,10 +202,11 @@ Quick visual scan — each preview shows the cover + 3 representative slides. Fo
 |---|---|---|---|---|
 | 1 | **Figr B — Brutalist Stack** | ![figr-b](templates/previews/figr-b-brutalist/grid.webp) | Inter Black, yolk yellow `#F5E614` + ink black + flare orange, thick 8–10px ink borders, UI mockups with orange X marks, ALL CAPS zine identity | Opinionated UI critiques, "N UI mistakes you're still making", audit posts where every point is paired with a mockup |
 | 2 | **Figr E — System** | ![figr-e](templates/previews/figr-e-system/grid.webp) | Inter + JetBrains Mono, warm off-black / warm cream split, burnt-sienna stat numbers bleed across panels (single-accent warm palette) | Research-driven systems, eye-tracking data, scanning-behavior breakdowns |
-| 3 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
-| 4 | **Figr H — Color Blocks** | ![figr-h](templates/previews/figr-h-color-blocks/grid.webp) | Inter Black 900, cream `#F1ECDB` + red `#D04437` + navy `#1B2540`, split-screen flat color fields, giant numerals as the graphic, no mockups, no borders. Bauhaus / Swiss editorial. Locked 7-slide cover→intro→3 critiques→principle→CTA. | Opinionated UI critiques where the verdict can stand on a single-word headline. The clean / minimal sibling of figr-b — same job, opposite vibe. |
+| 3 | **Figr F — Color Sequence** | ![figr-f](templates/previews/figr-f-color-sequence/grid.webp) | Inter Black 900, seven-hue palette cycle (aubergine → cream → terracotta → sage → ochre → navy → cream), one full-bleed color per slide, no splits / no borders / no mockups / no numerals. Pure typography editorial poster series. Locked 7-slide cover→intro→3 critiques→principle→CTA. | Opinionated UI critiques where each verdict can stand on a 2–3 line declarative headline and the visual rhythm comes from a cycling palette. Sibling of figr-b (zine) and figr-h (Bauhaus) — same job, palette-driven art direction. |
+| 4 | **Figr G — Spacing** | ![figr-g](templates/previews/figr-g-spacing/grid.webp) | Inter + Caveat handwritten notes, paper grain, corner crosshairs, coral arrows, 12-slide notebook aesthetic | Long-form "N rules / N principles" lists with per-point sketched diagrams |
+| 5 | **Figr H — Color Blocks** | ![figr-h](templates/previews/figr-h-color-blocks/grid.webp) | Inter Black 900, cream `#F1ECDB` + red `#D04437` + navy `#1B2540`, split-screen flat color fields, giant numerals as the graphic, no mockups, no borders. Bauhaus / Swiss editorial. Locked 7-slide cover→intro→3 critiques→principle→CTA. | Opinionated UI critiques where the verdict can stand on a single-word headline. The clean / minimal sibling of figr-b — same job, opposite vibe. |
 
-→ I recommend **[Template Name]** for this topic. Reply with a number (1–4) or just say "go ahead" to use the recommendation.
+→ I recommend **[Template Name]** for this topic. Reply with a number (1–5) or just say "go ahead" to use the recommendation.
 
 ---
 
@@ -221,6 +223,7 @@ Once the user confirms a template:
 - **bold-blue-grotesk**: Read `templates/bold-blue-grotesk.md` fully before touching Section 3
 - **figr-b-brutalist**: Read `templates/figr-b-brutalist.md` fully, then follow Section 0a (locked 7-slide variant — Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA; do not expand past 7)
 - **figr-e-system**: Read `templates/figr-e-system.md` fully, then follow Section 0a
+- **figr-f-color-sequence**: Read `templates/figr-f-color-sequence.md` fully, then follow Section 0a (locked 7-slide variant — Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA; do not expand past 7)
 - **figr-g-spacing**: Read `templates/figr-g-spacing.md` fully, then follow Section 0a (12-slide variant — expand the rules section between Myth and Takeaway)
 - **figr-h-color-blocks**: Read `templates/figr-h-color-blocks.md` fully, then follow Section 0a (locked 7-slide variant — Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA; do not expand past 7)
 
@@ -239,7 +242,7 @@ Before writing any content, check for `.agents/social-media-context-sms.md` in t
 
 ## 0a. FIGR TEMPLATES — Design Pipeline
 
-**Use this section only when the user has selected figr-b-brutalist, figr-e-system, or figr-g-spacing.**
+**Use this section only when the user has selected figr-b-brutalist, figr-e-system, figr-f-color-sequence, figr-g-spacing, or figr-h-color-blocks.**
 
 These templates target figr.design's UI/UX channel, audience: design leads and managers. They share a brand voice (editorial, confident, direct, opinionated) but each carries its own design system and slide structure. Read the chosen template's spec file fully — it defines the canonical slide order, design tokens, and content rules. The structure below is the default for figr-e; figr-b and figr-g override with their own structures (see their spec files).
 
@@ -251,6 +254,7 @@ Skip Sections 1–3. Follow this pipeline instead.
 |---|---|---|
 | **figr-b-brutalist** | 7 (locked) | Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA |
 | **figr-e-system** | 7 | Hook → Problem → Tip/Shift 01 → 02 → 03 → 04 → CTA |
+| **figr-f-color-sequence** | 7 (locked) | Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA |
 | **figr-g-spacing** | 12 | Cover → Myth → Rule 1–7 → Takeaway → Resources → CTA |
 | **figr-h-color-blocks** | 7 (locked) | Cover → Intro → Critique 01 → Critique 02 → Critique 03 → Principle → CTA |
 
@@ -1011,6 +1015,24 @@ Before reporting done, verify every item:
 - [ ] Brand handle source string `@figr.design` lowercase in HTML — renders ALL CAPS via the uppercase eyebrow rail
 - [ ] No bookmark glyph, no swipe cue, no volume marker (those belong to figr-b and figr-g)
 - [ ] Counter format on critique slides: ` · 0N / 07` appended to bottom label. CTA uses `07 of 07` (written out).
+
+**Figr F — Color Sequence only:**
+- [ ] Inter (300–900) loaded — every hero is Inter 900, no serif/mono/system-font fallback
+- [ ] Slide count is exactly 7 — Cover, Intro, Critique 01–03, Principle, CTA. No expansion.
+- [ ] Exactly seven palette tokens used: `--cream` `#F2EDE3`, `--aubergine` `#2C1F2D`, `--terracotta` `#BE4A2F`, `--sage` `#5F6B4F`, `--ochre` `#C99848`, `--navy` `#1B2840`, `--ink` `#1A1A1C`. No fourth accent (no yellow `#F5E614`, no flare orange `#FF3D00`, no red `#D04437` drift from figr-h).
+- [ ] Color sequence s1→s7 is aubergine → cream → terracotta → sage → ochre → navy → cream — no reorder, no skip, no repeated mid-deck colors
+- [ ] `.aubergine` (s1), `.sage` (s4), `.navy` (s6) all use the U2 depth treatment (3-stop gradient + grain `::before` + accent glow) — not flat hex
+- [ ] No borders, no splits, no mockups, no numerals, no icons — every slide is one full-bleed color field with eyebrow + hero + bottom label
+- [ ] Hero sizes per slide: s1 178px, s2 108px, s3 168px (`white-space:nowrap`), s4 200px, s5 172px, s6 190px, s7 220px (per-slide variation intentional, do not normalize)
+- [ ] Hero alignment per slide: s1 bottom-left, s2 center, s3 right-center, s4 bottom-left, s5 center, s6 top-left, s7 bottom-left
+- [ ] Every hero line ends in a period (single character, same color as the hero — never a separate accent dot)
+- [ ] Ochre slide (s5) uses `--ink` for hero + labels (cream on ochre fails contrast)
+- [ ] CTA tag line is in `--terracotta` Inter 500 26px max-width 640px — the only color-on-color moment in the deck
+- [ ] Eyebrows / counters / action verbs at minimum 18px (U3 — no leftover 12px tokens from the reference)
+- [ ] Brand handle source string `@figr.design` lowercase in HTML — renders ALL CAPS via the uppercase eyebrow rail
+- [ ] Bottom rail content correct per slide: s1 + s7 = `@figr.design`; s2 + s6 = `0N of 07`; s3, s4, s5 = action verb (`Cut to five.`, `Name the act.`, `One layer, always.`)
+- [ ] No bookmark glyph, no swipe cue, no volume marker, no slide-counter pill (the palette cycle is the navigation cue)
+- [ ] ALL CAPS heroes (s1, s6) keep each line ≤ 9 chars including the period — longer caps lines clip the 888px content area at the declared font sizes
 
 ---
 

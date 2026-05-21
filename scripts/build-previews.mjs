@@ -36,6 +36,7 @@ const TEMPLATES = [
   { name: 'bold-blue-grotesk', dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'figr-b-brutalist',  dims: [1080, 1350], slideMode: 'toggle'  },
   { name: 'figr-e-system',     dims: [1080, 1080], slideMode: 'stacked' },
+  { name: 'figr-f-color-sequence', dims: [1080, 1350], slideMode: 'toggle' },
   { name: 'figr-g-spacing',    dims: [1080, 1350], slideMode: 'stacked' },
   { name: 'figr-h-color-blocks', dims: [1080, 1350], slideMode: 'toggle' },
 ];
