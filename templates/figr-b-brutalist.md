@@ -552,6 +552,7 @@ You can swap in different mockups per topic (form / table / toast / empty state 
 10. **Brand block is ALL CAPS.** This is the only figr template where the brand handle reads `@FIGR.DESIGN` instead of `@figr.design`. Match the zine voice.
 11. **No bookmark glyph.** The standard figr bookmark + brand row at the bottom does **not** appear on this template. Brand placement is custom per slide as described above.
 12. **No grain on yellow.** Yellow slides are flat. Grain lives on dark slides only (and gives Cover + Principle their depth per U2).
+13. **Cover hero must parse as ONE claim top-to-bottom in 1 second.** Reader on a feed has under one second per slide. The 5 stacked lines, read in order, must compose a sentence the reader understands without the next slide explaining it. **Banned:** rhetorical questions whose answer is a single isolated noun on the next line (e.g. `WHEN / DID YOU / QUIT / TYPING? / CLICKS.` — the `CLICKS.` line by itself doesn't tell the reader anything about clicks). **When the hero is abstract or short, ground it with a brand-callout in the top eyebrow** — e.g. `[ WHISPR · ALEXA · SIRI ]` left, `A FIGR FIELD GUIDE` right. The brand callout gives the reader the context the hero alone can't deliver. **Test:** read the 5 lines aloud as one sentence. If it doesn't compose, rewrite.
 
 ---
 

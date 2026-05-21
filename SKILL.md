@@ -235,8 +235,42 @@ For Figr Templates, follow Section 0a instead of Sections 1–3.
 
 Before writing any content, check for `.agents/social-media-context-sms.md` in the project root.
 
-- **File exists:** Read it fully. It defines the user's voice, tone, audience, and content pillars. All copy in Section 1.5 must match this voice.
-- **File missing:** Stop and ask the user to run `/social-media-context-sms` first to capture their voice. Do not proceed without it — voice-matched copy is the primary reason this skill uses carousel-writer-sms.
+- **File exists:** Read it fully. It defines the user's voice, tone, audience, and content pillars. All copy in Sections 1.4–1.5 must match this voice.
+- **File missing:** Continue without it but flag to the user that voice will be inferred from project memory + their thesis statement.
+
+---
+
+## 0.5. MEMORY + FEEDBACK LOAD GATE (NON-NEGOTIABLE)
+
+**Run this before research. Skipping it is the single biggest source of first-draft slop.**
+
+Every project this skill runs in accumulates `feedback_*.md` files in `~/.claude/projects/<slug>/memory/`. These files contain hard rules the user has already corrected you on (em dashes banned, no riddle heroes, no listicle rhythm, no adjacent-thesis drift, etc). They are not optional background.
+
+### Step 1 — Glob and read every feedback file
+
+```bash
+ls ~/.claude/projects/*/memory/feedback_*.md
+```
+
+For each file, read the whole thing. Treat each as a hard constraint on every subsequent step in this skill — research framing, slide copy, caption.
+
+### Step 2 — Quote the rules back to the user
+
+Before research starts, output a single block to the user:
+
+```
+Loaded constraints from project memory:
+- [feedback file name]: [one-line rule summary]
+- [feedback file name]: [one-line rule summary]
+...
+Applying these to every slide and the caption.
+```
+
+This forces you to actually read the rules instead of "scanning past" them. It also lets the user override or add new constraints up front.
+
+### Step 3 — Carry forward
+
+When writing slide copy in Section 1.45, every rule from Step 1 is a hard constraint, not a "try to". Em dashes banned means zero em dashes in the first draft, not "fix in audit."
 
 ---
 
@@ -333,50 +367,169 @@ rtk gain
 
 ---
 
-## 1.5. CONTENT WRITING — carousel-writer-sms
+## 1.4. THESIS LOCK (NON-NEGOTIABLE)
 
-After research is complete, use the carousel-writer-sms skill to write the slide copy.
-This produces voice-matched, audience-specific content rather than generic AI copy.
-Do not skip this step. Do not write slide copy manually.
+Run this immediately after research, before writing any copy.
 
-### How to invoke
+The single biggest carousel failure is not getting the user's thesis exactly right and substituting a near-thesis. "Voice killed typing, voice kills clicks next" is NOT the same story as "Voice killed typing, AI agents kill clicks next" even though both end at "clicks die". Adjacent theses require different brands, different stats, different mockups.
 
-Pass the following to carousel-writer-sms:
-- **Topic:** the carousel topic from Section 0 inputs
-- **Research findings:** paste the key stats, quotes, and data points extracted in Section 1
-- **Target slide count:** 7–12 (match to number of distinct ideas in research)
-- **Goal:** educate / data storytelling (default for this skill)
-- **Voice:** already captured in `.agents/social-media-context-sms.md` — carousel-writer-sms reads it automatically
+### Step 1 — Quote the user's thesis verbatim
 
-carousel-writer-sms returns slide-by-slide text blocks in this format:
+Find the user's original message asking for the carousel. Quote the exact words of the thesis back. Do not paraphrase. Output to user:
+
 ```
-Slide 1 (Cover) — Headline + Subtitle
-Slide 2 (Context) — 1-2 framing sentences
-Slides 3–N (Body) — Header + Body (max 30 words)
-Slide N (CTA) — Summary + CTA action
+THESIS LOCKED (verbatim from your request):
+"<exact words>"
+Named brands/products you specified: <list>
 ```
 
-### Mapping carousel-writer-sms output → Wolf Media slide types
+### Step 2 — Map slide positions to thesis beats
 
-| carousel-writer-sms block | Wolf Media slide type | Notes |
+If the thesis has structure (e.g. "X killed Y. Z kills W next"), every body slide must map to exactly one beat. Write this map BEFORE writing copy:
+
+```
+Slide 1 (Cover): full thesis in 5-line hero
+Slide 2 (Intro): proof anchor for first half of thesis
+Slide 3 (Beat 1): <thesis beat 1> — anchor brand: <name>
+Slide 4 (Beat 2): <thesis beat 2> — anchor brand: <name>
+Slide 5 (Beat 3): <thesis beat 3> — anchor brand: <name>
+Slide 6 (Principle): designer-level implication of the thesis
+Slide 7 (CTA): action mirroring the thesis (ironic close OK)
+```
+
+If any beat cannot be filled by a named real brand the user mentioned (or that surfaced in research as the canonical example), stop and re-research. Generic "voice assistants" or "AI tools" are not anchors.
+
+### Step 3 — Forbidden adjacent ideas
+
+List the theses that are NOT this thesis but might be tempting to bolt on. Example for "voice kills clicks":
+- "AI agents kill clicks" (different — agents may not be voice-driven)
+- "AI search kills clicks" (different — search-AI is not in-app navigation)
+- "Spatial computing kills clicks" (different — that's gesture, not voice)
+
+Treat these as banned topics for this carousel.
+
+---
+
+## 1.45. PRE-WRITE CONSTRAINTS (NON-NEGOTIABLE — READ BEFORE WRITING ANY COPY)
+
+These are the rules that prevent first-draft slop. They are NOT a post-filter. Apply DURING writing.
+
+### Forbidden in the first draft
+
+| Pattern | Why banned | Cure |
 |---|---|---|
-| Cover (Headline + Subtitle) | HOOK dark | Headline → h1-xl, Subtitle → sub-pill |
-| Context (framing 1-2 sentences) | STATS dark or INSIGHT dark | Use STATS if you have 3 numbers; INSIGHT if narrative |
-| Body — single stat or finding | INSIGHT (dark/white alternating) | One per slide |
-| Body — process or steps | NUMBERED LIST dark | 3–4 steps |
-| Body — named entities/companies | COMPANY GRID white | 2-col layout |
-| Penultimate — summary/save-this | FINDINGS white 2×2 | 4 titled takeaways |
-| CTA | CTA accent slide | Always last |
+| Listicle rhythm ("X killed Y. Z kills W.") | Reads as machine-paralleled, not human reasoning | Use varied sentence shapes — long-short-long, not three identical clauses |
+| Generic stat opener ("8.4 billion devices ship globally") | Reader needs context to believe it; sounds inflated without anchor | Lead with a named brand or specific reader behavior, drop the stat as second sentence |
+| Source-name authority opener ("Stanford HCI proved that…", "Gartner says…") | AI-blog cadence; reader smells press-release voice | Put the source at the end of the sentence in parentheses, not at the start |
+| Em dashes anywhere | Memory rule — user has corrected this repeatedly | Use periods, colons, semicolons |
+| Significance inflation ("transformative", "reshapes", "ushers in", "a species crossed", "the threshold is crossed") | AI vocabulary; signals fluff to a designer audience | Cut the inflated word; state the fact directly |
+| Vague verbs ("changing", "evolving", "becoming") | Hedges that say nothing | Pick a concrete verb: "replaces", "boots", "kills", "ships" |
+| "Not just X, it's Y" construction | Trope | Direct statement: "It's Y." |
+| Riddle heroes (cover hero that doesn't parse as one claim top-to-bottom) | User can't read it in 1 second on a feed | See Section 1.45a below |
+| Quietly / simply / just / really | AI filler adverbs | Delete the adverb entirely |
+| Full stop after bold pointer headings in bulleted slides | Memory rule | Drop the period or rewrite as flowing sentence |
 
-After mapping, you have: slide count, slide type per position, and the copy for each.
-Proceed to Section 2 to finalise architecture, then Section 3 to build the HTML.
+### Required in the first draft
+
+| Requirement | Example |
+|---|---|
+| Every body slide leads with: (a) a named real brand/product, (b) a specific behavior the reader has done, or (c) a verifiable moment with date+source | "Wispr Flow just hit a $2B valuation…" or "When did you last click a blue link in Google?" or "Stanford put a stopwatch on dictation in 2016." |
+| Designer-to-designer voice. First person plural OK where natural. | "We called it a lab trick." NOT "Designers initially dismissed the finding." |
+| Honest reasoning flow — claim + reasoning + caveat. NOT bullet → bullet → bullet → tagline. | See `feedback_writing_story_flow.md`. |
+| Every cited stat has a named source + date in parens at end of sentence | "(Wispr Flow growth report; Stanford HCI, Ruan et al. 2016)" |
+| Sentence length varies. No three 8-word sentences in a row. | Mix 4-word and 18-word sentences. |
+
+### Section 1.45a — Brutalist / figr-b cover hero parseability
+
+The brutalist 5-line stacked cover hero is the highest-risk slide for first-draft slop because the template encourages telegraphic 1-2 word lines.
+
+**The rule:** Reading the hero top-to-bottom must compose ONE parseable claim in under 1 second. The reader on a feed scrolling at 200ms/slide should understand the thesis without needing the next slide to explain it.
+
+**Banned:** rhetorical questions whose answer is a single isolated noun on the next line (e.g. "WHEN DID YOU QUIT TYPING? CLICKS."). This was the literal first-draft slop on the voice-clicks carousel. The "CLICKS." line by itself doesn't tell the reader what about clicks.
+
+**When the hero is abstract or short, ground it with a brand-callout eyebrow at the top:** e.g. `[ WHISPR · ALEXA · SIRI ]` at the top of the slide. This gives the reader instant context for an otherwise vague hero like "TYPING DIED. CLICKS ARE NEXT."
+
+**Test:** before locking the cover, read the 5 lines aloud as one sentence. If it doesn't compose, rewrite.
+
+---
+
+## 1.5. DRAFT PREVIEW CHECKPOINT (NON-NEGOTIABLE)
+
+Before generating ANY HTML, output the full slide copy as plain text + the thesis map to the user. Wait for approval.
+
+### What to output
+
+```
+THESIS: <quoted verbatim from Section 1.4>
+ANCHOR BRANDS: <list>
+
+SLIDE COPY DRAFT v1
+───────────────────
+S1 COVER
+  Top eyebrow: [ <brand callout if needed> ]
+  Hero (5 lines stacked): <line 1> / <line 2> / <line 3> / <line 4> / <line 5>
+  Bottom: <handle / swipe cue>
+
+S2 INTRO
+  Eyebrow: <eyebrow text>
+  Hero (2 lines): <line 1> / <line 2> →
+  Body (~50-60 words): <full body text with underline marker on key phrase>
+  Bottom rail: <text>
+
+S3 SHIFT 01 (Beat 1 — anchor brand: <name>)
+  Eyebrow: <eyebrow>
+  Hero (2 lines, 88px): <line 1> / <line 2>
+  Mockup: <one-line description of what mockup shows>
+  Verdict body (~30-45 words): <full body text>
+
+[…repeat for S4, S5, S6, S7…]
+
+S6 PRINCIPLE
+  Hero (4 lines, last in flare): <line 1> / <line 2> / <line 3> / <flare line>
+  Body (~45 words): <text>
+
+S7 CTA
+  Hero (4 lines, period in flare): <line 1> / <line 2> / <line 3> / <line 4>.
+  Body: <text>
+  Brand pill: @<handle>
+```
+
+### Then ask explicitly:
+
+```
+This draft applies the constraints from Sections 0.5 and 1.45.
+Approve to build HTML, OR tell me what to rewrite.
+```
+
+Do NOT touch HTML until the user types approval or specifies edits.
+
+### Why this gate exists
+
+Catching slop at the plain-text stage saves a full design+audit+export cycle (~30 min). It also catches thesis drift and brand-anchoring misses before they get fossilized in mockups.
+
+If the user says "go ahead" without reading, that's their call — but you must offer the preview, not skip straight to HTML.
+
+### Mapping draft to slide types (Wolf Media)
+
+After approval, map each text block to a slide type from Section 2:
+
+| Draft block | Wolf Media slide type | Notes |
+|---|---|---|
+| Cover (Hero + eyebrow) | HOOK dark/light per U1 | |
+| Intro (Hero + body) | STATS dark or INSIGHT dark | STATS if 3 numbers; INSIGHT if narrative |
+| Body — single stat or finding | INSIGHT (dark/white alternating) | One per slide |
+| Body — process or steps | NUMBERED LIST dark | |
+| Body — named entities/companies | COMPANY GRID white | |
+| Penultimate — summary | FINDINGS white 2×2 | |
+| CTA | CTA accent slide | |
+
+For Figr templates, the slide-type mapping is locked to the template spec (see Section 0a).
 
 ---
 
 ## 2. CONTENT ARCHITECTURE
 
-Content copy comes from Section 1.5 (carousel-writer-sms). This section covers
-slide structure, type assignment, and AEO copy quality checks.
+Content copy is produced inline using Sections 1.4 (Thesis Lock), 1.45 (Pre-write Constraints), and 1.5 (Draft Preview Checkpoint). The carousel-writer-sms delegation was removed in favor of inline rules — see commit history if you need the rationale. This section covers slide structure, type assignment, and AEO copy quality checks.
 
 ### Slide count rule
 Count distinct extractable ideas from carousel-writer-sms output. Assign one slide per idea.
@@ -819,10 +972,9 @@ mkdir -p /tmp/carousel-final/
 
 ---
 
-## 5.5. COPY STANDARDS — Humanizer Rules
+## 5.5. COPY STANDARDS — Humanizer Rules (Final Audit Pass)
 
-Apply before finalizing any slide copy. These are the recurring AI patterns that
-make carousel copy feel generic and unsaveable.
+These rules are also enforced upstream in **Section 1.45 (Pre-write Constraints)** and should already be satisfied by the draft approved in **Section 1.5 (Draft Preview Checkpoint)**. This section is the final safety net before PNG export — if you find anything below in the rendered slides, the upstream gates failed and you should log it via Section 9 (Self-Improvement Protocol).
 
 ### Banned patterns
 
